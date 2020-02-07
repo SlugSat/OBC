@@ -6,12 +6,16 @@
 
 int main(void){
 	
+	/* Objective of main is to run with all the 3 cores connected*/
+	struct cores A, B, C;
+	A.state = P_Core;
+	B.state = S_Core;
+	C.state = Sleep;
 	
-	A_Core.state = P_Core;
-	B_Core.state = S_Core;
-	C_Core.state = Sleep;
 	
-	printf("A_Core: %d, B_Core: %d, C_Core: %d\n", A_Core.state, 
-													B_Core.state,
-													C_Core.state);
+	printf("A_Core: %d, B_Core: %d, C_Core: %d\n", A.state, 
+													B.state,
+													C.state);
+													
+	run_A(&A,&B, &C);
 }
