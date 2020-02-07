@@ -11,7 +11,9 @@ int main(void){
 	A.state = P_Core;
 	B.state = S_Core;
 	C.state = Sleep;
-	
+	A.power = Alive;
+    B.power = Alive;
+    C.power = Alive;
 	
 	printf("A_Core: %d, B_Core: %d, C_Core: %d\n", A.state, 
 													B.state,
