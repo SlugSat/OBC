@@ -1,8 +1,9 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <time.h>
 #include <math.h>
 #include "state.h"
+#include "util.h"
+
 
 int main(void){
 	
@@ -11,13 +12,23 @@ int main(void){
 	A.state = P_Core;
 	B.state = S_Core;
 	C.state = Sleep;
+	/*Polled every time through interrupt*/
 	A.power = Alive;
     B.power = Alive;
     C.power = Alive;
+	/* trigger is the flag for misscalculation*/
+	int trigger = 1;
 	
-	printf("A_Core: %d, B_Core: %d, C_Core: %d\n", A.state, 
-													B.state,
-													C.state);
-													
-	run_A(&A,&B, &C);
+	while(1){
+		printf("A status: %d\n", A.state);
+		printf("B status: %d\n", B.state);
+		printf("C status: %d\n", C.state);
+		puts(" ");
+		run_A(&A,&B, &C, trigger);
+		run_B(&A,&B, &C, trigger);
+		run_C(&A,&B, &C, trigger);
+		delay(100);
+	}
+
 }
+

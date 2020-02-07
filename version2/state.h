@@ -11,6 +11,7 @@ typedef enum{
     Dead = 0, Alive = 1
 }Power_status;
 
+/*Struct to hold each cores information*/
 struct cores{
 	States state;
     Power_status power;
@@ -18,8 +19,8 @@ struct cores{
 
 
 
-void run_A(struct cores *A, struct cores *B, struct cores *C);
-void run_B(void);
-void run_C(void);
+void run_A(struct cores *A, struct cores *B, struct cores *C, int trigger);
+void run_B(struct cores *A, struct cores *B, struct cores *C, int trigger);
+void run_C(struct cores *A, struct cores *B, struct cores *C, int trigger);
 
 #endif /*STATE_H*/
