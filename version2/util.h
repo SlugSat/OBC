@@ -3,5 +3,5 @@
 
 /*Delay Function*/
 void delay (int numofsec);
-
+int event_gent(void);
 #endif

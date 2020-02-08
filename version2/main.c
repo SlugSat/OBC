@@ -4,6 +4,9 @@
 #include "state.h"
 #include "util.h"
 
+	int single_core = 0;
+	int dual_core = 0;
+	int tri_core = 0;
 
 int main(void){
 	
@@ -17,16 +20,47 @@ int main(void){
     B.power = Alive;
     C.power = Alive;
 	/* trigger is the flag for misscalculation*/
-	int trigger = 1;
+	int trigger = 0;
+	int iteration =0;
 	
 	while(1){
-		printf("A status: %d\n", A.state);
-		printf("B status: %d\n", B.state);
-		printf("C status: %d\n", C.state);
+		
+		
+		printf("Iteration: %d\n", iteration);
+		A.power = event_gent();
+		B.power = event_gent();
+		C.power = event_gent();
+		
+		printf("A Power: %d\n", A.power);
+		printf("B Power: %d\n", B.power);
+		printf("C Power: %d\n", C.power);
 		puts(" ");
+		
+		if((A.power & B.power & C.power) == 1){
+			tri_core = 1;
+			dual_core = 0;
+			single_core = 0;
+		}
+		else if((A.power ^ B.power ^ C.power) == 0){
+			tri_core = 0;
+			dual_core = 1;
+			single_core =0;
+		}
+		else{
+			tri_core = 0;
+			dual_core = 0;
+			single_core = 1;
+		}
 		run_A(&A,&B, &C, trigger);
 		run_B(&A,&B, &C, trigger);
 		run_C(&A,&B, &C, trigger);
+		
+		printf("A State: %d\n", A.state);
+		printf("B State: %d\n", B.state);
+		printf("C State: %d\n", C.state);
+		puts(" ");
+		iteration++;
+		
 		delay(100);
 	}
 
