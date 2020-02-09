@@ -15,6 +15,7 @@ typedef enum{
 struct cores{
 	States state;
     Power_status power;
+	int error;
 };
 
 

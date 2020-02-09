@@ -20,16 +20,25 @@ int main(void){
     B.power = Alive;
     C.power = Alive;
 	/* trigger is the flag for misscalculation*/
-	int trigger = 0;
+	int trigger = 1;
 	int iteration =0;
+	
+	A.error = 0;
+	B.error = 0;
+	C.error = 0;
 	
 	while(1){
 		
 		
 		printf("Iteration: %d\n", iteration);
+		/*
 		A.power = event_gent();
 		B.power = event_gent();
 		C.power = event_gent();
+		*/
+		A.power = 1;
+		B.power = 1;
+		C.power = 1;
 		
 		printf("A Power: %d\n", A.power);
 		printf("B Power: %d\n", B.power);
