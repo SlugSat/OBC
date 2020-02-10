@@ -4,6 +4,7 @@
 #include "state.h"
 #include "util.h"
 
+
 	int single_core = 0;
 	int dual_core = 0;
 	int tri_core = 0;
@@ -27,9 +28,17 @@ int main(void){
 	B.error = 0;
 	C.error = 0;
 	
+		
+	
 	while(1){
-		
-		
+		trigger = 1;
+		run_A(&A,&B, &C, trigger);
+		printf("State: %d\n", A.state);
+		delay(1000);
+	}
+
+	#if 0
+	while(1){
 		printf("Iteration: %d\n", iteration);
 		/*
 		A.power = event_gent();
@@ -70,8 +79,9 @@ int main(void){
 		puts(" ");
 		iteration++;
 		
-		delay(100);
+		delay(1000);
 	}
+	#endif
 
 }
 

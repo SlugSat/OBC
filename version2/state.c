@@ -51,12 +51,15 @@ void run_A(struct cores *A, struct cores *B, struct cores *C, int trigger){
 			}
             break;
 		//Reboot is test stage
+		//In stm32 this will go to sleep state automatically
+		//after reboot
         case Reboot:
 			puts("Rebooting Core A");
-			delay(100);
+			//delay(100);
 			A->error++;
-			if(A->error == 10) A->state = Killed;
-			A->state = Sleep;
+			printf("A.error: %d\n", A->error);
+			if(A->error == 4) A->state = Killed;
+			else A->state = Sleep;
             break;
         case Sleep:
 			if(trigger){
@@ -64,6 +67,7 @@ void run_A(struct cores *A, struct cores *B, struct cores *C, int trigger){
 			}
             break;
         case Killed:
+			puts("A core is killed");
 			A->power = 0;
             break;
 		}
@@ -118,10 +122,11 @@ void run_B(struct cores *A, struct cores *B, struct cores *C, int trigger){
 					break;
 				case Reboot:
 					puts("Rebooting Core B");
-					delay(100);
+					//delay(100);
 					B->error++;
-					//if(B->error == 10) B->state = Killed;
-					B->state = Sleep;
+					printf("B.error: %d\n", B->error);
+					if(B->error == 4) B->state = Killed;
+					else B->state = Sleep;
 					break;
 				case Sleep:
 					if(trigger){
@@ -129,6 +134,8 @@ void run_B(struct cores *A, struct cores *B, struct cores *C, int trigger){
 					}
 					break;
 				case Killed:
+					puts("B core is killed");
+					B->power = 0;
 					break;
 			}	
 		}
@@ -181,10 +188,11 @@ void run_C(struct cores *A, struct cores *B, struct cores *C, int trigger){
             break;
         case Reboot:
 			puts("Rebooting Core C");
-			delay(100);
+			//delay(100);
 			C->error++;
-			if(C->error == 10) C->state = Killed;
-			C->state = Sleep;
+			printf("C.error: %d\n", C->error);
+			if(C->error == 4) C->state = Killed;
+			else C->state = Sleep;
             break;
         case Sleep:
 			if(trigger){
@@ -192,6 +200,8 @@ void run_C(struct cores *A, struct cores *B, struct cores *C, int trigger){
 			}
             break;
         case Killed:
+			puts("C core is killed");
+			B->power = 0;
             break;
 		}
 	}
