@@ -1,0 +1,9 @@
+CC = gcc
+TARGET = main
+CFLAGS = -Wall -g
+
+all:
+	${CC} ${CFLAGS} main.c hamming.c -o ${TARGET}
+
+clean:
+	rm ${TARGET}
