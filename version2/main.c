@@ -31,9 +31,13 @@ int main(void){
 		
 	
 	while(1){
+        printf("Iteration: %d\n", iteration);
+        ++iteration;
 		trigger = 1;
 		run_A(&A,&B, &C, trigger);
-		printf("State: %d\n", A.state);
+		//printf("State: %d\n", A.state);
+        printf("Error Count: %d\n", A.error);
+        puts(" ");
 		delay(1000);
 	}
 

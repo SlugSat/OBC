@@ -8,7 +8,10 @@
 
 void run_A(struct cores *A, struct cores *B, struct cores *C, int trigger){
 	puts("run_A");
+	
+	//if cubesat started
 	if(A->power == 0){
+		//kill the satellite upon launch
 		A->state = Killed;
 	}
 	else{
@@ -46,7 +49,6 @@ void run_A(struct cores *A, struct cores *B, struct cores *C, int trigger){
             break;
         case S_Core:
 			if(trigger){
-				//A->state = Sleep;
 				A->state = Reboot;
 			}
             break;
