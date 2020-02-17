@@ -1,16 +1,62 @@
-#include <stdlib.h>
+
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 #include "state.h"
 #include "util.h"
 
-
+#define BUFSIZE 60000
 	int single_core = 0;
 	int dual_core = 0;
 	int tri_core = 0;
 
 int main(void){
 	
+	/*Types to use for sim*/
+	FILE * fp;
+	char str[BUFSIZE];
+	
+	fp = fopen("/afs/cats.ucsc.edu/users/z/mykang/OBC_Test/OBC/recovery_control/version2/sim.txt", "r");
+	
+	if(fp == NULL){
+		puts("failed to get file");
+		exit(EXIT_FAILURE);
+	}
+	struct cores A, B, C;
+	A.state = P_Core;
+	B.state = S_Core;
+	C.state = Sleep;
+	
+	A.power = Dead;
+    B.power = Dead;
+    C.power = Dead;
+	int iteration =0;
+	int trigger = 1;
+    while( fgets (str, BUFSIZE, fp)!=NULL ) {
+      /* writing content to stdout */
+	  //puts("print");
+		printf("str[0] %c\n", str[0]);
+		printf("str[1] %c\n", str[1]);
+		printf("str[2] %c\n", str[2]);
+	  
+		if(str[0] == 'A' || str[1] == 'A' || str[2] == 'A') A.power = Alive;
+		if(str[0] == 'B' || str[1] == 'B' || str[2] == 'B') B.power = Alive;
+		if(str[0] == 'C' || str[1] == 'C' || str[2] == 'C') C.power = Alive;
+	  
+		printf("Iteration: %d\n", iteration);
+		++iteration;
+		trigger = 1;
+		run_A(&A,&B, &C, trigger);
+		//printf("State: %d\n", A.state);
+        printf("Error Count: %d\n", A.error);
+        puts(" ");
+		delay(1000);
+	  
+   }
+   fclose(fp);
+	//puts("closed");
+	
+	#if 0
 	/* Objective of main is to run with all the 3 cores connected*/
 	struct cores A, B, C;
 	A.state = P_Core;
@@ -40,7 +86,7 @@ int main(void){
         puts(" ");
 		delay(1000);
 	}
-
+	#endif
 	#if 0
 	while(1){
 		printf("Iteration: %d\n", iteration);
