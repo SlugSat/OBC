@@ -21,7 +21,7 @@ parity_generator (uint8_t *in_data)
 	uint8_t p1 = ONE(data) ^ TWO(data) ^ FOU(data) ^ FIV(data) ^ SEV(data); 
 	uint8_t p2 = ONE(data) ^ THR(data) ^ FOU(data) ^ SIX(data) ^ SEV(data);
 	uint8_t p3 = TWO(data) ^ THR(data) ^ FOU(data) ^ EIG(data);
-	uint8_t p4 = FIV(data) ^ SIX(data) ^ SEV(Data) ^ EIG(data);
+	uint8_t p4 = FIV(data) ^ SIX(data) ^ SEV(data) ^ EIG(data);
 
 	parity = parity | p1 | (p2 << 1) | (p3 << 2) | (p4 << 3);
 	return parity;	
@@ -41,7 +41,7 @@ syndrome_generator (uint8_t *in_data, uint8_t *parity)
 	uint8_t s1 = ONE(data) ^ TWO(data) ^ FOU(data) ^ FIV(data) ^ SEV(data) ^ ONE(p); 
 	uint8_t s2 = ONE(data) ^ THR(data) ^ FOU(data) ^ SIX(data) ^ SEV(data) ^ TWO(p);
 	uint8_t s3 = TWO(data) ^ THR(data) ^ FOU(data) ^ EIG(data) ^ THR(p);
-	uint8_t s4 = FIV(data) ^ SIX(data) ^ SEV(Data) ^ EIG(data) ^ FOU(p);
+	uint8_t s4 = FIV(data) ^ SIX(data) ^ SEV(data) ^ EIG(data) ^ FOU(p);
 
 	syn = syn | s1 | (s2 << 1) | (s3 << 2) | (s4 << 3);
 	return syn;

@@ -1,6 +1,7 @@
 //Main file to show case hamming code
 
-#include "hamming.h"
+#include <stdio.h>
+#include "edac.h"
 
 int 
 main (void) 
