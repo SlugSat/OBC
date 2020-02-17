@@ -58,7 +58,9 @@ void run_A(struct cores *A, struct cores *B, struct cores *C, int trigger){
         case Reboot:
 			puts("Rebooting Core A");
 			//delay(100);
-			A->error++;
+			int result = event_gent();
+			if (result) A->error++;
+			else if (A->error > 0) A->error--;
 			printf("A.error: %d\n", A->error);
 			if(A->error == 4) A->state = Killed;
 			else A->state = Sleep;
