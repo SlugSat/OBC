@@ -11,7 +11,7 @@
 	int tri_core = 0;
 
 int main(void){
-	
+	#if 0
 	/*Types to use for sim*/
 	FILE * fp;
 	char str[BUFSIZE];
@@ -55,8 +55,9 @@ int main(void){
    }
    fclose(fp);
 	//puts("closed");
+	#endif
 	
-	#if 0
+	#if 1
 	/* Objective of main is to run with all the 3 cores connected*/
 	struct cores A, B, C;
 	A.state = P_Core;
