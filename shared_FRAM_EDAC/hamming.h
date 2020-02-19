@@ -26,7 +26,7 @@ typedef enum single_bit_errors {
 
 uint8_t parity_generator (uint8_t *in_data);
 
-uint8_t syndrome_generator (uint8_t *in_data, uint8_t *parity);
+uint8_t syndrome_generator (uint16_t *in_data);
 
 uint8_t syndrome_decoder (uint8_t *syndrome);
 

@@ -32,11 +32,11 @@ parity_generator (uint8_t *in_data)
  *
  */
 uint8_t 
-syndrome_generator (uint8_t *in_data, uint8_t *parity)
+syndrome_generator (uint16_t *in_data)
 {
 	uint8_t syn = 0;
-	uint8_t data = *in_data;
-	uint8_t p = *parity;
+	uint8_t data = *in_data & 0x0011;
+	uint8_t p = *in_data >> 8;
 
 	uint8_t s1 = ONE(data) ^ TWO(data) ^ FOU(data) ^ FIV(data) ^ SEV(data) ^ ONE(p); 
 	uint8_t s2 = ONE(data) ^ THR(data) ^ FOU(data) ^ SIX(data) ^ SEV(data) ^ TWO(p);
