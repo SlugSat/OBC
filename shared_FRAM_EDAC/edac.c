@@ -13,7 +13,6 @@ parity_encode (uint8_t *raw_data)
 {
 	uint8_t p_bits = parity_generator(raw_data);
 	uint16_t rp_bits = (p_bits << 8) | *raw_data;
-
 	return rp_bits;
 }
 
