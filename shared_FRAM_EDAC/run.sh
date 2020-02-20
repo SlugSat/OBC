@@ -2,4 +2,4 @@
 
 make
 make clean
-ls
+./edac

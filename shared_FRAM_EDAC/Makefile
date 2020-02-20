@@ -1,5 +1,5 @@
 CC = gcc
-TARGET = tomo
+TARGET = edac
 CFLAGS = -std=c99 -Wall -g
 DEPS = hamming.h edac.h
 OBJ = main.o edac.o hamming.o
@@ -12,3 +12,6 @@ ${TARGET}: ${OBJ}
 
 clean:
 	rm ${OBJ}
+
+mclean:
+	rm ${OBJ} ${TARGET}

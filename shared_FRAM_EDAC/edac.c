@@ -22,9 +22,8 @@ parity_encode (uint8_t *raw_data)
 uint8_t 
 parity_decode (uint16_t *enc_data)
 {
-	uint8_t p_bits = *enc_data >> 8;
-	uint8_t d_bits = *enc_data & 0x00FF;
-	uint8_t s_bits = syndrome_generator(&d_bits, &p_bits);
+	uint8_t d_bits = *enc_data & 0xFF;
+	uint8_t s_bits = syndrome_generator(enc_data);
 	uint8_t ec_bits = syndrome_decoder(&s_bits);
 	uint8_t corrected_data = error_corrector(&d_bits, &ec_bits);
 	return corrected_data;	
