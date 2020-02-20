@@ -1,3 +1,12 @@
+/* Author: Sloan Liu
+ * Project: SlugSat Year 4
+ * SubTeam: On-Baord Computer
+ * 
+ * Rights to the code go to the SlugSat Year 4 team 
+ * to use/modify as desired
+ */
+
+
 //Hamming Source
 
 #include <stdio.h>
@@ -55,11 +64,6 @@ syndrome_generator (uint16_t *in_data)
 uint8_t
 syndrome_decoder (uint8_t *syndrome)
 {
-	//Determine which bits are wrong based on the syndrome bits
-		//What exactly do the syndrome bits represent?
-		//Syndrome bits represent which parity bits are mismatched
-		  //If any syndrome bit is 1, then that corresponding parity bit is
-		  //different
 	single_bit_errors syn = *syndrome;
 	uint8_t correction_code = 0;
 

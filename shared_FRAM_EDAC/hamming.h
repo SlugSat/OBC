@@ -1,3 +1,11 @@
+/* Author: Sloan Liu
+ * Project: SlugSat Year 4
+ * SubTeam: On-Baord Computer
+ * 
+ * Rights to the code go to the SlugSat Year 4 team 
+ * to use/modify as desired
+ */
+
 //Hamming Header
 
 #include <stdint.h>
