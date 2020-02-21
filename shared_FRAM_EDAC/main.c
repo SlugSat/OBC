@@ -13,7 +13,7 @@
 #include <time.h>
 #include <stdint.h>
 
-#define HAMMING_TEST 0
+#define HAMMING_TEST 1
 #define EDAC_TEST 1 
 #define NUM_TESTS 10
 #define U16T(x, y) (x | (y << 8))
@@ -42,10 +42,10 @@ par_gen_test (uint8_t *data, uint8_t *exp)
 {
 	pg_test_num += 1;
 	uint8_t my_val = parity_generator(data);
-	if (my_val == *exp) { printf("[PAR_GEN test %d]: SUCCESS!\n", pg_test_num); }
-	else { printf("[PAR_GEN test %d]: FAILED!\nTest: parity_generator(b%d%d%d%d%d%d%d%d)", pg_test_num,
+	if (my_val == *exp) { printf("PAR_GEN test %d: SUCCESS!\n", pg_test_num); }
+	else { printf("PAR_GEN test %d: FAILED!\nTest: parity_generator(b%d%d%d%d%d%d%d%d)", pg_test_num,
 	              EIG(*data), SEV(*data), SIX(*data), FIV(*data), FOU(*data), THR(*data), TWO(*data), ONE(*data));
-		   printf("    Expected Result: b%d%d%d%d%d%d%d%d    Your Result: b%d%d%d%d%d%d%d%d\n", 
+		   printf("                 Expected Result: b%d%d%d%d%d%d%d%d    Your Result: b%d%d%d%d%d%d%d%d\n", 
 		          EIG(*exp), SEV(*exp), SIX(*exp), FIV(*exp), FOU(*exp), THR(*exp), TWO(*exp), ONE(*exp), 
 				  EIG(my_val), SEV(my_val), SIX(my_val), FIV(my_val), FOU(my_val), THR(my_val), TWO(my_val), ONE(my_val));}
 }
@@ -58,14 +58,14 @@ syn_gen_test (uint16_t *data, uint8_t *exp)
 {	
 	sg_test_num += 1;
 	uint8_t my_val = syndrome_generator(data);
-	if (my_val == *exp) { printf("[SYN_GEN test %d]: SUCCESS!\n", sg_test_num); }
+	if (my_val == *exp) { printf("SYN_GEN test %d: SUCCESS!\n", sg_test_num); }
 	else {
 		uint8_t top = (*data) >> 8;
 		uint8_t bot = (*data) & 0xFF;
-		printf("[SYN_GEN test %d]: FAILED!\nTest: syndrome_generator(b)%d%d%d%d%d%d%d%d%d%d%d%d%d%d%d%d\n", sg_test_num,
+		printf("SYN_GEN test %d: FAILED!\nTest: syndrome_generator(b)%d%d%d%d%d%d%d%d%d%d%d%d%d%d%d%d\n", sg_test_num,
 		       EIG(top), SEV(top), SIX(top), FIV(top), FOU(top), THR(top), TWO(top), ONE(top), 
 			   EIG(bot), SEV(bot), SIX(bot), FIV(bot), FOU(bot), THR(bot), TWO(bot), ONE(bot));
-		printf("    Expected Result: b%d%d%d%d    Actual Result: b%d%d%d%d\n",
+		printf("                  Expected Result: b%d%d%d%d    Actual Result: b%d%d%d%d\n",
 		        FOU(*exp), THR(*exp), TWO(*exp), ONE(*exp),
 		        FOU(my_val), THR(my_val), TWO(my_val), ONE(my_val));}
 }
@@ -78,10 +78,10 @@ syn_dec_test (uint8_t *syn, uint8_t *exp)
 {
 	sd_test_num += 1;
 	uint8_t my_val = syndrome_decoder(syn);
-	if (my_val == *exp) { printf("[SYN_DEC test %d]: SUCCESS!\n", sd_test_num); }
-	else { printf("[SYN_DEC test %d]: FAILED!\nTest: syndrome_decoder(b%d%d%d%d%d%d%d%d)\n", sd_test_num,
+	if (my_val == *exp) { printf("SYN_DEC test %d: SUCCESS!\n", sd_test_num); }
+	else { printf("SYN_DEC test %d: FAILED!\nTest: syndrome_decoder(b%d%d%d%d%d%d%d%d)\n", sd_test_num,
 		          EIG(*syn), SEV(*syn), SIX(*syn), FIV(*syn), FOU(*syn), THR(*syn), TWO(*syn), ONE(*syn));
-		   printf("    Expected Result: b%d%d%d%d    Actual Result: b%d%d%d%d\n",
+		   printf("                  Expected Result: b%d%d%d%d    Actual Result: b%d%d%d%d\n",
 		          FOU(*exp), THR(*exp), TWO(*exp), ONE(*exp),
 		          FOU(my_val), THR(my_val), TWO(my_val), ONE(my_val));}
 }
@@ -95,18 +95,18 @@ encode_test (uint8_t *raw, uint16_t *exp)
 {
 	ec_test_num += 1;
 	uint16_t my_val = parity_encode(raw);
-	if (my_val == *exp) { printf("[PAR_ENC test %d]: SUCCESS!\n", ec_test_num); }
+	if (my_val == *exp) { printf("PAR_ENC test %d: SUCCESS!\n", ec_test_num); }
 	else {
 		uint8_t etop = (*exp) >> 8;
 		uint8_t ebot = (*exp) & 0xFF;
 		uint8_t atop = my_val >> 8;
 		uint8_t abot = my_val & 0xFF;
-		printf("[PAR_ENC test %d]: FAILED!\nTest: parity_encode(b%d%d%d%d%d%d%d%d)\n", ec_test_num,
+		printf("PAR_ENC test %d: FAILED!\nTest: parity_encode(b%d%d%d%d%d%d%d%d)\n", ec_test_num,
 		        EIG(*raw), SEV(*raw), SIX(*raw), FIV(*raw), FOU(*raw), THR(*raw), TWO(*raw), ONE(*raw));
-		printf("    Expected Result: b%d%d%d%d%d%d%d%d%d%d%d%d%d%d%d%d\n",
+		printf("                  Expected Result: b%d%d%d%d%d%d%d%d%d%d%d%d%d%d%d%d\n",
 		          EIG(etop), SEV(etop), SIX(etop), FIV(etop), FOU(etop), THR(etop), TWO(etop), ONE(etop),
 		          EIG(ebot), SEV(ebot), SIX(ebot), FIV(ebot), FOU(ebot), THR(ebot), TWO(ebot), ONE(ebot));
-		printf("    Actual Result: b%d%d%d%d%d%d%d%d%d%d%d%d%d%d%d%d\n",
+		printf("                  Actual Result: b%d%d%d%d%d%d%d%d%d%d%d%d%d%d%d%d\n",
 		          EIG(atop), SEV(atop), SIX(atop), FIV(atop), FOU(atop), THR(atop), TWO(atop), ONE(atop),
 		          EIG(abot), SEV(abot), SIX(abot), FIV(abot), FOU(abot), THR(abot), TWO(abot), ONE(abot)); }
 }
@@ -120,17 +120,17 @@ decode_test (uint16_t *enc, uint8_t *corr)
 {
 	dc_test_num += 1;
 	uint8_t my_val = parity_decode(enc);
-	if (my_val == *corr) { printf("[PAR_DEC test %d]: SUCCESS!\n", dc_test_num); }
+	if (my_val == *corr) { printf("PAR_DEC test %d: SUCCESS!\n", dc_test_num); }
 	else {
 		uint8_t etop = (*enc) >> 8;
 		uint8_t ebot = (*enc) & 0xFF;
-		printf("[PAR_DEC test %d]: FAILED!\nTest: parity_decode(b%d%d%d%d%d%d%d%d%d%d%d%d%d%d%d%d)\n",
+		printf("PAR_DEC test %d: FAILED!\nTest: parity_decode(b%d%d%d%d%d%d%d%d%d%d%d%d%d%d%d%d)\n",
 		        dc_test_num,
 		        EIG(etop), SEV(etop), SIX(etop), FIV(etop), FOU(etop), THR(etop), TWO(etop), ONE(etop),
 		        EIG(ebot), SEV(ebot), SIX(ebot), FIV(ebot), FOU(ebot), THR(ebot), TWO(ebot), ONE(ebot));
-		printf("    Expected Result: b%d%d%d%d%d%d%d%d\n",
+		printf("                  Expected Result: b%d%d%d%d%d%d%d%d\n",
 		          EIG(*corr), SEV(*corr), SIX(*corr), FIV(*corr), FOU(*corr), THR(*corr), TWO(*corr), ONE(*corr));
-		printf("    Actual Result: b%d%d%d%d%d%d%d%d\n",
+		printf("                  Actual Result: b%d%d%d%d%d%d%d%d\n",
 		          EIG(my_val), SEV(my_val), SIX(my_val), FIV(my_val), FOU(my_val), THR(my_val), TWO(my_val), ONE(my_val)); }
 }
 
@@ -139,7 +139,7 @@ decode_test (uint16_t *enc, uint8_t *corr)
 int 
 main (void) 
 {
-	puts("========================\n====EDAC Test Harness===\n========================");	
+	puts("- - - - - - - - - - - - \n- - EDAC Test Harness- -\n- - - - - - - - - - - - ");	
 	time_t t;
 	srand(time(&t));
 
@@ -172,7 +172,7 @@ main (void)
 
 
 	//===============================
-	puts("\n>>>>>>>>parity_generator() Tests<<<<");
+	puts("\n--------parity_generator() Tests--------");
 
 	for (int y = 0; y < 10; y++) {
 		par_gen_test(&(pg_t[y]), &(pg_e[y]));
@@ -184,11 +184,11 @@ main (void)
 		printf("[PAR_GEN rand %d]: parity_generator(b%d%d%d%d%d%d%d%d)\n", i + 1,
 								EIG(rd), SEV(rd), SIX(rd), FIV(rd), FOU(rd), THR(rd), TWO(rd), ONE(rd));
 		uint8_t rr = parity_generator(&rd);
-		printf("    Generated parity bits = b%d%d%d%d\n", FOU(rr), THR(rr),TWO(rr), ONE(rr));
+		printf("                  Generated parity bits = b%d%d%d%d\n", FOU(rr), THR(rr),TWO(rr), ONE(rr));
 	}
 
 	//=============================== 
-	puts("\n>>>>>>>>syndrome_generator() Tests<<<<");
+	puts("\n--------syndrome_generator() Tests--------");
 
 	for (int y = 0; y < 15; y++) {
 		syn_gen_test(&(sg_t[y]), &(sg_e[y]));
@@ -203,11 +203,11 @@ main (void)
 								FOU(rp), THR(rp), TWO(rp), ONE(rp),
 								EIG(rd), SEV(rd), SIX(rd), FIV(rd), FOU(rd), THR(rd), TWO(rd), ONE(rd));
 		uint8_t rs = syndrome_generator(&rc);
-		printf("    Generated syndrome bits = b%d%d%d%d\n", FOU(rs), THR(rs),TWO(rs), ONE(rs));
+		printf("                  Generated syndrome bits = b%d%d%d%d\n", FOU(rs), THR(rs),TWO(rs), ONE(rs));
 	}
 
 	//===============================
-	puts("\n>>>>>>>>syndrome_decoder() Tests<<<<");
+	puts("\n--------syndrome_decoder() Tests--------");
 
 	for (int q = 0; q < 8; q++) {
 		syn_dec_test(&(sd_t[q]), &(sd_e[q]));
@@ -227,14 +227,14 @@ main (void)
 						 U16T(pe_r[8], pe_p[8]), U16T(pe_r[9], pe_p[9])};
 
 	//===============================
-	puts("\n>>>>>>>>parity_encode() Tests<<<<");
+	puts("\n--------parity_encode() Tests--------");
 
 	for (int h = 0; h < 10; h++) {
 		encode_test(&(pe_r[h]), &(pe_e[h]));
 	}
 
 	//===============================
-	puts("\n>>>>>>>>parity_decode() Tests<<<<");
+	puts("\n--------parity_decode() Tests--------");
 
 	for (int h = 0; h < 10; h++) {
 		decode_test(&(pe_e[h]), &(pe_r[h]));
