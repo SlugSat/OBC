@@ -1,6 +1,6 @@
 #include "SPI_FRAM.h"
 
-  * @param  address: 16 bit address
+ /* @param  address: 16 bit address
   * @param  pRxData: pointer to reception data buffer to be
   * @param  size: size of the data you are expecting (# of bytes)
   */
@@ -32,7 +32,7 @@ void SPI_FRAM_Read( SPI_HandleTypeDef *hspi,uint16_t address, uint8_t *pRxData, 
 	Free_Lock(hspi, huart);
 }
 
-  * @param  address: 16 bit address
+  /* @param  address: 16 bit address
   * @param  pTxData: pointer to reception data buffer to be
   * @param  size: size of the data you are Transmiting (# of bytes)
   */
