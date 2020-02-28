@@ -52,6 +52,7 @@ void SPI_FRAM_Read(SPI_HandleTypeDef *hspi,uint16_t address, uint8_t *pRxData, u
 	// Free the lock
 	Free_Lock(hspi, huart);
 }
+
 /**
   * @brief  Write to the FRAM
   * @param  address: 16 bit address
