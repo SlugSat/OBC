@@ -49,8 +49,8 @@
 UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
-uint8_t next_state[3]; //Pcore, Score, sleep, killd, rebot, Stest
-uint8_t state[3];
+uint8_t next_state[2]; //Pcore, Score, sleep, killd, rebot, Stest
+uint8_t state[2];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -64,7 +64,7 @@ static void MX_USART1_UART_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+uint8_t Trigger = 1;
 /* USER CODE END 0 */
 
 /**
@@ -75,9 +75,10 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
 	//Intial for testing
-	//next_state[0] = SCORE;
-	//next_state[1] = PCORE;
-	//next_state[2] = 1;
+	#if 1
+	next_state[0] = PCORE;
+	next_state[1] = SCORE;
+	#endif
   /* USER CODE END 1 */
   
 
@@ -101,7 +102,7 @@ int main(void)
   MX_GPIO_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-
+	
   /* USER CODE END 2 */
  
  
@@ -111,17 +112,23 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-		do{
-			while(HAL_UART_Receive(&huart1, state, 3, 10) != HAL_OK){}
-			next_state[0] = 1;
-		}while(HAL_UART_Transmit(&huart1, &next_state[0], 1, 10) != HAL_OK);
-		
-		//while(HAL_UART_Transmit(&huart1, next_state, 3, 10) != HAL_OK){}
-		//HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
-		//for(int i = 0; i < 3; ++i){
-			//next_state[i] = state[i];
-		//}
+		while(HAL_UART_Receive(&huart1, state, 2, 10) != HAL_OK){}
+		//Core 2 SM
+		if(Trigger == 1){
+			if(state[1] == 1)
+			{
+				next_state[1] = 2;
+			}
+			else if(state[1] == 2)
+			{
+				next_state[1] = 1;
+			}
+		}
+		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
+		while(HAL_UART_Transmit(&huart1, next_state, 2, 10) != HAL_OK){}
     /* USER CODE BEGIN 3 */
+			
+		HAL_Delay(500);
   }
   /* USER CODE END 3 */
 }
@@ -185,7 +192,7 @@ static void MX_USART1_UART_Init(void)
   huart1.Init.StopBits = UART_STOPBITS_1;
   huart1.Init.Parity = UART_PARITY_NONE;
   huart1.Init.Mode = UART_MODE_TX_RX;
-  huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart1.Init.HwFlowCtl = UART_HWCONTROL_RTS_CTS;
   huart1.Init.OverSampling = UART_OVERSAMPLING_16;
   if (HAL_UART_Init(&huart1) != HAL_OK)
   {
