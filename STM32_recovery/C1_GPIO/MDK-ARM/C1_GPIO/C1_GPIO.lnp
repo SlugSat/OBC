@@ -1,0 +1,26 @@
+--cpu Cortex-M3
+"c1_gpio\startup_stm32l152xe.o"
+"c1_gpio\main.o"
+"c1_gpio\stm32l1xx_it.o"
+"c1_gpio\stm32l1xx_hal_msp.o"
+"c1_gpio\stm32l1xx_hal_i2c.o"
+"c1_gpio\stm32l1xx_hal.o"
+"c1_gpio\stm32l1xx_hal_rcc.o"
+"c1_gpio\stm32l1xx_hal_rcc_ex.o"
+"c1_gpio\stm32l1xx_hal_flash.o"
+"c1_gpio\stm32l1xx_hal_flash_ex.o"
+"c1_gpio\stm32l1xx_hal_flash_ramfunc.o"
+"c1_gpio\stm32l1xx_hal_gpio.o"
+"c1_gpio\stm32l1xx_hal_dma.o"
+"c1_gpio\stm32l1xx_hal_pwr.o"
+"c1_gpio\stm32l1xx_hal_pwr_ex.o"
+"c1_gpio\stm32l1xx_hal_cortex.o"
+"c1_gpio\stm32l1xx_hal_spi.o"
+"c1_gpio\stm32l1xx_hal_tim.o"
+"c1_gpio\stm32l1xx_hal_tim_ex.o"
+"c1_gpio\stm32l1xx_hal_uart.o"
+"c1_gpio\system_stm32l1xx.o"
+--library_type=microlib --strict --scatter "C1_GPIO\C1_GPIO.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "C1_GPIO.map" -o C1_GPIO\C1_GPIO.axf

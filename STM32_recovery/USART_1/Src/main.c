@@ -68,8 +68,9 @@ static void MX_USART1_UART_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-	uint8_t Trigger = 1;
-	uint8_t first = 1;
+	int Trigger = 1;
+	int first = 1;
+	int count = 0;
 /* USER CODE END 0 */
 
 /**
@@ -123,7 +124,7 @@ int main(void)
 		//HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);			
 		while(HAL_UART_Receive(&huart1, state, 2, 10) != HAL_OK){}
 		//HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
-		
+		/*
 		if(Trigger == 1){
 			if(state[0] == 1)//PCORE
 			{
@@ -135,10 +136,11 @@ int main(void)
 			}
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
 		}
-
+		*/
 		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
 		while(HAL_UART_Transmit(&huart1, state, 2, 10) != HAL_OK){}
-		HAL_Delay(500);
+		count++;
+		//HAL_Delay(500);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
