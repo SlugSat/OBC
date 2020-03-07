@@ -27,5 +27,4 @@ c2_gpio\main.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_flash_ramfunc.
 c2_gpio\main.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_pwr.h
 c2_gpio\main.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_pwr_ex.h
 c2_gpio\main.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_uart.h
-c2_gpio\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 c2_gpio\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
