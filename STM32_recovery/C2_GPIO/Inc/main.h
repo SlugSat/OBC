@@ -65,6 +65,9 @@ void Error_Handler(void);
 #define C2_S1_GPIO_Port GPIOA
 #define C2_S2_Pin GPIO_PIN_7
 #define C2_S2_GPIO_Port GPIOA
+#define TriggerIn_Pin GPIO_PIN_4
+#define TriggerIn_GPIO_Port GPIOC
+#define TriggerIn_EXTI_IRQn EXTI4_IRQn
 #define C1_S2In_Pin GPIO_PIN_12
 #define C1_S2In_GPIO_Port GPIOB
 #define C2_Power_Pin GPIO_PIN_7

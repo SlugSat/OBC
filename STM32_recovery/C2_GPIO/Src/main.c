@@ -21,10 +21,11 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include <stdio.h>
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 typedef enum{
-	P_Core, S_Core, Reboot, Test, Sleep, Killed
+	P_Core = 0x7, S_Core = 0x5, Reboot = 0x1, Sleep = 0x6, Killed = 0x0
 }States;
 /* USER CODE END Includes */
 
@@ -37,6 +38,10 @@ typedef enum{
 /* USER CODE BEGIN PD */
 #define Power 1
 #define NoPower 0
+
+#define Read(gpio, pin) HAL_GPIO_ReadPin(gpio, pin)
+#define Combine(pin1, pin2, pin3) (pin1 << 2) | (pin2 << 1) | pin1
+	
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -58,6 +63,7 @@ static void MX_GPIO_Init(void);
 static void MX_USART2_UART_Init(void);
 /* USER CODE BEGIN PFP */
 void display_LED(States *state);
+States state_checker(States my_state);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -107,35 +113,68 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-		snprintf((char *)Msg1, sizeof(Msg1), "\r\nTrigger: %d, State: %d\r\n", trigger, state);
-		HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
-		if(trigger == 1){
-			trigger = 0;
-			switch(state){
-				case P_Core:
-					state = S_Core;
-					break;
-				case S_Core:
-					state = Reboot;
-					break;
-				case Reboot:
-					state = Test;
-					break;
-				case Test:
-					state = Sleep;
-					break;
-				case Sleep:
-					state = P_Core;
-					break;
-				case Killed:
-					break;
-			}
-		}
-		display_LED(&state);
-			//HAL_Delay(1000);
+				
+				if(trigger == 1){
+					switch(state){
+						case P_Core:
+							state = S_Core;
+						  state = state_checker(state);
+							break;
+						case S_Core:
+							state = Reboot;
+							break;
+						case Reboot:
+							state = Sleep;
+							break;
+						case Sleep:
+							state = P_Core;
+						  state = state_checker(state);
+							break;
+						case Killed:
+							break;
+					}
+					snprintf((char *)Msg1, sizeof(Msg1), "\r\nState: %d\r\n",  state);
+					HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
+					trigger = 0;
+				}
+				display_LED(&state);
+				HAL_Delay(500);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
+}
+
+
+States state_checker(States my_state){
+	uint8_t complete = 0;
+	States curr_state;
+	uint8_t C1_state = Combine(Read(GPIOA, C1_PowerIn_Pin), Read(GPIOA, C1_S1In_Pin), Read(GPIOB, C1_S2In_Pin));
+	uint8_t C2_state = Combine(Read(GPIOC, C2_Power_Pin), Read(GPIOA, C2_S1_Pin), Read(GPIOA, C2_S2_Pin));
+	
+	if(C1_state == C2_state){
+		snprintf((char *)Msg1, sizeof(Msg1), "\r\nBOUNCE\r\n");
+	  HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
+		switch(C1_state) {
+			case P_Core:
+				curr_state = S_Core;
+				break;
+			case S_Core:
+				curr_state = P_Core;
+				break;
+			case Reboot:
+				break;
+			case Sleep:
+				curr_state = P_Core;
+				break;
+			case Killed:
+				break;
+			default:
+				break;
+		}
+		return curr_state;
+	} else {
+		return C2_state;
+	}
 }
 
 
@@ -157,11 +196,6 @@ void display_LED(States *state){
 				HAL_GPIO_WritePin(GPIOA, C2_S1_Pin, GPIO_PIN_RESET);
 				HAL_GPIO_WritePin(GPIOA, C2_S2_Pin, GPIO_PIN_SET);
 				break;
-			case Test:
-				HAL_GPIO_WritePin(GPIOC, C2_Power_Pin, GPIO_PIN_RESET);
-				HAL_GPIO_WritePin(GPIOA, C2_S1_Pin, GPIO_PIN_SET);
-				HAL_GPIO_WritePin(GPIOA, C2_S2_Pin, GPIO_PIN_RESET);
-				break;
 			case Sleep:
 				HAL_GPIO_WritePin(GPIOC, C2_Power_Pin, GPIO_PIN_SET);
 				HAL_GPIO_WritePin(GPIOA, C2_S1_Pin, GPIO_PIN_SET);
@@ -174,6 +208,9 @@ void display_LED(States *state){
 				break;
 		}
 }
+
+
+
 /**
   * @brief System Clock Configuration
   * @retval None
@@ -263,13 +300,13 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5|C2_S1_Pin|C2_S2_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_4|C2_Power_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(C2_Power_GPIO_Port, C2_Power_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pin : Trigger_Pin */
-  GPIO_InitStruct.Pin = Trigger_Pin;
+  /*Configure GPIO pins : Trigger_Pin TriggerIn_Pin */
+  GPIO_InitStruct.Pin = Trigger_Pin|TriggerIn_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(Trigger_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
   /*Configure GPIO pins : PA5 C2_S1_Pin C2_S2_Pin */
   GPIO_InitStruct.Pin = GPIO_PIN_5|C2_S1_Pin|C2_S2_Pin;
@@ -278,18 +315,18 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PC4 C2_Power_Pin */
-  GPIO_InitStruct.Pin = GPIO_PIN_4|C2_Power_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
-
   /*Configure GPIO pin : C1_S2In_Pin */
   GPIO_InitStruct.Pin = C1_S2In_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(C1_S2In_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : C2_Power_Pin */
+  GPIO_InitStruct.Pin = C2_Power_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(C2_Power_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : C1_S1In_Pin C1_PowerIn_Pin */
   GPIO_InitStruct.Pin = C1_S1In_Pin|C1_PowerIn_Pin;
@@ -298,6 +335,9 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(EXTI4_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI4_IRQn);
+
   HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
 
@@ -306,12 +346,16 @@ static void MX_GPIO_Init(void)
 /* USER CODE BEGIN 4 */
 	void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 	{
-		if(GPIO_Pin == Trigger_Pin){
-			HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_4);
-			HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
-			trigger = 1;
+		if(trigger == 0){
+			if(GPIO_Pin == TriggerIn_Pin){
+				//HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_4);
+				//HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+				trigger = 1;
+			}
 		}
-		
+		else{
+			__NOP();
+		}
 	}		
 		
 /* USER CODE END 4 */
