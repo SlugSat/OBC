@@ -29,5 +29,4 @@ c1_gpio\main.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_pwr.h
 c1_gpio\main.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_pwr_ex.h
 c1_gpio\main.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_spi.h
 c1_gpio\main.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_uart.h
-c1_gpio\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 c1_gpio\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
