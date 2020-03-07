@@ -20,6 +20,8 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include <string.h>
+#include <stdio.h>
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -107,7 +109,56 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-
+			switch(state){
+				case P_Core:
+					HAL_GPIO_WritePin(GPIOC, C2_Power_Pin, GPIO_PIN_SET);
+					HAL_GPIO_WritePin(GPIOA, C2_S1_Pin, GPIO_PIN_SET);
+					HAL_GPIO_WritePin(GPIOA, C2_S2_Pin, GPIO_PIN_SET);
+					snprintf((char *)Msg1, sizeof(Msg1), "\r\nState: P_Core\r\n");
+					HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
+					state = S_Core;
+					break;
+				case S_Core:
+					HAL_GPIO_WritePin(GPIOC, C2_Power_Pin, GPIO_PIN_SET);
+					HAL_GPIO_WritePin(GPIOA, C2_S1_Pin, GPIO_PIN_RESET);
+					HAL_GPIO_WritePin(GPIOA, C2_S2_Pin, GPIO_PIN_SET);					
+					snprintf((char *)Msg1, sizeof(Msg1), "\r\nState: S_Core\r\n");
+					HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
+					state = Reboot;
+					break;
+				case Reboot:
+					HAL_GPIO_WritePin(GPIOC, C2_Power_Pin, GPIO_PIN_RESET);
+					HAL_GPIO_WritePin(GPIOA, C2_S1_Pin, GPIO_PIN_RESET);
+					HAL_GPIO_WritePin(GPIOA, C2_S2_Pin, GPIO_PIN_SET);
+					snprintf((char *)Msg1, sizeof(Msg1), "\r\nState: Reboot\r\n");
+					HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
+					state = Test;
+					break;
+				case Test:
+					HAL_GPIO_WritePin(GPIOC, C2_Power_Pin, GPIO_PIN_RESET);
+					HAL_GPIO_WritePin(GPIOA, C2_S1_Pin, GPIO_PIN_SET);
+					HAL_GPIO_WritePin(GPIOA, C2_S2_Pin, GPIO_PIN_RESET);
+					snprintf((char *)Msg1, sizeof(Msg1), "\r\nState: Test\r\n");
+					HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
+					state = Sleep;
+					break;
+				case Sleep:
+					HAL_GPIO_WritePin(GPIOC, C2_Power_Pin, GPIO_PIN_SET);
+					HAL_GPIO_WritePin(GPIOA, C2_S1_Pin, GPIO_PIN_SET);
+					HAL_GPIO_WritePin(GPIOA, C2_S2_Pin, GPIO_PIN_RESET);
+					snprintf((char *)Msg1, sizeof(Msg1), "\r\nState: Sleep\r\n");
+					HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
+					state = P_Core;
+					break;
+				case Killed:
+					HAL_GPIO_WritePin(GPIOC, C2_Power_Pin, GPIO_PIN_RESET);
+					HAL_GPIO_WritePin(GPIOA, C2_S1_Pin, GPIO_PIN_RESET);
+					HAL_GPIO_WritePin(GPIOA, C2_S2_Pin, GPIO_PIN_RESET);
+					snprintf((char *)Msg1, sizeof(Msg1), "\r\nState: Killed\r\n");
+					HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
+					break;
+			}
+			HAL_Delay(1000);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
