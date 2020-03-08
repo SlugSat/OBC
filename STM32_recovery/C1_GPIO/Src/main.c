@@ -30,7 +30,7 @@
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
 typedef enum{
-	P_Core, S_Core, Reboot, Test, Sleep, Killed 
+	P_Core = 0x7, S_Core = 0x5, Reboot = 0x1, Sleep = 0x6, Killed = 0x0 
 }States;
 
 /* USER CODE END PTD */
@@ -128,31 +128,29 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-		snprintf((char *)Msg1, sizeof(Msg1), "\r\nTrigger: %d, State: %d\r\n", trigger, state);
-		HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
+		
 		if(trigger == 1){
-			trigger = 0;
 			switch(state){
-				case P_Core:
+				case P_Core: 	
 					state = S_Core;
 					break;
 				case S_Core:
 					state = Reboot;
 					break;
 				case Reboot:
-					state = Test;
-					break;
-				case Test:
 					state = Sleep;
-					break;
 				case Sleep:
 					state = P_Core;
 					break;
 				case Killed:
 					break;
 			}
+			snprintf((char *)Msg1, sizeof(Msg1), "\r\nState: %d\r\n",  state);
+			HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
+			trigger = 0;
 		}
 		display_LED(&state);
+		HAL_Delay(500);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -173,11 +171,6 @@ void display_LED(States *state){
 				HAL_GPIO_WritePin(GPIOC, C1_Power_Pin, GPIO_PIN_RESET);
 				HAL_GPIO_WritePin(GPIOA, C1_S1_Pin, GPIO_PIN_RESET);
 				HAL_GPIO_WritePin(GPIOA, C1_S2_Pin, GPIO_PIN_SET);
-				break;
-			case Test:
-				HAL_GPIO_WritePin(GPIOC, C1_Power_Pin, GPIO_PIN_RESET);
-				HAL_GPIO_WritePin(GPIOA, C1_S1_Pin, GPIO_PIN_SET);
-				HAL_GPIO_WritePin(GPIOA, C1_S2_Pin, GPIO_PIN_RESET);
 				break;
 			case Sleep:
 				HAL_GPIO_WritePin(GPIOC, C1_Power_Pin, GPIO_PIN_SET);
@@ -505,6 +498,9 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 			HAL_GPIO_TogglePin(GPIOA, GreenLED_Pin);
 			trigger = 1;
 		}	
+	}
+	else{
+		__NOP();
 	}
 }
 /* USER CODE END 4 */
