@@ -20,6 +20,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include <stdio.h>
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -28,11 +29,17 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
+typedef enum{
+	P_Core = 0x7, S_Core = 0x5, Reboot = 0x1, Sleep = 0x6, Killed = 0x0 
+}States;
 
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+#define Power 1
+#define NoPower 0
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -44,6 +51,7 @@
 UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
+int trigger = 0;
 
 /* USER CODE END PV */
 
@@ -51,12 +59,15 @@ UART_HandleTypeDef huart2;
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_USART2_UART_Init(void);
+
 /* USER CODE BEGIN PFP */
+void display_LED(States *state);
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+char Msg1[100] = {0};
 
 /* USER CODE END 0 */
 
@@ -67,7 +78,8 @@ static void MX_USART2_UART_Init(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-
+	States state;
+	state = Sleep;
   /* USER CODE END 1 */
   
 
@@ -98,14 +110,72 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (1)
+    while (1)
   {
     /* USER CODE END WHILE */
-
-    /* USER CODE BEGIN 3 */
+		if(trigger == 1){
+			switch(state){
+				case P_Core:
+					state = S_Core;
+					//state = state_checker(state);
+					break;
+				case S_Core:
+					state = Reboot;
+					break;
+				case Reboot:
+					state = Sleep;
+					break;
+				case Sleep:
+					state = P_Core;
+				  //state = state_checker(state);
+					break;
+				case Killed:
+					break;
+			}
+			snprintf((char *)Msg1, sizeof(Msg1), "\r\nState: %d\r\n",  state);
+			HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
+			trigger = 0;
+		}
+		display_LED(&state);
+		HAL_Delay(500);
   }
-  /* USER CODE END 3 */
 }
+
+
+
+void display_LED(States *state){
+		switch(*state){
+			case P_Core:
+				HAL_GPIO_WritePin(GPIOC, C3_Power_Pin, GPIO_PIN_SET);
+				HAL_GPIO_WritePin(GPIOA, C3_S1_Pin, GPIO_PIN_SET);
+				HAL_GPIO_WritePin(GPIOA, C3_S2_Pin, GPIO_PIN_SET);
+				break;
+			case S_Core:
+				HAL_GPIO_WritePin(GPIOC, C3_Power_Pin, GPIO_PIN_SET);
+				HAL_GPIO_WritePin(GPIOA, C3_S1_Pin, GPIO_PIN_RESET);
+				HAL_GPIO_WritePin(GPIOA, C3_S2_Pin, GPIO_PIN_SET);					
+				break;
+			case Reboot:
+				HAL_GPIO_WritePin(GPIOC, C3_Power_Pin, GPIO_PIN_RESET);
+				HAL_GPIO_WritePin(GPIOA, C3_S1_Pin, GPIO_PIN_RESET);
+				HAL_GPIO_WritePin(GPIOA, C3_S2_Pin, GPIO_PIN_SET);
+				break;
+			case Sleep:
+				HAL_GPIO_WritePin(GPIOC, C3_Power_Pin, GPIO_PIN_SET);
+				HAL_GPIO_WritePin(GPIOA, C3_S1_Pin, GPIO_PIN_SET);
+				HAL_GPIO_WritePin(GPIOA, C3_S2_Pin, GPIO_PIN_RESET);
+				break;
+			case Killed:
+				HAL_GPIO_WritePin(GPIOC, C3_Power_Pin, GPIO_PIN_RESET);
+				HAL_GPIO_WritePin(GPIOA, C3_S1_Pin, GPIO_PIN_RESET);
+				HAL_GPIO_WritePin(GPIOA, C3_S2_Pin, GPIO_PIN_RESET);
+				break;
+		}
+}
+
+
+
+
 
 /**
   * @brief System Clock Configuration
@@ -243,7 +313,19 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
+	if(trigger == 0){
+			if(GPIO_Pin == TriggerIn_Pin){
+		//HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_4);
+			//HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+				trigger = 1;
+		}
+	}
+	else{
+		__NOP();
+	}
+}		
+	
 /* USER CODE END 4 */
 
 /**

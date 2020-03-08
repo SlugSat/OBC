@@ -138,10 +138,7 @@ int main(void)
 		}
 		display_LED(&state);
 		HAL_Delay(500);
-
-    /* USER CODE BEGIN 3 */
   }
-  /* USER CODE END 3 */
 }
 
 
