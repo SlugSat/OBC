@@ -147,16 +147,18 @@ States state_checker(States my_state){
 	States curr_state;
 	uint8_t C1_state = Combine(Read(GPIOA, C1_PowerIn_Pin), Read(GPIOA, C1_S1In_Pin), Read(GPIOB, C1_S2In_Pin));
 	uint8_t C2_state = Combine(Read(GPIOC, C2_Power_Pin), Read(GPIOA, C2_S1_Pin), Read(GPIOA, C2_S2_Pin));
+	uint8_t C3_state = Combine(Read(GPIOC, C3_PowerIn_Pin), Read(GPIOC, C3_S1In_Pin), Read(GPIOC, C3_S2In_Pin));
 
-	if(C1_state == C2_state){
+	if(C2_state == C1_state || C2_state == C3_state){
 		snprintf((char *)Msg1, sizeof(Msg1), "\r\nBOUNCE\r\n");
 	  HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
+		
 		switch(C1_state) {
 			case P_Core:
 				curr_state = S_Core;
 				break;
 			case S_Core:
-				curr_state = P_Core;
+				curr_state = Sleep;
 				break;
 			case Reboot:
 				break;
@@ -168,9 +170,33 @@ States state_checker(States my_state){
 			default:
 				break;
 		}
+		
+		return curr_state;
+	} else if(C2_state == C3_state){
+		snprintf((char *)Msg1, sizeof(Msg1), "\r\nBOUNCE\r\n");
+	  HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
+		
+		switch(C3_state) {
+			case P_Core:
+				curr_state = S_Core;
+				break;
+			case S_Core:
+				curr_state = Sleep;
+				break;
+			case Reboot:
+				break;
+			case Sleep:
+				curr_state = P_Core;
+				break;
+			case Killed:
+				break;
+			default:
+				break;
+		}
+		
 		return curr_state;
 	} else {
-		return C2_state;
+		return my_state;
 	}
 }
 
