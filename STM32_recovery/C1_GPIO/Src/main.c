@@ -41,7 +41,8 @@ typedef enum{
 #define NoPower 0
 
 /* USER CODE END PD */
-
+#define Read(gpio, pin) HAL_GPIO_ReadPin(gpio, pin)
+#define Combine(pin1, pin2, pin3) (pin1 << 2) | (pin2 << 1) | pin1
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
 
@@ -73,7 +74,7 @@ static void MX_SPI2_Init(void);
 static void MX_SPI3_Init(void);
 static void MX_USART3_UART_Init(void);
 /* USER CODE BEGIN PFP */
-
+States state_checker(States my_state);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -133,14 +134,19 @@ int main(void)
 			switch(state){
 				case P_Core: 	
 					state = S_Core;
+					//state = state_checker(state);
 					break;
 				case S_Core:
 					state = Reboot;
+					//state = state_checker(state);
 					break;
 				case Reboot:
 					state = Sleep;
+				//state = state_checker(state);
+					break;
 				case Sleep:
 					state = P_Core;
+				//state = state_checker(state);
 					break;
 				case Killed:
 					break;
@@ -155,6 +161,72 @@ int main(void)
   }
   /* USER CODE END 3 */
 }
+
+
+States state_checker(States my_state){
+	uint8_t complete = 0;
+	States curr_state;
+	uint8_t C1_state = Combine(Read(GPIOC, C1_Power_Pin), Read(GPIOA, C1_S1_Pin), Read(GPIOA, C1_S2_Pin));
+	uint8_t C2_state = Combine(Read(GPIOA, C2_PowerIn_Pin), Read(GPIOA, C2_S1In_Pin), Read(GPIOB, C2_S2In_Pin));
+	//uint8_t C3_state = Combine(Read(GPIOC, C3_PowerIn_Pin), Read(GPIOC, C3_S1In_Pin), Read(GPIOC, C3_S2In_Pin));
+
+	if(my_state == C2_state ){
+		snprintf((char *)Msg1, sizeof(Msg1), "\r\nBOUNCE\r\n");
+	  HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
+		switch(C2_state) {
+			case P_Core:
+				curr_state = S_Core;
+				break;
+			case S_Core:
+				curr_state = Sleep;
+				break;
+			case Reboot:
+				break;
+			case Sleep:
+				curr_state = P_Core;
+				break;
+			case Killed:
+				break;
+			default:
+				break;
+		}
+		
+		return curr_state;
+	} 
+	/*
+	else if(C2_state == C3_state){
+		snprintf((char *)Msg1, sizeof(Msg1), "\r\nBOUNCE\r\n");
+	  HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
+		
+		switch(C3_state) {
+			case P_Core:
+				curr_state = S_Core;
+				break;
+			case S_Core:
+				curr_state = Sleep;
+				break;
+			case Reboot:
+				break;
+			case Sleep:
+				curr_state = P_Core;
+				break;
+			case Killed:
+				break;
+			default:
+				break;
+		}
+		
+		return curr_state;
+	} 
+	*/
+	else {
+		return my_state;
+	}
+}
+
+
+
+
 void display_LED(States *state){
 		switch(*state){
 			case P_Core:
@@ -184,6 +256,8 @@ void display_LED(States *state){
 				break;
 		}
 }
+
+
 /**
   * @brief System Clock Configuration
   * @retval None
