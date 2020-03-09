@@ -21,17 +21,19 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include <stdio.h>
-
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-typedef enum{
-	P_Core = 0x7, S_Core = 0x5, Reboot = 0x1, Sleep = 0x6, Killed = 0x0
-}States;
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
+typedef enum{
+	P_Core = 0x7, S_Core = 0x5, Reboot = 0x1, Sleep = 0x6, Killed = 0x0
+}States;
 
+typedef enum{
+	ThreeCore = 0 , TwoCore =  1 , OneCore = 2
+}CoreStatus;
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -64,6 +66,7 @@ static void MX_USART2_UART_Init(void);
 /* USER CODE BEGIN PFP */
 void display_LED(States *state);
 States state_checker(States my_state);
+CoreStatus power_checker(void);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -78,8 +81,12 @@ States state_checker(States my_state);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
+	//INTIAL STATE AND POWER STATUS
 	States state;
+	CoreStatus power;
 	state = S_Core;
+	power = ThreeCore;
+	
   /* USER CODE END 1 */
   
 
@@ -112,95 +119,65 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+		//Send its power signal
+		HAL_GPIO_WritePin(GPIOC, C2_Power_Pin, GPIO_PIN_SET);
     /* USER CODE END WHILE */
-		if(trigger == 1){
-			switch(state){
-				case P_Core:
-					state = S_Core;
-					state = state_checker(state);
-					break;
-				case S_Core:
-					state = Reboot;
-					break;
-				case Reboot:
-					state = Sleep;
-					break;
-				case Sleep:
-					state = P_Core;
-				  state = state_checker(state);
-					break;
-				case Killed:
-					break;
-			}
-			snprintf((char *)Msg1, sizeof(Msg1), "\r\nState: %d\r\n",  state);
-			HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
-			trigger = 0;
-		}
-		display_LED(&state);
-		HAL_Delay(500);
+		power = power_checker();
+			if(trigger == 1){
+					switch(state){
+						case P_Core:
+							if(ThreeCore || TwoCore) state = S_Core;
+							else state = P_Core;
+							//state = state_checker(state);
+							break;
+						case S_Core:
+							if(ThreeCore || TwoCore) state = Reboot;
+							//If you are the only core
+							if(OneCore) state = P_Core;
+							break;
+						case Reboot:
+							if(ThreeCore) state = Sleep;
+						  else if(TwoCore) state = P_Core;
+							break;
+						case Sleep:
+							state = P_Core;
+							break;
+						case Killed:
+							state = Killed;
+							HAL_GPIO_WritePin(GPIOC, C2_Power_Pin, GPIO_PIN_RESET);
+							break;
+					}
+					snprintf((char *)Msg1, sizeof(Msg1), "\r\nState: %d\r\n",  state);
+					HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
+					trigger = 0;
+				}
+				//display_LED(&state);
+				HAL_Delay(500);
+    /* USER CODE BEGIN 3 */
   }
+  /* USER CODE END 3 */
 }
 
-
-States state_checker(States my_state){
-	uint8_t complete = 0;
-	States curr_state;
-	uint8_t C1_state = Combine(Read(GPIOA, C1_PowerIn_Pin), Read(GPIOA, C1_S1In_Pin), Read(GPIOB, C1_S2In_Pin));
-	uint8_t C2_state = Combine(Read(GPIOC, C2_Power_Pin), Read(GPIOA, C2_S1_Pin), Read(GPIOA, C2_S2_Pin));
-	uint8_t C3_state = Combine(Read(GPIOC, C3_PowerIn_Pin), Read(GPIOC, C3_S1In_Pin), Read(GPIOC, C3_S2In_Pin));
-
-	if(C2_state == C1_state || C2_state == C3_state){
-		snprintf((char *)Msg1, sizeof(Msg1), "\r\nBOUNCE\r\n");
-	  HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
-		
-		switch(C1_state) {
-			case P_Core:
-				curr_state = S_Core;
-				break;
-			case S_Core:
-				curr_state = Sleep;
-				break;
-			case Reboot:
-				break;
-			case Sleep:
-				curr_state = P_Core;
-				break;
-			case Killed:
-				break;
-			default:
-				break;
-		}
-		
-		return curr_state;
-	} else if(C2_state == C3_state){
-		snprintf((char *)Msg1, sizeof(Msg1), "\r\nBOUNCE\r\n");
-	  HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
-		
-		switch(C3_state) {
-			case P_Core:
-				curr_state = S_Core;
-				break;
-			case S_Core:
-				curr_state = Sleep;
-				break;
-			case Reboot:
-				break;
-			case Sleep:
-				curr_state = P_Core;
-				break;
-			case Killed:
-				break;
-			default:
-				break;
-		}
-		
-		return curr_state;
-	} else {
-		return my_state;
+CoreStatus power_checker(void){
+	//Assuming Core 2 is alive (I mean how else will it enter this function
+	if(HAL_GPIO_ReadPin(GPIOA, C1_PowerIn_Pin) == GPIO_PIN_SET 
+			&& HAL_GPIO_ReadPin(GPIOC, C3_PowerIn_Pin) == GPIO_PIN_SET){
+				return ThreeCore;
 	}
+	else if (HAL_GPIO_ReadPin(GPIOA, C1_PowerIn_Pin) == GPIO_PIN_RESET 
+			&& HAL_GPIO_ReadPin(GPIOC, C3_PowerIn_Pin) == GPIO_PIN_SET){
+				return TwoCore;
+	}
+	else if(HAL_GPIO_ReadPin(GPIOA, C1_PowerIn_Pin) == GPIO_PIN_SET 
+			&& HAL_GPIO_ReadPin(GPIOC, C3_PowerIn_Pin) == GPIO_PIN_RESET){
+				return TwoCore;
+	}
+	else if(HAL_GPIO_ReadPin(GPIOA, C1_PowerIn_Pin) == GPIO_PIN_RESET 
+			&& HAL_GPIO_ReadPin(GPIOC, C3_PowerIn_Pin) == GPIO_PIN_RESET){
+				return OneCore;
+	}
+	
 }
-
-
 
 void display_LED(States *state){
 		switch(*state){
@@ -231,8 +208,6 @@ void display_LED(States *state){
 				break;
 		}
 }
-
-
 
 
 /**
