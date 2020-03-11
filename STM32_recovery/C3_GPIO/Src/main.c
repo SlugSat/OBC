@@ -21,6 +21,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include <stdio.h>
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -46,8 +47,6 @@ typedef enum{
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-#define Power 1
-#define NoPower 0
 
 #define Read(gpio, pin) HAL_GPIO_ReadPin(gpio, pin)
 #define Combine(pin1, pin2, pin3) (pin1 << 2) | (pin2 << 1) | pin1
@@ -122,15 +121,11 @@ int main(void)
     while (1)
   {
     /* USER CODE END WHILE */
-		snprintf((char *)Msg1, sizeof(Msg1), "\r\nState: %d\r\n",  state);
-		HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
-		
-		HAL_GPIO_WritePin(GPIOC, C3_Power_Pin, GPIO_PIN_SET);
-		HAL_GPIO_WritePin(GPIOC, GreenLED_Pin, GPIO_PIN_SET);
-		
+
     /* USER CODE BEGIN 3 */
 		power = power_checker();
-		/*
+		snprintf((char *)Msg1, sizeof(Msg1), "\r\nstate: %d\r\n", state);
+					HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
 			if(trigger == 1){
 					switch(state){
 						case P_Core:
@@ -158,26 +153,32 @@ int main(void)
 					trigger = 0;
 				}
 			else{
-			*/
 				if(state == Sleep){
 					snprintf((char *)Msg1, sizeof(Msg1), "\r\nSleep soon\r\n");
 					HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
-					HAL_Delay(2500);
+					//HAL_Delay(2500);
 					//going to sleep
 					GOTHEFUCKTOSLEEP();
 					//woke up
+					snprintf((char *)Msg1, sizeof(Msg1), "\r\nWoke Up\r\n");
+					HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
+					/*
 					for(int i = 0; i < 5; ++i){
 						HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
 						HAL_Delay(150);
 					}
+					*/
 				}
-			//}
+			}
+			HAL_Delay(500);
 				//display_LED(&state);
   }
   /* USER CODE END 3 */
 }
 
 
+
+/*PRIV FUNCTIONS*/
 CoreStatus power_checker(void){
 	//Assuming Core 2 is alive (I mean how else will it enter this function
 	if(HAL_GPIO_ReadPin(GPIOA, C1_PowerIn_Pin) == GPIO_PIN_SET 
@@ -200,12 +201,16 @@ CoreStatus power_checker(void){
 
 
 void GOTHEFUCKTOSLEEP(void){
+	
+		snprintf((char *)Msg1, sizeof(Msg1), "\r\nIn sleep fnc\r\n");
+		HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
 		HAL_SuspendTick();
 
 		HAL_PWR_EnterSLEEPMode(PWR_MAINREGULATOR_ON, PWR_SLEEPENTRY_WFI);
-		
+
 		HAL_ResumeTick();
-	
+		snprintf((char *)Msg1, sizeof(Msg1), "\r\nExit sleep fnc\r\n");
+		HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
 }
 
 /**
@@ -298,9 +303,9 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(C3_Power_GPIO_Port, C3_Power_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pin : PC13 */
-  GPIO_InitStruct.Pin = GPIO_PIN_13;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+  /*Configure GPIO pins : PC13 TriggerIn_Pin */
+  GPIO_InitStruct.Pin = GPIO_PIN_13|TriggerIn_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
@@ -310,12 +315,6 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
-  /*Configure GPIO pin : TriggerIn_Pin */
-  GPIO_InitStruct.Pin = TriggerIn_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(TriggerIn_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : C2_S2In_Pin C2_S1In_Pin C2_PowerIn_Pin */
   GPIO_InitStruct.Pin = C2_S2In_Pin|C2_S1In_Pin|C2_PowerIn_Pin;
@@ -345,6 +344,9 @@ static void MX_GPIO_Init(void)
   /* EXTI interrupt init*/
   HAL_NVIC_SetPriority(EXTI4_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(EXTI4_IRQn);
+
+  HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
 
 }
 
