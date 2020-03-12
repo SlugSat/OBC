@@ -86,7 +86,7 @@ int main(void)
   /* USER CODE BEGIN 1 */
 	States state;
 	CoreStatus power;
-	state = Sleep;
+	state = S_Core;
 	power = ThreeCore;
   /* USER CODE END 1 */
   
@@ -120,12 +120,13 @@ int main(void)
   /* USER CODE BEGIN WHILE */
     while (1)
   {
-    /* USER CODE END WHILE */
-
+		
+		HAL_GPIO_WritePin(GPIOC, C3_Power_Pin, GPIO_PIN_SET);
     /* USER CODE BEGIN 3 */
+		
+		//POLL POWER STATUS FROM EACH CORE
 		power = power_checker();
-		snprintf((char *)Msg1, sizeof(Msg1), "\r\nstate: %d\r\n", state);
-					HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
+ 
 			if(trigger == 1){
 					switch(state){
 						case P_Core:
@@ -143,6 +144,7 @@ int main(void)
 						  else if(power == TwoCore) state = P_Core;
 							break;
 						case Sleep:
+							//UNIQUE TO THREECORE
 							state = P_Core;
 							break;
 						case Killed:
@@ -150,9 +152,12 @@ int main(void)
 							HAL_GPIO_WritePin(GPIOC, C3_Power_Pin, GPIO_PIN_RESET);
 							break;
 					}
+					//RESET TRIGGER
 					trigger = 0;
-				}
+			}
+			#if 0
 			else{
+				
 				if(state == Sleep){
 					snprintf((char *)Msg1, sizeof(Msg1), "\r\nSleep soon\r\n");
 					HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
@@ -162,16 +167,21 @@ int main(void)
 					//woke up
 					snprintf((char *)Msg1, sizeof(Msg1), "\r\nWoke Up\r\n");
 					HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
+					
 					/*
 					for(int i = 0; i < 5; ++i){
 						HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
 						HAL_Delay(150);
 					}
 					*/
-				}
-			}
-			HAL_Delay(500);
-				//display_LED(&state);
+			}				
+		}
+		
+		#endif
+		snprintf((char *)Msg1, sizeof(Msg1), "\r\nstate:%d %d\r\n", state, power);
+		HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
+		HAL_Delay(500);
+		//display_LED(&state);
   }
   /* USER CODE END 3 */
 }
@@ -354,10 +364,12 @@ static void MX_GPIO_Init(void)
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 	if(trigger == 0){
 			if(GPIO_Pin == TriggerIn_Pin){
-		//HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_4);
-			//HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+				HAL_GPIO_TogglePin(GPIOA, GreenLED_Pin);
 				trigger = 1;
 		}
+	}
+	else{
+		__NOP();
 	}
 }		
 	
