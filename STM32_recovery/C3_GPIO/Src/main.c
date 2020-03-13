@@ -20,11 +20,10 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include <stdio.h>
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include <stdio.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -86,7 +85,7 @@ int main(void)
   /* USER CODE BEGIN 1 */
 	States state;
 	CoreStatus power;
-	state = S_Core;
+	state = P_Core;
 	power = ThreeCore;
   /* USER CODE END 1 */
   
@@ -118,34 +117,41 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-    while (1)
+  while (1)
   {
-		
-		HAL_GPIO_WritePin(GPIOC, C3_Power_Pin, GPIO_PIN_SET);
+    /* USER CODE END WHILE */
+
     /* USER CODE BEGIN 3 */
 		
 		//POLL POWER STATUS FROM EACH CORE
-		power = power_checker();
+		//spower = power_checker();
  
 			if(trigger == 1){
 					switch(state){
 						case P_Core:
-							if( power == ThreeCore || power == TwoCore) state = S_Core;
-							else state = P_Core;
+							//if( power == ThreeCore || power == TwoCore) state = S_Core;
+							//else state = P_Core;
+							state = S_Core;
+					//	HAL_GPIO_WritePin(GPIOA, GreenLED_Pin, GPIO_PIN_SET);
 							//state = state_checker(state);
 							break;
 						case S_Core:
-							if(power == ThreeCore || power == TwoCore) state = Reboot;
+							//if(power == ThreeCore || power == TwoCore) state = Reboot;
 							//If you are the only core
-							if(power == OneCore) state = P_Core;
+							//if(power == OneCore) state = P_Core;
+							state = Reboot;
+						//HAL_GPIO_WritePin(GPIOA, GreenLED_Pin, GPIO_PIN_SET);
 							break;
 						case Reboot:
-							if(power == ThreeCore) state = Sleep;
-						  else if(power == TwoCore) state = P_Core;
+							//if(power == ThreeCore) state = Sleep;
+						  //else if(power == TwoCore) state = P_Core;
+							state = Sleep;
+						//HAL_GPIO_WritePin(GPIOA, GreenLED_Pin, GPIO_PIN_SET);
 							break;
 						case Sleep:
 							//UNIQUE TO THREECORE
 							state = P_Core;
+						//HAL_GPIO_WritePin(GPIOA, GreenLED_Pin, GPIO_PIN_SET);
 							break;
 						case Killed:
 							state = Killed;
@@ -155,6 +161,7 @@ int main(void)
 					//RESET TRIGGER
 					trigger = 0;
 			}
+			//display_LED(&state);
 			#if 0
 			else{
 				
@@ -176,53 +183,57 @@ int main(void)
 					*/
 			}				
 		}
-		
 		#endif
+		if(state == Sleep){
+			//HAL_GPIO_WritePin(GPIOA, GreenLED_Pin, GPIO_PIN_SET);
+			snprintf((char *)Msg1, sizeof(Msg1), "\r\nSleep soon\r\n");
+			HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
+			
+			GOTHEFUCKTOSLEEP();
+					for(int i = 0; i < 5; ++i){
+						HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+						HAL_Delay(150);
+					}
+					snprintf((char *)Msg1, sizeof(Msg1), "\r\nWoke Up\r\n");
+					HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
+		}
 		snprintf((char *)Msg1, sizeof(Msg1), "\r\nstate:%d %d\r\n", state, power);
 		HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
-		HAL_Delay(500);
-		//display_LED(&state);
+		display_LED(&state);
+		//HAL_Delay(500);
+		
   }
   /* USER CODE END 3 */
 }
-
-
-
-/*PRIV FUNCTIONS*/
-CoreStatus power_checker(void){
-	//Assuming Core 2 is alive (I mean how else will it enter this function
-	if(HAL_GPIO_ReadPin(GPIOA, C1_PowerIn_Pin) == GPIO_PIN_SET 
-			&& HAL_GPIO_ReadPin(GPIOC, C2_PowerIn_Pin) == GPIO_PIN_SET){
-				return ThreeCore;
-	}
-	else if (HAL_GPIO_ReadPin(GPIOA, C1_PowerIn_Pin) == GPIO_PIN_RESET 
-			&& HAL_GPIO_ReadPin(GPIOC, C2_PowerIn_Pin) == GPIO_PIN_SET){
-				return TwoCore;
-	}
-	else if(HAL_GPIO_ReadPin(GPIOA, C1_PowerIn_Pin) == GPIO_PIN_SET 
-			&& HAL_GPIO_ReadPin(GPIOC, C2_PowerIn_Pin) == GPIO_PIN_RESET){
-				return TwoCore;
-	}
-	else if(HAL_GPIO_ReadPin(GPIOA, C1_PowerIn_Pin) == GPIO_PIN_RESET 
-			&& HAL_GPIO_ReadPin(GPIOC, C2_PowerIn_Pin) == GPIO_PIN_RESET){
-				return OneCore;
-	}
+void display_LED(States *state){
+		switch(*state){
+			case P_Core:
+				HAL_GPIO_WritePin(GPIOC, C3_Power_Pin, GPIO_PIN_SET);
+				HAL_GPIO_WritePin(GPIOA, C3_S1_Pin, GPIO_PIN_SET);
+				HAL_GPIO_WritePin(GPIOA, C3_S2_Pin, GPIO_PIN_SET);
+				break;
+			case S_Core:
+				HAL_GPIO_WritePin(GPIOC, C3_Power_Pin, GPIO_PIN_SET);
+				HAL_GPIO_WritePin(GPIOA, C3_S1_Pin, GPIO_PIN_RESET);
+				HAL_GPIO_WritePin(GPIOA, C3_S2_Pin, GPIO_PIN_SET);					
+				break;
+			case Reboot:
+				HAL_GPIO_WritePin(GPIOC, C3_Power_Pin, GPIO_PIN_RESET);
+				HAL_GPIO_WritePin(GPIOA, C3_S1_Pin, GPIO_PIN_RESET);
+				HAL_GPIO_WritePin(GPIOA, C3_S2_Pin, GPIO_PIN_SET);
+				break;
+			case Sleep:
+				HAL_GPIO_WritePin(GPIOC, C3_Power_Pin, GPIO_PIN_SET);
+				HAL_GPIO_WritePin(GPIOA, C3_S1_Pin, GPIO_PIN_SET);
+				HAL_GPIO_WritePin(GPIOA, C3_S2_Pin, GPIO_PIN_RESET);
+				break;
+			case Killed:
+				HAL_GPIO_WritePin(GPIOC, C3_Power_Pin, GPIO_PIN_RESET);
+				HAL_GPIO_WritePin(GPIOA, C3_S1_Pin, GPIO_PIN_RESET);
+				HAL_GPIO_WritePin(GPIOA, C3_S2_Pin, GPIO_PIN_RESET);
+				break;
+		}
 }
-
-
-void GOTHEFUCKTOSLEEP(void){
-	
-		snprintf((char *)Msg1, sizeof(Msg1), "\r\nIn sleep fnc\r\n");
-		HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
-		HAL_SuspendTick();
-
-		HAL_PWR_EnterSLEEPMode(PWR_MAINREGULATOR_ON, PWR_SLEEPENTRY_WFI);
-
-		HAL_ResumeTick();
-		snprintf((char *)Msg1, sizeof(Msg1), "\r\nExit sleep fnc\r\n");
-		HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
-}
-
 /**
   * @brief System Clock Configuration
   * @retval None
@@ -253,7 +264,7 @@ void SystemClock_Config(void)
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
 
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0) != HAL_OK)
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_1) != HAL_OK)
   {
     Error_Handler();
   }
@@ -363,8 +374,8 @@ static void MX_GPIO_Init(void)
 /* USER CODE BEGIN 4 */
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 	if(trigger == 0){
-			if(GPIO_Pin == TriggerIn_Pin){
-				HAL_GPIO_TogglePin(GPIOA, GreenLED_Pin);
+			if(GPIO_Pin == GPIO_PIN_13 || GPIO_Pin == GPIO_PIN_4){
+				//HAL_GPIO_TogglePin(GPIOA, GreenLED_Pin);
 				trigger = 1;
 		}
 	}
@@ -372,7 +383,16 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 		__NOP();
 	}
 }		
+
+void GOTHEFUCKTOSLEEP(void){
+		HAL_SuspendTick();
+
+		HAL_PWR_EnterSLEEPMode(PWR_MAINREGULATOR_ON, PWR_SLEEPENTRY_WFI);
+		
+		HAL_ResumeTick();
 	
+}
+
 /* USER CODE END 4 */
 
 /**

@@ -1,7 +1,7 @@
 [PreviousGenFiles]
-HeaderPath=C:/Users/mykang/Desktop/OBC/OBC/STM32_recovery/C3_GPIO/Inc
+HeaderPath=C:/Users/andyc/Desktop/OBC Repo/OBC/STM32_recovery/C3_GPIO/Inc
 HeaderFiles=stm32l1xx_it.h;stm32l1xx_hal_conf.h;main.h;
-SourcePath=C:/Users/mykang/Desktop/OBC/OBC/STM32_recovery/C3_GPIO/Src
+SourcePath=C:/Users/andyc/Desktop/OBC Repo/OBC/STM32_recovery/C3_GPIO/Src
 SourceFiles=stm32l1xx_it.c;stm32l1xx_hal_msp.c;main.c;
 
 [PreviousLibFiles]

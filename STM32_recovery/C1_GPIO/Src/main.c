@@ -20,11 +20,10 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include <stdio.h>
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include <stdio.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -33,6 +32,9 @@ typedef enum{
 	P_Core = 0x7, S_Core = 0x5, Reboot = 0x1, Sleep = 0x6, Killed = 0x0 
 }States;
 
+typedef enum{
+	ThreeCore = 0, TwoCore = 1, OneCore = 2
+}CoreStatus;
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -41,11 +43,11 @@ typedef enum{
 #define NoPower 0
 
 /* USER CODE END PD */
-#define Read(gpio, pin) HAL_GPIO_ReadPin(gpio, pin)
-#define Combine(pin1, pin2, pin3) (pin1 << 2) | (pin2 << 1) | pin1
+
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-
+#define Read(gpio, pin) HAL_GPIO_ReadPin(gpio, pin)
+#define Combine(pin1, pin2, pin3) (pin1 << 2) | (pin2 << 1) | pin1
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -62,7 +64,6 @@ UART_HandleTypeDef huart3;
 	int trigger = 0;
 	int transitionComplete = 0;
 /* USER CODE END PV */
-void display_LED(States *state);
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
@@ -75,6 +76,7 @@ static void MX_SPI3_Init(void);
 static void MX_USART3_UART_Init(void);
 /* USER CODE BEGIN PFP */
 States state_checker(States my_state);
+CoreStatus power_checker(void);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -89,8 +91,11 @@ States state_checker(States my_state);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
+	//INTIALIZE POWER AND STATE
 	States state;
+	CoreStatus power;
 	state = P_Core;
+	power = ThreeCore;
   /* USER CODE END 1 */
   
 
@@ -129,135 +134,59 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-		
-		if(trigger == 1){
-			switch(state){
-				case P_Core: 	
-					state = S_Core;
+		power = power_checker();
+			if(trigger == 1){
+				switch(state){
+					case P_Core: 	
+						state = S_Core;
+						//state = state_checker(state);
+						break;
+					case S_Core:
+						state = Reboot;
+						//state = state_checker(state);
+						break;
+					case Reboot:
+						state = Sleep;
 					//state = state_checker(state);
-					break;
-				case S_Core:
-					state = Reboot;
+						break;
+					case Sleep:
+						state = P_Core;
 					//state = state_checker(state);
-					break;
-				case Reboot:
-					state = Sleep;
-				//state = state_checker(state);
-					break;
-				case Sleep:
-					state = P_Core;
-				//state = state_checker(state);
-					break;
-				case Killed:
-					break;
+						break;
+					case Killed:
+						break;
+				}
+				snprintf((char *)Msg1, sizeof(Msg1), "\r\nState: %d\r\n",  state);
+				HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
+				trigger = 0;
 			}
-			snprintf((char *)Msg1, sizeof(Msg1), "\r\nState: %d\r\n",  state);
-			HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
-			trigger = 0;
-		}
-		display_LED(&state);
-		HAL_Delay(500);
+			//display_LED(&state);
+			HAL_Delay(500);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
 }
 
 
-States state_checker(States my_state){
-	uint8_t complete = 0;
-	States curr_state;
-	uint8_t C1_state = Combine(Read(GPIOC, C1_Power_Pin), Read(GPIOA, C1_S1_Pin), Read(GPIOA, C1_S2_Pin));
-	uint8_t C2_state = Combine(Read(GPIOA, C2_PowerIn_Pin), Read(GPIOA, C2_S1In_Pin), Read(GPIOB, C2_S2In_Pin));
-	//uint8_t C3_state = Combine(Read(GPIOC, C3_PowerIn_Pin), Read(GPIOC, C3_S1In_Pin), Read(GPIOC, C3_S2In_Pin));
-
-	if(my_state == C2_state ){
-		snprintf((char *)Msg1, sizeof(Msg1), "\r\nBOUNCE\r\n");
-	  HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
-		switch(C2_state) {
-			case P_Core:
-				curr_state = S_Core;
-				break;
-			case S_Core:
-				curr_state = Sleep;
-				break;
-			case Reboot:
-				break;
-			case Sleep:
-				curr_state = P_Core;
-				break;
-			case Killed:
-				break;
-			default:
-				break;
-		}
-		
-		return curr_state;
-	} 
-	/*
-	else if(C2_state == C3_state){
-		snprintf((char *)Msg1, sizeof(Msg1), "\r\nBOUNCE\r\n");
-	  HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
-		
-		switch(C3_state) {
-			case P_Core:
-				curr_state = S_Core;
-				break;
-			case S_Core:
-				curr_state = Sleep;
-				break;
-			case Reboot:
-				break;
-			case Sleep:
-				curr_state = P_Core;
-				break;
-			case Killed:
-				break;
-			default:
-				break;
-		}
-		
-		return curr_state;
-	} 
-	*/
-	else {
-		return my_state;
+CoreStatus power_checker(void){
+	//Assuming Core 2 is alive (I mean how else will it enter this function
+	if(HAL_GPIO_ReadPin(GPIOA, C3_PowerIn_Pin) == GPIO_PIN_SET 
+			&& HAL_GPIO_ReadPin(GPIOC, C2_PowerIn_Pin) == GPIO_PIN_SET){
+				return ThreeCore;
+	}
+	else if (HAL_GPIO_ReadPin(GPIOA, C3_PowerIn_Pin) == GPIO_PIN_RESET 
+			&& HAL_GPIO_ReadPin(GPIOC, C2_PowerIn_Pin) == GPIO_PIN_SET){
+				return TwoCore;
+	}
+	else if(HAL_GPIO_ReadPin(GPIOA, C3_PowerIn_Pin) == GPIO_PIN_SET 
+			&& HAL_GPIO_ReadPin(GPIOC, C2_PowerIn_Pin) == GPIO_PIN_RESET){
+				return TwoCore;
+	}
+	else if(HAL_GPIO_ReadPin(GPIOA, C3_PowerIn_Pin) == GPIO_PIN_RESET 
+			&& HAL_GPIO_ReadPin(GPIOC, C2_PowerIn_Pin) == GPIO_PIN_RESET){
+				return OneCore;
 	}
 }
-
-
-
-
-void display_LED(States *state){
-		switch(*state){
-			case P_Core:
-				HAL_GPIO_WritePin(GPIOC, C1_Power_Pin, GPIO_PIN_SET);
-				HAL_GPIO_WritePin(GPIOA, C1_S1_Pin, GPIO_PIN_SET);
-				HAL_GPIO_WritePin(GPIOA, C1_S2_Pin, GPIO_PIN_SET);
-				break;
-			case S_Core:
-				HAL_GPIO_WritePin(GPIOC, C1_Power_Pin, GPIO_PIN_SET);
-				HAL_GPIO_WritePin(GPIOA, C1_S1_Pin, GPIO_PIN_RESET);
-				HAL_GPIO_WritePin(GPIOA, C1_S2_Pin, GPIO_PIN_SET);					
-				break;
-			case Reboot:
-				HAL_GPIO_WritePin(GPIOC, C1_Power_Pin, GPIO_PIN_RESET);
-				HAL_GPIO_WritePin(GPIOA, C1_S1_Pin, GPIO_PIN_RESET);
-				HAL_GPIO_WritePin(GPIOA, C1_S2_Pin, GPIO_PIN_SET);
-				break;
-			case Sleep:
-				HAL_GPIO_WritePin(GPIOC, C1_Power_Pin, GPIO_PIN_SET);
-				HAL_GPIO_WritePin(GPIOA, C1_S1_Pin, GPIO_PIN_SET);
-				HAL_GPIO_WritePin(GPIOA, C1_S2_Pin, GPIO_PIN_RESET);
-				break;
-			case Killed:
-				HAL_GPIO_WritePin(GPIOC, C1_Power_Pin, GPIO_PIN_RESET);
-				HAL_GPIO_WritePin(GPIOA, C1_S1_Pin, GPIO_PIN_RESET);
-				HAL_GPIO_WritePin(GPIOA, C1_S2_Pin, GPIO_PIN_RESET);
-				break;
-		}
-}
-
-
 /**
   * @brief System Clock Configuration
   * @retval None
@@ -272,10 +201,8 @@ void SystemClock_Config(void)
   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
   /** Initializes the CPU, AHB and APB busses clocks 
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_MSI;
-  RCC_OscInitStruct.MSIState = RCC_MSI_ON;
-  RCC_OscInitStruct.MSICalibrationValue = 0;
-  RCC_OscInitStruct.MSIClockRange = RCC_MSIRANGE_5;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+  RCC_OscInitStruct.HSEState = RCC_HSE_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
@@ -285,7 +212,7 @@ void SystemClock_Config(void)
   */
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
-  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_MSI;
+  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_HSE;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
@@ -516,6 +443,7 @@ static void MX_GPIO_Init(void)
   GPIO_InitTypeDef GPIO_InitStruct = {0};
 
   /* GPIO Ports Clock Enable */
+  __HAL_RCC_GPIOH_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
@@ -538,6 +466,12 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(TriggerIn_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : C3_S2In_Pin C3_S1In_Pin C3_PowerIn_Pin */
+  GPIO_InitStruct.Pin = C3_S2In_Pin|C3_S1In_Pin|C3_PowerIn_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
   /*Configure GPIO pin : C2_S2In_Pin */
   GPIO_InitStruct.Pin = C2_S2In_Pin;
