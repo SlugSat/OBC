@@ -1,0 +1,24 @@
+--cpu Cortex-M3
+"recoveryskele\startup_stm32l152xe.o"
+"recoveryskele\main.o"
+"recoveryskele\stm32l1xx_it.o"
+"recoveryskele\stm32l1xx_hal_msp.o"
+"recoveryskele\fake_op.o"
+"recoveryskele\stm32l1xx_hal_tim.o"
+"recoveryskele\stm32l1xx_hal_tim_ex.o"
+"recoveryskele\stm32l1xx_hal.o"
+"recoveryskele\stm32l1xx_hal_rcc.o"
+"recoveryskele\stm32l1xx_hal_rcc_ex.o"
+"recoveryskele\stm32l1xx_hal_flash.o"
+"recoveryskele\stm32l1xx_hal_flash_ex.o"
+"recoveryskele\stm32l1xx_hal_flash_ramfunc.o"
+"recoveryskele\stm32l1xx_hal_gpio.o"
+"recoveryskele\stm32l1xx_hal_dma.o"
+"recoveryskele\stm32l1xx_hal_pwr.o"
+"recoveryskele\stm32l1xx_hal_pwr_ex.o"
+"recoveryskele\stm32l1xx_hal_cortex.o"
+"recoveryskele\system_stm32l1xx.o"
+--library_type=microlib --strict --scatter "RecoverySkele\RecoverySkele.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "RecoverySkele.map" -o RecoverySkele\RecoverySkele.axf
