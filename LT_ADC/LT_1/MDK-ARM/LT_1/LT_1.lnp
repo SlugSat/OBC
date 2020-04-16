@@ -1,0 +1,28 @@
+--cpu Cortex-M3
+"lt_1\startup_stm32l152xe.o"
+"lt_1\main.o"
+"lt_1\stm32l1xx_it.o"
+"lt_1\stm32l1xx_hal_msp.o"
+"lt_1\stm32l1xx_hal_adc.o"
+"lt_1\stm32l1xx_hal_adc_ex.o"
+"lt_1\stm32l1xx_hal.o"
+"lt_1\stm32l1xx_hal_rcc.o"
+"lt_1\stm32l1xx_hal_rcc_ex.o"
+"lt_1\stm32l1xx_hal_flash.o"
+"lt_1\stm32l1xx_hal_flash_ex.o"
+"lt_1\stm32l1xx_hal_flash_ramfunc.o"
+"lt_1\stm32l1xx_hal_gpio.o"
+"lt_1\stm32l1xx_hal_dma.o"
+"lt_1\stm32l1xx_hal_pwr.o"
+"lt_1\stm32l1xx_hal_pwr_ex.o"
+"lt_1\stm32l1xx_hal_cortex.o"
+"lt_1\stm32l1xx_hal_dac.o"
+"lt_1\stm32l1xx_hal_dac_ex.o"
+"lt_1\stm32l1xx_hal_tim.o"
+"lt_1\stm32l1xx_hal_tim_ex.o"
+"lt_1\stm32l1xx_hal_uart.o"
+"lt_1\system_stm32l1xx.o"
+--library_type=microlib --strict --scatter "LT_1\LT_1.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "LT_1.map" -o LT_1\LT_1.axf

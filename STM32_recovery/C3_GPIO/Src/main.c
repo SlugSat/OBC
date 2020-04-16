@@ -85,7 +85,7 @@ int main(void)
   /* USER CODE BEGIN 1 */
 	States state;
 	CoreStatus power;
-	state = S_Core;
+	state = Sleep;
 	power = ThreeCore;
   /* USER CODE END 1 */
   
