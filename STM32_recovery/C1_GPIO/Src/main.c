@@ -135,17 +135,24 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+				HAL_GPIO_WritePin(GPIOC, C1_Power_Pin, GPIO_PIN_SET);
+				HAL_GPIO_WritePin(GPIOA, C1_S1_Pin, GPIO_PIN_SET);
+				HAL_GPIO_WritePin(GPIOA, C1_S2_Pin, GPIO_PIN_SET);
+		
+		#if 0
     /* USER CODE END WHILE */
 			if(trigger == 1){
 					switch(state){
 						case P_Core:
+							HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
 							//if( power == ThreeCore || power == TwoCore) state = S_Core;
 							//else state = P_Core;
 							state = S_Core;
-					//	HAL_GPIO_WritePin(GPIOA, GreenLED_Pin, GPIO_PIN_SET);
+					    //HAL_GPIO_WritePin(GPIOA, GreenLED_Pin, GPIO_PIN_SET);
 							//state = state_checker(state);
 							break;
 						case S_Core:
+							HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
 							//if(power == ThreeCore || power == TwoCore) state = Reboot;
 							//If you are the only core
 							//if(power == OneCore) state = P_Core;
@@ -153,12 +160,15 @@ int main(void)
 						//HAL_GPIO_WritePin(GPIOA, GreenLED_Pin, GPIO_PIN_SET);
 							break;
 						case Reboot:
+							HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
 							//if(power == ThreeCore) state = Sleep;
 						  //else if(power == TwoCore) state = P_Core;
 							state = Sleep;
 						//HAL_GPIO_WritePin(GPIOA, GreenLED_Pin, GPIO_PIN_SET);
 							break;
 						case Sleep:
+							//HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
+							//GOTHEFUCKTOSLEEP();
 							//UNIQUE TO THREECORE
 							state = P_Core;
 						//HAL_GPIO_WritePin(GPIOA, GreenLED_Pin, GPIO_PIN_SET);
@@ -171,6 +181,9 @@ int main(void)
 					//RESET TRIGGER
 					trigger = 0;
 			}
+			#endif
+			
+			
 			//display_LED(&state);
 			#if 0
 			else{
@@ -194,6 +207,7 @@ int main(void)
 			}				
 		}
 		#endif
+		#if 0
 		if(state == Sleep){
 			//HAL_GPIO_WritePin(GPIOA, GreenLED_Pin, GPIO_PIN_SET);
 			snprintf((char *)Msg1, sizeof(Msg1), "\r\nSleep soon\r\n");
@@ -201,15 +215,16 @@ int main(void)
 			
 			GOTHEFUCKTOSLEEP();
 					for(int i = 0; i < 5; ++i){
-						HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
-						HAL_Delay(150);
+						HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
+						//HAL_Delay(100);
 					}
 					snprintf((char *)Msg1, sizeof(Msg1), "\r\nWoke Up\r\n");
 					HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
 		}
 		snprintf((char *)Msg1, sizeof(Msg1), "\r\nstate:%d %d\r\n", state, power);
 		HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
-		display_LED(&state);
+		#endif
+		//display_LED(&state);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -217,6 +232,8 @@ int main(void)
 
 
 void display_LED(States *state){
+		snprintf((char *)Msg1, sizeof(Msg1), "\r\nstate:%d\r\n", *state);
+		HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
 		switch(*state){
 			case P_Core:
 				HAL_GPIO_WritePin(GPIOC, C1_Power_Pin, GPIO_PIN_SET);
