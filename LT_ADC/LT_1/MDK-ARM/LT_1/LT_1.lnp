@@ -16,6 +16,8 @@
 "lt_1\stm32l1xx_hal_pwr.o"
 "lt_1\stm32l1xx_hal_pwr_ex.o"
 "lt_1\stm32l1xx_hal_cortex.o"
+"lt_1\stm32l1xx_hal_dac.o"
+"lt_1\stm32l1xx_hal_dac_ex.o"
 "lt_1\stm32l1xx_hal_tim.o"
 "lt_1\stm32l1xx_hal_tim_ex.o"
 "lt_1\stm32l1xx_hal_uart.o"

@@ -43,6 +43,8 @@
 /* Private variables ---------------------------------------------------------*/
 ADC_HandleTypeDef hadc;
 
+DAC_HandleTypeDef hdac;
+
 UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
@@ -54,6 +56,7 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_ADC_Init(void);
 static void MX_USART2_UART_Init(void);
+static void MX_DAC_Init(void);
 /* USER CODE BEGIN PFP */
 char Msg1[70] = {0};
 /* USER CODE END PFP */
@@ -61,7 +64,8 @@ char Msg1[70] = {0};
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 uint32_t adcVal0;
-double adcVal1;
+float adcVal1;
+uint8_t dac;
 uint32_t deltaV;
 /* USER CODE END 0 */
 
@@ -72,7 +76,7 @@ uint32_t deltaV;
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-
+	deltaV = 0.0;
   /* USER CODE END 1 */
   
 
@@ -96,6 +100,7 @@ int main(void)
   MX_GPIO_Init();
   MX_ADC_Init();
   MX_USART2_UART_Init();
+  MX_DAC_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
@@ -110,24 +115,26 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 		HAL_ADC_Start(&hadc);
+		HAL_DAC_Start(&hdac, DAC_CHANNEL_1);
+
 		if( HAL_ADC_PollForConversion(&hadc,5) == HAL_OK){
 			adcVal0 = HAL_ADC_GetValue(&hadc);
 		}
 		
-		
-		
 		/*
-		Assuming output range is from 0 to 4 volts
+		Assuming output range is from 0 to 3.3 volts
 		output = output_start + ((output_end - output_start) / (input_end - input_start)) * (input - input_start)	
 		*/
 		
-		adcVal1 = ((3.3 * (double)adcVal0) / 255); 
-		
-		//adcVal1 = adcVal0 / (255 * 5);
-		//adcVal1 = adcVal0 / 4095;
-		//snprintf((char *)Msg1, sizeof(Msg1), "\r\nADC Value: %d\r\n",  adcVal1);
+		adcVal1 = ((3.3 * (float)adcVal0) / 255) + deltaV;
+		//snprintf((char *)Msg1, sizeof(Msg1), "\r\nADC Value: %lf\r\n",  adcVal1);
 		//HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
-		//HAL_UART_Transmit(&huart2, (uint8_t *)adcVal0, sizeof(adcVal0), 1);
+		//HAL_DAC_SetValue(&hdac, DAC_CHANNEL_1, DAC_ALIGN_8B_R, adcVal1);
+		//convert back from float to uint8_t
+		dac = (uint16_t) (adcVal1 * 255) / 3.3;
+		HAL_DAC_SetValue(&hdac, DAC_CHANNEL_1, DAC_ALIGN_8B_R, dac);
+
+		
 		//HAL_Delay(50);
   }
   /* USER CODE END 3 */
@@ -223,6 +230,44 @@ static void MX_ADC_Init(void)
   /* USER CODE BEGIN ADC_Init 2 */
 
   /* USER CODE END ADC_Init 2 */
+
+}
+
+/**
+  * @brief DAC Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_DAC_Init(void)
+{
+
+  /* USER CODE BEGIN DAC_Init 0 */
+
+  /* USER CODE END DAC_Init 0 */
+
+  DAC_ChannelConfTypeDef sConfig = {0};
+
+  /* USER CODE BEGIN DAC_Init 1 */
+
+  /* USER CODE END DAC_Init 1 */
+  /** DAC Initialization 
+  */
+  hdac.Instance = DAC;
+  if (HAL_DAC_Init(&hdac) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /** DAC channel OUT1 config 
+  */
+  sConfig.DAC_Trigger = DAC_TRIGGER_NONE;
+  sConfig.DAC_OutputBuffer = DAC_OUTPUTBUFFER_ENABLE;
+  if (HAL_DAC_ConfigChannel(&hdac, &sConfig, DAC_CHANNEL_1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN DAC_Init 2 */
+
+  /* USER CODE END DAC_Init 2 */
 
 }
 

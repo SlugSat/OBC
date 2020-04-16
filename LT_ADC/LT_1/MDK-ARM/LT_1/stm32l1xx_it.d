@@ -23,6 +23,8 @@ lt_1\stm32l1xx_it.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_dma.h
 lt_1\stm32l1xx_it.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_cortex.h
 lt_1\stm32l1xx_it.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_adc.h
 lt_1\stm32l1xx_it.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_adc_ex.h
+lt_1\stm32l1xx_it.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_dac.h
+lt_1\stm32l1xx_it.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_dac_ex.h
 lt_1\stm32l1xx_it.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_flash.h
 lt_1\stm32l1xx_it.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_flash_ex.h
 lt_1\stm32l1xx_it.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_flash_ramfunc.h
