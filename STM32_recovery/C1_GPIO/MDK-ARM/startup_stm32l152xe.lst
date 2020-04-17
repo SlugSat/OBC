@@ -526,11 +526,11 @@ ARM Macro Assembler    Page 9
 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
 ork --depend=c1_gpio\startup_stm32l152xe.d -oc1_gpio\startup_stm32l152xe.o -I.\
-RTE\_C1_GPIO -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include -IC:\Keil
-_v5\ARM\PACK\Keil\STM32L1xx_DFP\1.2.0\Device\Include --predefine="__EVAL SETA 1
-" --predefine="__MICROLIB SETA 1" --predefine="__UVISION_VERSION SETA 527" --pr
-edefine="_RTE_ SETA 1" --predefine="STM32L152xE SETA 1" --list=startup_stm32l15
-2xe.lst startup_stm32l152xe.s
+RTE\_C1_GPIO -IC:\Users\sloan\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Cor
+e\Include -IC:\Users\sloan\AppData\Local\Arm\Packs\Keil\STM32L1xx_DFP\1.2.0\Dev
+ice\Include --predefine="__EVAL SETA 1" --predefine="__MICROLIB SETA 1" --prede
+fine="__UVISION_VERSION SETA 528" --predefine="_RTE_ SETA 1" --predefine="STM32
+L152xE SETA 1" --list=startup_stm32l152xe.lst startup_stm32l152xe.s
 
 
 

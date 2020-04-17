@@ -122,8 +122,8 @@ int main(void)
 		//Send its power signal
 		HAL_GPIO_WritePin(GPIOC, C2_Power_Pin, GPIO_PIN_SET);
     /* USER CODE END WHILE */
-		power = power_checker();
-			if(trigger == 1){
+		//power = power_checker();
+			if(trigger == 0){
 					switch(state){
 						case P_Core:
 							if(ThreeCore || TwoCore) state = S_Core;
@@ -149,7 +149,7 @@ int main(void)
 					}
 					snprintf((char *)Msg1, sizeof(Msg1), "\r\nState: %d\r\n",  state);
 					HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
-					trigger = 0;
+					trigger = 1;
 				}
 				//display_LED(&state);
 				HAL_Delay(500);
