@@ -1,0 +1,28 @@
+--cpu Cortex-M3
+"spi_fram_test_l1\startup_stm32l152xe.o"
+"spi_fram_test_l1\dateconversion.o"
+"spi_fram_test_l1\spi_fram.o"
+"spi_fram_test_l1\main.o"
+"spi_fram_test_l1\stm32l1xx_it.o"
+"spi_fram_test_l1\stm32l1xx_hal_msp.o"
+"spi_fram_test_l1\stm32l1xx_hal_spi_ex.o"
+"spi_fram_test_l1\stm32l1xx_hal_spi.o"
+"spi_fram_test_l1\stm32l1xx_hal.o"
+"spi_fram_test_l1\stm32l1xx_hal_rcc.o"
+"spi_fram_test_l1\stm32l1xx_hal_rcc_ex.o"
+"spi_fram_test_l1\stm32l1xx_hal_flash.o"
+"spi_fram_test_l1\stm32l1xx_hal_flash_ex.o"
+"spi_fram_test_l1\stm32l1xx_hal_flash_ramfunc.o"
+"spi_fram_test_l1\stm32l1xx_hal_gpio.o"
+"spi_fram_test_l1\stm32l1xx_hal_dma.o"
+"spi_fram_test_l1\stm32l1xx_hal_pwr.o"
+"spi_fram_test_l1\stm32l1xx_hal_pwr_ex.o"
+"spi_fram_test_l1\stm32l1xx_hal_cortex.o"
+"spi_fram_test_l1\stm32l1xx_hal_tim.o"
+"spi_fram_test_l1\stm32l1xx_hal_tim_ex.o"
+"spi_fram_test_l1\stm32l1xx_hal_uart.o"
+"spi_fram_test_l1\system_stm32l1xx.o"
+--library_type=microlib --strict --scatter "SPI_FRAM_test_L1\SPI_FRAM_test_L1.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "SPI_FRAM_test_L1.map" -o SPI_FRAM_test_L1\SPI_FRAM_test_L1.axf
