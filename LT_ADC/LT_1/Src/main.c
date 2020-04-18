@@ -76,7 +76,7 @@ uint32_t deltaV;
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-	deltaV = 0.0;
+	deltaV = 3.0;
   /* USER CODE END 1 */
   
 
@@ -127,6 +127,9 @@ int main(void)
 		*/
 		
 		adcVal1 = ((3.3 * (float)adcVal0) / 255) + deltaV;
+		if(adcVal1 > 3.3){
+			adcVal1 = 3.3;
+		}
 		//snprintf((char *)Msg1, sizeof(Msg1), "\r\nADC Value: %lf\r\n",  adcVal1);
 		//HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
 		//HAL_DAC_SetValue(&hdac, DAC_CHANNEL_1, DAC_ALIGN_8B_R, adcVal1);
