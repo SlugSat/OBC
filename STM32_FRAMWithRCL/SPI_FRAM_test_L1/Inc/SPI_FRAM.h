@@ -44,4 +44,6 @@ void SPI_FRAM_Write(SPI_HandleTypeDef *hspi, uint16_t address, uint8_t *pTxData,
 void Get_Lock(SPI_HandleTypeDef *hspi, UART_HandleTypeDef *huart, uint8_t timeoutThreshold);
 
 void Free_Lock(SPI_HandleTypeDef *hspi, UART_HandleTypeDef *huart);
+
+
 #endif // SPI_FRAM_LIB

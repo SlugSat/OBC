@@ -66,6 +66,7 @@ void Error_Handler(void);
 #define SPI_FRAM_MOSI_GPIO_Port GPIOA
 #define Trigger_Pin GPIO_PIN_4
 #define Trigger_GPIO_Port GPIOC
+#define Trigger_EXTI_IRQn EXTI4_IRQn
 #define SPI_FRAM_IN2_Pin GPIO_PIN_10
 #define SPI_FRAM_IN2_GPIO_Port GPIOB
 #define C3_S1_IN_Pin GPIO_PIN_12

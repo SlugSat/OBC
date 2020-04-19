@@ -23,18 +23,22 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include <stdio.h>
 #include "SPI_FRAM.h"
 #include "DateConversion.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-
+typedef enum{
+	P_Core = 0x1, S_Core = 0x2, Reboot = 0x3, Sleep = 0x4, Killed = 0x5 
+}States;
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
+#define READ 1
+#define WRITE 0
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -48,7 +52,7 @@ SPI_HandleTypeDef hspi1;
 UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
-
+int trigger = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -62,7 +66,8 @@ static void MX_USART2_UART_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+void display_LED(States *state);
+void Test_FRAM(int rw);
 /* USER CODE END 0 */
 
 /**
@@ -82,7 +87,12 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-
+	
+	//States state = S_Core;
+	
+	States state = P_Core;
+	
+	//States state = Sleep;
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -100,186 +110,67 @@ int main(void)
 
   /* USER CODE END 2 */
  
- 
-
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 	SPI_FRAM_Init(&hspi1);
-	char msg[200] = {0};
-	char msgClear[200] = {0};
+
+	uint8_t rd_flag = 0;
+	uint8_t wr_flag = 0;
 	
-	
-	uint8_t battLevel, pmState, numdataPoints, solarVector, ltStatus, mechState, numUsers, powerStatus;
-	double logTime, julianTime;
-	float longitude, latitude, altitude;
-	uint8_t longU[4] = {0};
-	uint8_t longD[8] = {0};
-	
-//	longitude = 234.54;
-//	float_to_bytes(longitude, longU);
-//	SPI_FRAM_Write(&hspi1, SPI_FRAM_LONGITUDE_ADDR, longU, 4);
-//	HAL_Delay(1);
-//	
-//	memcpy(msg, msgClear, 200);
-//	snprintf(msg, 200, "\nLongitude: %f\n", longitude); 
-//	HAL_UART_Transmit(&huart2, (uint8_t *) msg, 200*sizeof(uint8_t), 5);
-	
-	#if 1// Write to FRAM Test
-	//uint8_t longU[4] = {0};
-	//uint8_t longD[8] = {0};
-	
-	longitude = 555.5;//234.3;
-	float_to_bytes(longitude, longU);
-	SPI_FRAM_Write(&hspi1, SPI_FRAM_LONGITUDE_ADDR, longU, 4, &huart2, 5);
-	HAL_Delay(1);
-	
-	latitude = 444.4;//123.45;	
-	float_to_bytes(latitude, longU);
-	SPI_FRAM_Write(&hspi1, SPI_FRAM_LATITUDE_ADDR, longU, 4, &huart2, 5);
-	HAL_Delay(1);
-	
-	altitude = 333.3;//432.1;	
-	float_to_bytes(altitude, longU);
-	SPI_FRAM_Write(&hspi1, SPI_FRAM_ALTITUDE_ADDR, longU, 4, &huart2, 5);
-	HAL_Delay(1);
-	
-	julianTime = 2458616.719144;
-	double_to_bytes(julianTime, longD);
-	SPI_FRAM_Write(&hspi1, SPI_FRAM_TIME_ADDR, longD, 8, &huart2, 5);
-	HAL_Delay(1);
-	
-	battLevel = 0x33;
-	SPI_FRAM_Write(&hspi1, SPI_FRAM_BATT_LEVEL_ADDR, &battLevel, 1, &huart2, 5);
-	HAL_Delay(1);
-	
-	pmState = 0x02;
-	SPI_FRAM_Write(&hspi1, SPI_FRAM_PM_STATE_ADDR, &pmState, 1, &huart2, 5);
-	HAL_Delay(1);
-	
-	logTime = 2458616.760810;
-	double_to_bytes(logTime, longD);
-	SPI_FRAM_Write(&hspi1, SPI_FRAM_LOG_DATA_TIME_ADDR, longD, 8, &huart2, 5);
-	HAL_Delay(1);
-	
-	numdataPoints = 0xD3;
-	SPI_FRAM_Write(&hspi1, SPI_FRAM_NUM_DATA_ADDR, &numdataPoints, 1, &huart2, 5);
-	HAL_Delay(1);
-	
-	solarVector = 0xD3;
-	SPI_FRAM_Write(&hspi1, SPI_FRAM_SOLAR_VECTOR_ADDR, &solarVector, 1, &huart2, 5);
-	HAL_Delay(1);
-	
-	ltStatus = 0x01;
-	SPI_FRAM_Write(&hspi1, SPI_FRAM_LT_STAT_ADDR, &ltStatus, 1, &huart2, 5);
-	HAL_Delay(1);
-	
-	numUsers = 0xA9;
-	SPI_FRAM_Write(&hspi1, SPI_FRAM_LT_DAILY_USERS_ADDR, &numUsers, 1, &huart2, 5);
-	HAL_Delay(1);
-	
-	powerStatus = 0x01;
-	SPI_FRAM_Write(&hspi1, SPI_FRAM_POWER_STAT_ADDR, &powerStatus, 1, &huart2, 5);
-	HAL_Delay(1);
-	
-	mechState = 0x03;
-	SPI_FRAM_Write(&hspi1, SPI_FRAM_MECH_STATE_ADDR, &mechState, 1, &huart2, 5);
-	#endif
-	
-	#if 0
-	HAL_Delay(10);
-	uint8_t readVal[4] = {1, 2, 3, 4};
-	uint8_t readDouble[8] = {0};
-	
-	// Latitude
-	SPI_FRAM_Read(&hspi1, SPI_FRAM_LATITUDE_ADDR, readVal, 4, &huart2, 5);
-	latitude = bytes_to_float(readVal);
-	memcpy(msg, msgClear, 200);
-	snprintf(msg, 200, "\nLatitude: %f\n", latitude); 
-	HAL_UART_Transmit(&huart2, (uint8_t *) msg, strlen(msg), 5);
-	
-	// Longitude
-	SPI_FRAM_Read(&hspi1, SPI_FRAM_LONGITUDE_ADDR, readVal, 4, &huart2, 5);
-	longitude = bytes_to_float(readVal);
-	memcpy(msg, msgClear, 200);
-	snprintf(msg, 200, "\nLongitude: %f\n", longitude); 
-	HAL_UART_Transmit(&huart2, (uint8_t *) msg, strlen(msg), 5);
-	
-	// Altitude
-	SPI_FRAM_Read(&hspi1, SPI_FRAM_ALTITUDE_ADDR, readVal, 4, &huart2, 5);
-	altitude = bytes_to_float(readVal);
-	memcpy(msg, msgClear, 200);
-	snprintf(msg, 200, "\nAltitude: %f\n", altitude); 
-	HAL_UART_Transmit(&huart2, (uint8_t *) msg, strlen(msg), 5);
-	
-	// Time
-	SPI_FRAM_Read(&hspi1, SPI_FRAM_TIME_ADDR, readDouble, 8, &huart2, 5);
-	julianTime = bytes_to_double(readDouble);
-	memcpy(msg, msgClear, 200);
-	snprintf(msg, 200, "\nTime: %lf\n", julianTime); 
-	HAL_UART_Transmit(&huart2, (uint8_t *) msg, strlen(msg), 5);
-	
-	// Battery
-	SPI_FRAM_Read(&hspi1, SPI_FRAM_BATT_LEVEL_ADDR, &battLevel, 1, &huart2, 5);
-	memcpy(msg, msgClear, 200);
-	snprintf(msg, 200, "\nBattery Level: 0x%02x\n", battLevel); 
-	HAL_UART_Transmit(&huart2, (uint8_t *) msg, strlen(msg), 5);
-	
-	// Power modes state
-	SPI_FRAM_Read(&hspi1, SPI_FRAM_PM_STATE_ADDR, &pmState, 1, &huart2, 5);
-	memcpy(msg, msgClear, 200);
-	snprintf(msg, 200, "\nPModes State: 0x%02X\n", pmState); 
-	HAL_UART_Transmit(&huart2, (uint8_t *) msg, strlen(msg), 5);
-	
-	// Log data at a certain time
-	SPI_FRAM_Read(&hspi1, SPI_FRAM_LOG_DATA_TIME_ADDR, readDouble, 8, &huart2, 5);
-	logTime = bytes_to_double(readDouble);
-	memcpy(msg, msgClear, 200);
-	snprintf(msg, 200, "\nLog data time: %lf\n", logTime); 
-	HAL_UART_Transmit(&huart2, (uint8_t *) msg, strlen(msg), 5);
-	
-	// num data points logged
-	SPI_FRAM_Read(&hspi1, SPI_FRAM_NUM_DATA_ADDR, &numdataPoints, 1, &huart2, 5);
-	memcpy(msg, msgClear, 200);
-	snprintf(msg, 200, "\nNum data points: 0x%02X\n", numdataPoints); 
-	HAL_UART_Transmit(&huart2, (uint8_t *) msg, strlen(msg), 5);
-	
-	// solar vector
-	SPI_FRAM_Read(&hspi1, SPI_FRAM_SOLAR_VECTOR_ADDR, &solarVector, 1, &huart2, 5);
-	memcpy(msg, msgClear, 200);
-	snprintf(msg, 200, "\nSolar Vector: 0x%02X\n", solarVector); 
-	HAL_UART_Transmit(&huart2, (uint8_t *) msg, strlen(msg), 5);
-	
-	// LT status
-	SPI_FRAM_Read(&hspi1, SPI_FRAM_LT_STAT_ADDR, &ltStatus, 1, &huart2, 5);
-	memcpy(msg, msgClear, 200);
-	snprintf(msg, 200, "\nLT Status: 0x%02X\n", ltStatus); 
-	HAL_UART_Transmit(&huart2, (uint8_t *) msg, strlen(msg), 5);
-	
-	// Daily users
-	SPI_FRAM_Read(&hspi1, SPI_FRAM_LT_DAILY_USERS_ADDR, &numUsers, 1, &huart2, 5);
-	memcpy(msg, msgClear, 200);
-	snprintf(msg, 200, "\nDaily Users: 0x%02X\n", numUsers); 
-	HAL_UART_Transmit(&huart2, (uint8_t *) msg, strlen(msg), 5);
-	
-	// Power status
-	SPI_FRAM_Read(&hspi1, SPI_FRAM_POWER_STAT_ADDR, &powerStatus, 1, &huart2, 5);
-	memcpy(msg, msgClear, 200);
-	snprintf(msg, 200, "\nPower status: 0x%02X\n", powerStatus); 
-	HAL_UART_Transmit(&huart2, (uint8_t *) msg, strlen(msg), 5);
-	
-	// Mech state
-	SPI_FRAM_Read(&hspi1, SPI_FRAM_MECH_STATE_ADDR, &mechState, 1, &huart2, 5);
-	memcpy(msg, msgClear, 200);
-	snprintf(msg, 200, "\nMech state: 0x%02X\n", mechState); 
-	HAL_UART_Transmit(&huart2, (uint8_t *) msg, strlen(msg), 5);
-	
-	HAL_GPIO_WritePin(GPIOA, SPI_FRAM_LOCK_Pin, GPIO_PIN_SET);
-	#endif
   while (1)
   {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+		
+		switch(state){
+			case P_Core:
+				
+				//====
+				wr_flag = 0;
+				//====
+				
+				if (trigger == 1) { state = S_Core; }
+				
+				//====
+				if (rd_flag == 0) {
+					Test_FRAM(READ);
+					rd_flag = 1;
+				}
+				//====
+				
+				break;
+			case S_Core:
+				
+			  //====
+				rd_flag = 0;
+			  //====
+			
+				if (trigger == 1) { state = Reboot; }
+				
+				//====
+				if (wr_flag == 0) {
+					Test_FRAM(WRITE);
+					wr_flag = 1;
+				}
+				break;
+			case Reboot:
+				//FLASH LEDS for REBOOT
+				if (trigger == 1) { state = Sleep; }
+				break;
+			case Sleep:
+				if (trigger == 1) { state = P_Core; }
+				break;
+			case Killed:
+				state = Killed;
+				HAL_GPIO_WritePin(GPIOC, C1_Power_Pin, GPIO_PIN_RESET);
+				break;
+		}
+			//RESET TRIGGER
+		trigger = 0;	
+		display_LED(&state);
+		
+		
   }
   /* USER CODE END 3 */
 }
@@ -405,8 +296,8 @@ static void MX_GPIO_Init(void)
   GPIO_InitTypeDef GPIO_InitStruct = {0};
 
   /* GPIO Ports Clock Enable */
-  __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOC_CLK_ENABLE();
+  __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
@@ -415,11 +306,11 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(SPI_FRAM_CS_GPIO_Port, SPI_FRAM_CS_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pin : Trigger_Pin */
-  GPIO_InitStruct.Pin = Trigger_Pin;
+  /*Configure GPIO pins : PC13 Trigger_Pin */
+  GPIO_InitStruct.Pin = GPIO_PIN_13|Trigger_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(Trigger_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
   /*Configure GPIO pins : SPI_FRAM_IN2_Pin C3_S1_IN_Pin C2_S1_IN_Pin C2_S0_IN_Pin 
                            C2_Power_IN_Pin */
@@ -449,9 +340,131 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(SPI_FRAM_CS_GPIO_Port, &GPIO_InitStruct);
 
+  /* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(EXTI4_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI4_IRQn);
+
+  HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
+
 }
 
 /* USER CODE BEGIN 4 */
+
+
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
+	trigger = 1;
+}		
+
+void display_LED(States *state){
+		switch(*state){
+			case P_Core:
+				HAL_GPIO_WritePin(GPIOA, C1_Power_Pin, GPIO_PIN_RESET);
+				HAL_GPIO_WritePin(GPIOA, C1_S0_Pin, GPIO_PIN_RESET);
+				HAL_GPIO_WritePin(GPIOA, C1_S1_Pin, GPIO_PIN_SET);
+				break;
+			case S_Core:
+				HAL_GPIO_WritePin(GPIOA, C1_Power_Pin, GPIO_PIN_RESET);
+				HAL_GPIO_WritePin(GPIOA, C1_S0_Pin, GPIO_PIN_SET);
+				HAL_GPIO_WritePin(GPIOA, C1_S1_Pin, GPIO_PIN_RESET);					
+				break;
+			case Reboot:
+				HAL_GPIO_WritePin(GPIOA, C1_Power_Pin, GPIO_PIN_RESET);
+				HAL_GPIO_WritePin(GPIOA, C1_S0_Pin, GPIO_PIN_SET);
+				HAL_GPIO_WritePin(GPIOA, C1_S1_Pin, GPIO_PIN_SET);
+				break;
+			case Sleep:
+				HAL_GPIO_WritePin(GPIOA, C1_Power_Pin, GPIO_PIN_SET);
+				HAL_GPIO_WritePin(GPIOA, C1_S0_Pin, GPIO_PIN_RESET);
+				HAL_GPIO_WritePin(GPIOA, C1_S1_Pin, GPIO_PIN_RESET);
+				break;
+			case Killed:
+				HAL_GPIO_WritePin(GPIOA, C1_Power_Pin, GPIO_PIN_SET);
+				HAL_GPIO_WritePin(GPIOA, C1_S0_Pin, GPIO_PIN_RESET);
+				HAL_GPIO_WritePin(GPIOA, C1_S1_Pin, GPIO_PIN_SET);
+				break;
+		}
+}
+
+
+void Test_FRAM(int rw) {
+	char msg[200] = {0};
+	char msgClear[200] = {0};
+	
+	uint8_t battLevel, pmState, numdataPoints, solarVector, ltStatus, mechState, numUsers, powerStatus;
+	double logTime, julianTime;
+	float longitude, latitude, altitude;
+	
+	if (rw) {
+		uint8_t readVal[4] = {1, 2, 3, 4};
+		uint8_t readDouble[8] = {0};
+		
+		// Latitude
+		SPI_FRAM_Read(&hspi1, SPI_FRAM_LATITUDE_ADDR, readVal, 4, &huart2, 5);
+		latitude = bytes_to_float(readVal);
+		memcpy(msg, msgClear, 200);
+		snprintf(msg, 200, "\nLatitude: %f\n", latitude); 
+		HAL_UART_Transmit(&huart2, (uint8_t *) msg, strlen(msg), 5);
+		
+		// Longitude
+		SPI_FRAM_Read(&hspi1, SPI_FRAM_LONGITUDE_ADDR, readVal, 4, &huart2, 5);
+		longitude = bytes_to_float(readVal);
+		memcpy(msg, msgClear, 200);
+		snprintf(msg, 200, "\nLongitude: %f\n", longitude); 
+		HAL_UART_Transmit(&huart2, (uint8_t *) msg, strlen(msg), 5);
+		
+		// Altitude
+		SPI_FRAM_Read(&hspi1, SPI_FRAM_ALTITUDE_ADDR, readVal, 4, &huart2, 5);
+		altitude = bytes_to_float(readVal);
+		memcpy(msg, msgClear, 200);
+		snprintf(msg, 200, "\nAltitude: %f\n", altitude); 
+		HAL_UART_Transmit(&huart2, (uint8_t *) msg, strlen(msg), 5);
+		
+		// Time
+		SPI_FRAM_Read(&hspi1, SPI_FRAM_TIME_ADDR, readDouble, 8, &huart2, 5);
+		julianTime = bytes_to_double(readDouble);
+		memcpy(msg, msgClear, 200);
+		snprintf(msg, 200, "\nTime: %lf\n", julianTime); 
+		HAL_UART_Transmit(&huart2, (uint8_t *) msg, strlen(msg), 5);
+		
+		// Battery
+		SPI_FRAM_Read(&hspi1, SPI_FRAM_BATT_LEVEL_ADDR, &battLevel, 1, &huart2, 5);
+		memcpy(msg, msgClear, 200);
+		snprintf(msg, 200, "\nBattery Level: 0x%02x\n", battLevel); 
+		HAL_UART_Transmit(&huart2, (uint8_t *) msg, strlen(msg), 5);
+		
+		HAL_GPIO_WritePin(GPIOA, SPI_FRAM_LOCK_Pin, GPIO_PIN_SET);
+	} else {
+		uint8_t longU[4] = {0};
+		uint8_t longD[8] = {0};
+		
+		longitude = 555.5;//234.3;
+		float_to_bytes(longitude, longU);
+		SPI_FRAM_Write(&hspi1, SPI_FRAM_LONGITUDE_ADDR, longU, 4, &huart2, 5);
+		HAL_Delay(1);
+		
+		latitude = 444.4;//123.45;	
+		float_to_bytes(latitude, longU);
+		SPI_FRAM_Write(&hspi1, SPI_FRAM_LATITUDE_ADDR, longU, 4, &huart2, 5);
+		HAL_Delay(1);
+		
+		altitude = 333.3;//432.1;	
+		float_to_bytes(altitude, longU);
+		SPI_FRAM_Write(&hspi1, SPI_FRAM_ALTITUDE_ADDR, longU, 4, &huart2, 5);
+		HAL_Delay(1);
+		
+		julianTime = 2458616.719144;
+		double_to_bytes(julianTime, longD);
+		SPI_FRAM_Write(&hspi1, SPI_FRAM_TIME_ADDR, longD, 8, &huart2, 5);
+		HAL_Delay(1);
+		
+		battLevel = 0x33;
+		SPI_FRAM_Write(&hspi1, SPI_FRAM_BATT_LEVEL_ADDR, &battLevel, 1, &huart2, 5);
+		HAL_Delay(1);
+		
+		HAL_GPIO_WritePin(GPIOA, SPI_FRAM_LOCK_Pin, GPIO_PIN_SET);
+	}
+}
 
 /* USER CODE END 4 */
 

@@ -1,5 +1,5 @@
 Dependencies for Project 'SPI_FRAM_test_L1', Target 'SPI_FRAM_test_L1': (DO NOT MODIFY !)
-F (startup_stm32l152xe.s)(0x5E9A2BE6)(--cpu Cortex-M3 --pd "__EVAL SETA 1" -g --apcs=interwork --pd "__MICROLIB SETA 1"-I.\RTE\_SPI_FRAM_test_L1-IC:\Users\sloan\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\sloan\AppData\Local\Arm\Packs\Keil\STM32L1xx_DFP\1.2.0\Device\Include--pd "__UVISION_VERSION SETA 528" --pd "_RTE_ SETA 1" --pd "STM32L152xE SETA 1"--list startup_stm32l152xe.lst --xref -o spi_fram_test_l1\startup_stm32l152xe.o --depend spi_fram_test_l1\startup_stm32l152xe.d)
+F (startup_stm32l152xe.s)(0x5E9B7A57)(--cpu Cortex-M3 --pd "__EVAL SETA 1" -g --apcs=interwork --pd "__MICROLIB SETA 1"-I.\RTE\_SPI_FRAM_test_L1-IC:\Users\sloan\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\sloan\AppData\Local\Arm\Packs\Keil\STM32L1xx_DFP\1.2.0\Device\Include--pd "__UVISION_VERSION SETA 528" --pd "_RTE_ SETA 1" --pd "STM32L152xE SETA 1"--list startup_stm32l152xe.lst --xref -o spi_fram_test_l1\startup_stm32l152xe.o --depend spi_fram_test_l1\startup_stm32l152xe.d)
 F (..\Src\DateConversion.c)(0x5CFE7A42)(--c99 -c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I ../Drivers/CMSIS/Include -I ..\..\..\Spi_FRAM-I.\RTE\_SPI_FRAM_test_L1-IC:\Users\sloan\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\sloan\AppData\Local\Arm\Packs\Keil\STM32L1xx_DFP\1.2.0\Device\Include-D__UVISION_VERSION="528" -D_RTE_ -DSTM32L152xE -DUSE_HAL_DRIVER -DSTM32L152xE-o spi_fram_test_l1\dateconversion.o --omf_browse spi_fram_test_l1\dateconversion.crf --depend spi_fram_test_l1\dateconversion.d)
 I (../Inc/DateConversion.h)(0x5CFE7A42)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5CEC5AE2)
@@ -8,10 +8,10 @@ I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5CEC5AE2)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5CEC5AE2)
 F (..\Inc\DateConversion.h)(0x5CFE7A42)()
 F (..\..\SPI_FRAM.c)(0x5E5EC97B)(--c99 -c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I ../Drivers/CMSIS/Include -I ..\..\..\Spi_FRAM-I.\RTE\_SPI_FRAM_test_L1-IC:\Users\sloan\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\sloan\AppData\Local\Arm\Packs\Keil\STM32L1xx_DFP\1.2.0\Device\Include-D__UVISION_VERSION="528" -D_RTE_ -DSTM32L152xE -DUSE_HAL_DRIVER -DSTM32L152xE-o spi_fram_test_l1\spi_fram.o --omf_browse spi_fram_test_l1\spi_fram.crf --depend spi_fram_test_l1\spi_fram.d)
-I (../Inc/SPI_FRAM.h)(0x5DAF76BF)
-I (../Inc/main.h)(0x5E9A2BE1)
+I (../Inc/SPI_FRAM.h)(0x5E9B7C68)
+I (../Inc/main.h)(0x5E9B7A53)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal.h)(0x5E4B3949)
-I (../Inc/stm32l1xx_hal_conf.h)(0x5E9A2BE1)
+I (../Inc/stm32l1xx_hal_conf.h)(0x5E9B7A53)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_rcc.h)(0x5E4B3949)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_def.h)(0x5E4B3949)
 I (../Drivers/CMSIS/Device/ST/STM32L1xx/Include/stm32l1xx.h)(0x5E4B3951)
@@ -38,10 +38,10 @@ I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_spi.h)(0x5E4B3949)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_spi_ex.h)(0x5E4B3949)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_uart.h)(0x5E4B3949)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5CEC5AE2)
-F (../Src/main.c)(0x5E9A2BE1)(--c99 -c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I ../Drivers/CMSIS/Include -I ..\..\..\Spi_FRAM-I.\RTE\_SPI_FRAM_test_L1-IC:\Users\sloan\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\sloan\AppData\Local\Arm\Packs\Keil\STM32L1xx_DFP\1.2.0\Device\Include-D__UVISION_VERSION="528" -D_RTE_ -DSTM32L152xE -DUSE_HAL_DRIVER -DSTM32L152xE-o spi_fram_test_l1\main.o --omf_browse spi_fram_test_l1\main.crf --depend spi_fram_test_l1\main.d)
-I (../Inc/main.h)(0x5E9A2BE1)
+F (../Src/main.c)(0x5E9B9B11)(--c99 -c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I ../Drivers/CMSIS/Include -I ..\..\..\Spi_FRAM-I.\RTE\_SPI_FRAM_test_L1-IC:\Users\sloan\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\sloan\AppData\Local\Arm\Packs\Keil\STM32L1xx_DFP\1.2.0\Device\Include-D__UVISION_VERSION="528" -D_RTE_ -DSTM32L152xE -DUSE_HAL_DRIVER -DSTM32L152xE-o spi_fram_test_l1\main.o --omf_browse spi_fram_test_l1\main.crf --depend spi_fram_test_l1\main.d)
+I (../Inc/main.h)(0x5E9B7A53)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal.h)(0x5E4B3949)
-I (../Inc/stm32l1xx_hal_conf.h)(0x5E9A2BE1)
+I (../Inc/stm32l1xx_hal_conf.h)(0x5E9B7A53)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_rcc.h)(0x5E4B3949)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_def.h)(0x5E4B3949)
 I (../Drivers/CMSIS/Device/ST/STM32L1xx/Include/stm32l1xx.h)(0x5E4B3951)
@@ -67,14 +67,14 @@ I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_pwr_ex.h)(0x5E4B3949)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_spi.h)(0x5E4B3949)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_spi_ex.h)(0x5E4B3949)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_uart.h)(0x5E4B3949)
-I (../Inc/SPI_FRAM.h)(0x5DAF76BF)
+I (../Inc/SPI_FRAM.h)(0x5E9B7C68)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5CEC5AE2)
 I (../Inc/DateConversion.h)(0x5CFE7A42)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5CEC5AE2)
-F (../Src/stm32l1xx_it.c)(0x5E9A2BE0)(--c99 -c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I ../Drivers/CMSIS/Include -I ..\..\..\Spi_FRAM-I.\RTE\_SPI_FRAM_test_L1-IC:\Users\sloan\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\sloan\AppData\Local\Arm\Packs\Keil\STM32L1xx_DFP\1.2.0\Device\Include-D__UVISION_VERSION="528" -D_RTE_ -DSTM32L152xE -DUSE_HAL_DRIVER -DSTM32L152xE-o spi_fram_test_l1\stm32l1xx_it.o --omf_browse spi_fram_test_l1\stm32l1xx_it.crf --depend spi_fram_test_l1\stm32l1xx_it.d)
-I (../Inc/main.h)(0x5E9A2BE1)
+F (../Src/stm32l1xx_it.c)(0x5E9B7A52)(--c99 -c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I ../Drivers/CMSIS/Include -I ..\..\..\Spi_FRAM-I.\RTE\_SPI_FRAM_test_L1-IC:\Users\sloan\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\sloan\AppData\Local\Arm\Packs\Keil\STM32L1xx_DFP\1.2.0\Device\Include-D__UVISION_VERSION="528" -D_RTE_ -DSTM32L152xE -DUSE_HAL_DRIVER -DSTM32L152xE-o spi_fram_test_l1\stm32l1xx_it.o --omf_browse spi_fram_test_l1\stm32l1xx_it.crf --depend spi_fram_test_l1\stm32l1xx_it.d)
+I (../Inc/main.h)(0x5E9B7A53)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal.h)(0x5E4B3949)
-I (../Inc/stm32l1xx_hal_conf.h)(0x5E9A2BE1)
+I (../Inc/stm32l1xx_hal_conf.h)(0x5E9B7A53)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_rcc.h)(0x5E4B3949)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_def.h)(0x5E4B3949)
 I (../Drivers/CMSIS/Device/ST/STM32L1xx/Include/stm32l1xx.h)(0x5E4B3951)
@@ -100,11 +100,11 @@ I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_pwr_ex.h)(0x5E4B3949)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_spi.h)(0x5E4B3949)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_spi_ex.h)(0x5E4B3949)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_uart.h)(0x5E4B3949)
-I (../Inc/stm32l1xx_it.h)(0x5E9A2BE0)
-F (../Src/stm32l1xx_hal_msp.c)(0x5E9A2BE0)(--c99 -c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I ../Drivers/CMSIS/Include -I ..\..\..\Spi_FRAM-I.\RTE\_SPI_FRAM_test_L1-IC:\Users\sloan\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\sloan\AppData\Local\Arm\Packs\Keil\STM32L1xx_DFP\1.2.0\Device\Include-D__UVISION_VERSION="528" -D_RTE_ -DSTM32L152xE -DUSE_HAL_DRIVER -DSTM32L152xE-o spi_fram_test_l1\stm32l1xx_hal_msp.o --omf_browse spi_fram_test_l1\stm32l1xx_hal_msp.crf --depend spi_fram_test_l1\stm32l1xx_hal_msp.d)
-I (../Inc/main.h)(0x5E9A2BE1)
+I (../Inc/stm32l1xx_it.h)(0x5E9B7A52)
+F (../Src/stm32l1xx_hal_msp.c)(0x5E9B7A52)(--c99 -c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I ../Drivers/CMSIS/Include -I ..\..\..\Spi_FRAM-I.\RTE\_SPI_FRAM_test_L1-IC:\Users\sloan\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\sloan\AppData\Local\Arm\Packs\Keil\STM32L1xx_DFP\1.2.0\Device\Include-D__UVISION_VERSION="528" -D_RTE_ -DSTM32L152xE -DUSE_HAL_DRIVER -DSTM32L152xE-o spi_fram_test_l1\stm32l1xx_hal_msp.o --omf_browse spi_fram_test_l1\stm32l1xx_hal_msp.crf --depend spi_fram_test_l1\stm32l1xx_hal_msp.d)
+I (../Inc/main.h)(0x5E9B7A53)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal.h)(0x5E4B3949)
-I (../Inc/stm32l1xx_hal_conf.h)(0x5E9A2BE1)
+I (../Inc/stm32l1xx_hal_conf.h)(0x5E9B7A53)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_rcc.h)(0x5E4B3949)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_def.h)(0x5E4B3949)
 I (../Drivers/CMSIS/Device/ST/STM32L1xx/Include/stm32l1xx.h)(0x5E4B3951)
@@ -132,7 +132,7 @@ I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_spi_ex.h)(0x5E4B3949)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_uart.h)(0x5E4B3949)
 F (../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_spi_ex.c)(0x5E4B3949)(--c99 -c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I ../Drivers/CMSIS/Include -I ..\..\..\Spi_FRAM-I.\RTE\_SPI_FRAM_test_L1-IC:\Users\sloan\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\sloan\AppData\Local\Arm\Packs\Keil\STM32L1xx_DFP\1.2.0\Device\Include-D__UVISION_VERSION="528" -D_RTE_ -DSTM32L152xE -DUSE_HAL_DRIVER -DSTM32L152xE-o spi_fram_test_l1\stm32l1xx_hal_spi_ex.o --omf_browse spi_fram_test_l1\stm32l1xx_hal_spi_ex.crf --depend spi_fram_test_l1\stm32l1xx_hal_spi_ex.d)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal.h)(0x5E4B3949)
-I (../Inc/stm32l1xx_hal_conf.h)(0x5E9A2BE1)
+I (../Inc/stm32l1xx_hal_conf.h)(0x5E9B7A53)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_rcc.h)(0x5E4B3949)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_def.h)(0x5E4B3949)
 I (../Drivers/CMSIS/Device/ST/STM32L1xx/Include/stm32l1xx.h)(0x5E4B3951)
@@ -160,7 +160,7 @@ I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_spi_ex.h)(0x5E4B3949)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_uart.h)(0x5E4B3949)
 F (../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_spi.c)(0x5E4B3949)(--c99 -c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I ../Drivers/CMSIS/Include -I ..\..\..\Spi_FRAM-I.\RTE\_SPI_FRAM_test_L1-IC:\Users\sloan\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\sloan\AppData\Local\Arm\Packs\Keil\STM32L1xx_DFP\1.2.0\Device\Include-D__UVISION_VERSION="528" -D_RTE_ -DSTM32L152xE -DUSE_HAL_DRIVER -DSTM32L152xE-o spi_fram_test_l1\stm32l1xx_hal_spi.o --omf_browse spi_fram_test_l1\stm32l1xx_hal_spi.crf --depend spi_fram_test_l1\stm32l1xx_hal_spi.d)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal.h)(0x5E4B3949)
-I (../Inc/stm32l1xx_hal_conf.h)(0x5E9A2BE1)
+I (../Inc/stm32l1xx_hal_conf.h)(0x5E9B7A53)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_rcc.h)(0x5E4B3949)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_def.h)(0x5E4B3949)
 I (../Drivers/CMSIS/Device/ST/STM32L1xx/Include/stm32l1xx.h)(0x5E4B3951)
@@ -188,7 +188,7 @@ I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_spi_ex.h)(0x5E4B3949)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_uart.h)(0x5E4B3949)
 F (../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal.c)(0x5E4B3949)(--c99 -c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I ../Drivers/CMSIS/Include -I ..\..\..\Spi_FRAM-I.\RTE\_SPI_FRAM_test_L1-IC:\Users\sloan\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\sloan\AppData\Local\Arm\Packs\Keil\STM32L1xx_DFP\1.2.0\Device\Include-D__UVISION_VERSION="528" -D_RTE_ -DSTM32L152xE -DUSE_HAL_DRIVER -DSTM32L152xE-o spi_fram_test_l1\stm32l1xx_hal.o --omf_browse spi_fram_test_l1\stm32l1xx_hal.crf --depend spi_fram_test_l1\stm32l1xx_hal.d)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal.h)(0x5E4B3949)
-I (../Inc/stm32l1xx_hal_conf.h)(0x5E9A2BE1)
+I (../Inc/stm32l1xx_hal_conf.h)(0x5E9B7A53)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_rcc.h)(0x5E4B3949)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_def.h)(0x5E4B3949)
 I (../Drivers/CMSIS/Device/ST/STM32L1xx/Include/stm32l1xx.h)(0x5E4B3951)
@@ -216,7 +216,7 @@ I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_spi_ex.h)(0x5E4B3949)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_uart.h)(0x5E4B3949)
 F (../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_rcc.c)(0x5E4B3949)(--c99 -c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I ../Drivers/CMSIS/Include -I ..\..\..\Spi_FRAM-I.\RTE\_SPI_FRAM_test_L1-IC:\Users\sloan\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\sloan\AppData\Local\Arm\Packs\Keil\STM32L1xx_DFP\1.2.0\Device\Include-D__UVISION_VERSION="528" -D_RTE_ -DSTM32L152xE -DUSE_HAL_DRIVER -DSTM32L152xE-o spi_fram_test_l1\stm32l1xx_hal_rcc.o --omf_browse spi_fram_test_l1\stm32l1xx_hal_rcc.crf --depend spi_fram_test_l1\stm32l1xx_hal_rcc.d)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal.h)(0x5E4B3949)
-I (../Inc/stm32l1xx_hal_conf.h)(0x5E9A2BE1)
+I (../Inc/stm32l1xx_hal_conf.h)(0x5E9B7A53)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_rcc.h)(0x5E4B3949)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_def.h)(0x5E4B3949)
 I (../Drivers/CMSIS/Device/ST/STM32L1xx/Include/stm32l1xx.h)(0x5E4B3951)
@@ -244,7 +244,7 @@ I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_spi_ex.h)(0x5E4B3949)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_uart.h)(0x5E4B3949)
 F (../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_rcc_ex.c)(0x5E4B3949)(--c99 -c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I ../Drivers/CMSIS/Include -I ..\..\..\Spi_FRAM-I.\RTE\_SPI_FRAM_test_L1-IC:\Users\sloan\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\sloan\AppData\Local\Arm\Packs\Keil\STM32L1xx_DFP\1.2.0\Device\Include-D__UVISION_VERSION="528" -D_RTE_ -DSTM32L152xE -DUSE_HAL_DRIVER -DSTM32L152xE-o spi_fram_test_l1\stm32l1xx_hal_rcc_ex.o --omf_browse spi_fram_test_l1\stm32l1xx_hal_rcc_ex.crf --depend spi_fram_test_l1\stm32l1xx_hal_rcc_ex.d)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal.h)(0x5E4B3949)
-I (../Inc/stm32l1xx_hal_conf.h)(0x5E9A2BE1)
+I (../Inc/stm32l1xx_hal_conf.h)(0x5E9B7A53)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_rcc.h)(0x5E4B3949)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_def.h)(0x5E4B3949)
 I (../Drivers/CMSIS/Device/ST/STM32L1xx/Include/stm32l1xx.h)(0x5E4B3951)
@@ -272,7 +272,7 @@ I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_spi_ex.h)(0x5E4B3949)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_uart.h)(0x5E4B3949)
 F (../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_flash.c)(0x5E4B3949)(--c99 -c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I ../Drivers/CMSIS/Include -I ..\..\..\Spi_FRAM-I.\RTE\_SPI_FRAM_test_L1-IC:\Users\sloan\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\sloan\AppData\Local\Arm\Packs\Keil\STM32L1xx_DFP\1.2.0\Device\Include-D__UVISION_VERSION="528" -D_RTE_ -DSTM32L152xE -DUSE_HAL_DRIVER -DSTM32L152xE-o spi_fram_test_l1\stm32l1xx_hal_flash.o --omf_browse spi_fram_test_l1\stm32l1xx_hal_flash.crf --depend spi_fram_test_l1\stm32l1xx_hal_flash.d)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal.h)(0x5E4B3949)
-I (../Inc/stm32l1xx_hal_conf.h)(0x5E9A2BE1)
+I (../Inc/stm32l1xx_hal_conf.h)(0x5E9B7A53)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_rcc.h)(0x5E4B3949)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_def.h)(0x5E4B3949)
 I (../Drivers/CMSIS/Device/ST/STM32L1xx/Include/stm32l1xx.h)(0x5E4B3951)
@@ -300,7 +300,7 @@ I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_spi_ex.h)(0x5E4B3949)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_uart.h)(0x5E4B3949)
 F (../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_flash_ex.c)(0x5E4B3949)(--c99 -c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I ../Drivers/CMSIS/Include -I ..\..\..\Spi_FRAM-I.\RTE\_SPI_FRAM_test_L1-IC:\Users\sloan\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\sloan\AppData\Local\Arm\Packs\Keil\STM32L1xx_DFP\1.2.0\Device\Include-D__UVISION_VERSION="528" -D_RTE_ -DSTM32L152xE -DUSE_HAL_DRIVER -DSTM32L152xE-o spi_fram_test_l1\stm32l1xx_hal_flash_ex.o --omf_browse spi_fram_test_l1\stm32l1xx_hal_flash_ex.crf --depend spi_fram_test_l1\stm32l1xx_hal_flash_ex.d)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal.h)(0x5E4B3949)
-I (../Inc/stm32l1xx_hal_conf.h)(0x5E9A2BE1)
+I (../Inc/stm32l1xx_hal_conf.h)(0x5E9B7A53)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_rcc.h)(0x5E4B3949)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_def.h)(0x5E4B3949)
 I (../Drivers/CMSIS/Device/ST/STM32L1xx/Include/stm32l1xx.h)(0x5E4B3951)
@@ -328,7 +328,7 @@ I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_spi_ex.h)(0x5E4B3949)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_uart.h)(0x5E4B3949)
 F (../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_flash_ramfunc.c)(0x5E4B3949)(--c99 -c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I ../Drivers/CMSIS/Include -I ..\..\..\Spi_FRAM-I.\RTE\_SPI_FRAM_test_L1-IC:\Users\sloan\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\sloan\AppData\Local\Arm\Packs\Keil\STM32L1xx_DFP\1.2.0\Device\Include-D__UVISION_VERSION="528" -D_RTE_ -DSTM32L152xE -DUSE_HAL_DRIVER -DSTM32L152xE-o spi_fram_test_l1\stm32l1xx_hal_flash_ramfunc.o --omf_browse spi_fram_test_l1\stm32l1xx_hal_flash_ramfunc.crf --depend spi_fram_test_l1\stm32l1xx_hal_flash_ramfunc.d)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal.h)(0x5E4B3949)
-I (../Inc/stm32l1xx_hal_conf.h)(0x5E9A2BE1)
+I (../Inc/stm32l1xx_hal_conf.h)(0x5E9B7A53)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_rcc.h)(0x5E4B3949)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_def.h)(0x5E4B3949)
 I (../Drivers/CMSIS/Device/ST/STM32L1xx/Include/stm32l1xx.h)(0x5E4B3951)
@@ -356,7 +356,7 @@ I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_spi_ex.h)(0x5E4B3949)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_uart.h)(0x5E4B3949)
 F (../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_gpio.c)(0x5E4B3949)(--c99 -c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I ../Drivers/CMSIS/Include -I ..\..\..\Spi_FRAM-I.\RTE\_SPI_FRAM_test_L1-IC:\Users\sloan\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\sloan\AppData\Local\Arm\Packs\Keil\STM32L1xx_DFP\1.2.0\Device\Include-D__UVISION_VERSION="528" -D_RTE_ -DSTM32L152xE -DUSE_HAL_DRIVER -DSTM32L152xE-o spi_fram_test_l1\stm32l1xx_hal_gpio.o --omf_browse spi_fram_test_l1\stm32l1xx_hal_gpio.crf --depend spi_fram_test_l1\stm32l1xx_hal_gpio.d)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal.h)(0x5E4B3949)
-I (../Inc/stm32l1xx_hal_conf.h)(0x5E9A2BE1)
+I (../Inc/stm32l1xx_hal_conf.h)(0x5E9B7A53)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_rcc.h)(0x5E4B3949)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_def.h)(0x5E4B3949)
 I (../Drivers/CMSIS/Device/ST/STM32L1xx/Include/stm32l1xx.h)(0x5E4B3951)
@@ -384,7 +384,7 @@ I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_spi_ex.h)(0x5E4B3949)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_uart.h)(0x5E4B3949)
 F (../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_dma.c)(0x5E4B3949)(--c99 -c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I ../Drivers/CMSIS/Include -I ..\..\..\Spi_FRAM-I.\RTE\_SPI_FRAM_test_L1-IC:\Users\sloan\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\sloan\AppData\Local\Arm\Packs\Keil\STM32L1xx_DFP\1.2.0\Device\Include-D__UVISION_VERSION="528" -D_RTE_ -DSTM32L152xE -DUSE_HAL_DRIVER -DSTM32L152xE-o spi_fram_test_l1\stm32l1xx_hal_dma.o --omf_browse spi_fram_test_l1\stm32l1xx_hal_dma.crf --depend spi_fram_test_l1\stm32l1xx_hal_dma.d)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal.h)(0x5E4B3949)
-I (../Inc/stm32l1xx_hal_conf.h)(0x5E9A2BE1)
+I (../Inc/stm32l1xx_hal_conf.h)(0x5E9B7A53)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_rcc.h)(0x5E4B3949)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_def.h)(0x5E4B3949)
 I (../Drivers/CMSIS/Device/ST/STM32L1xx/Include/stm32l1xx.h)(0x5E4B3951)
@@ -412,7 +412,7 @@ I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_spi_ex.h)(0x5E4B3949)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_uart.h)(0x5E4B3949)
 F (../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_pwr.c)(0x5E4B3949)(--c99 -c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I ../Drivers/CMSIS/Include -I ..\..\..\Spi_FRAM-I.\RTE\_SPI_FRAM_test_L1-IC:\Users\sloan\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\sloan\AppData\Local\Arm\Packs\Keil\STM32L1xx_DFP\1.2.0\Device\Include-D__UVISION_VERSION="528" -D_RTE_ -DSTM32L152xE -DUSE_HAL_DRIVER -DSTM32L152xE-o spi_fram_test_l1\stm32l1xx_hal_pwr.o --omf_browse spi_fram_test_l1\stm32l1xx_hal_pwr.crf --depend spi_fram_test_l1\stm32l1xx_hal_pwr.d)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal.h)(0x5E4B3949)
-I (../Inc/stm32l1xx_hal_conf.h)(0x5E9A2BE1)
+I (../Inc/stm32l1xx_hal_conf.h)(0x5E9B7A53)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_rcc.h)(0x5E4B3949)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_def.h)(0x5E4B3949)
 I (../Drivers/CMSIS/Device/ST/STM32L1xx/Include/stm32l1xx.h)(0x5E4B3951)
@@ -440,7 +440,7 @@ I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_spi_ex.h)(0x5E4B3949)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_uart.h)(0x5E4B3949)
 F (../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_pwr_ex.c)(0x5E4B3949)(--c99 -c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I ../Drivers/CMSIS/Include -I ..\..\..\Spi_FRAM-I.\RTE\_SPI_FRAM_test_L1-IC:\Users\sloan\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\sloan\AppData\Local\Arm\Packs\Keil\STM32L1xx_DFP\1.2.0\Device\Include-D__UVISION_VERSION="528" -D_RTE_ -DSTM32L152xE -DUSE_HAL_DRIVER -DSTM32L152xE-o spi_fram_test_l1\stm32l1xx_hal_pwr_ex.o --omf_browse spi_fram_test_l1\stm32l1xx_hal_pwr_ex.crf --depend spi_fram_test_l1\stm32l1xx_hal_pwr_ex.d)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal.h)(0x5E4B3949)
-I (../Inc/stm32l1xx_hal_conf.h)(0x5E9A2BE1)
+I (../Inc/stm32l1xx_hal_conf.h)(0x5E9B7A53)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_rcc.h)(0x5E4B3949)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_def.h)(0x5E4B3949)
 I (../Drivers/CMSIS/Device/ST/STM32L1xx/Include/stm32l1xx.h)(0x5E4B3951)
@@ -468,7 +468,7 @@ I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_spi_ex.h)(0x5E4B3949)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_uart.h)(0x5E4B3949)
 F (../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_cortex.c)(0x5E4B3949)(--c99 -c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I ../Drivers/CMSIS/Include -I ..\..\..\Spi_FRAM-I.\RTE\_SPI_FRAM_test_L1-IC:\Users\sloan\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\sloan\AppData\Local\Arm\Packs\Keil\STM32L1xx_DFP\1.2.0\Device\Include-D__UVISION_VERSION="528" -D_RTE_ -DSTM32L152xE -DUSE_HAL_DRIVER -DSTM32L152xE-o spi_fram_test_l1\stm32l1xx_hal_cortex.o --omf_browse spi_fram_test_l1\stm32l1xx_hal_cortex.crf --depend spi_fram_test_l1\stm32l1xx_hal_cortex.d)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal.h)(0x5E4B3949)
-I (../Inc/stm32l1xx_hal_conf.h)(0x5E9A2BE1)
+I (../Inc/stm32l1xx_hal_conf.h)(0x5E9B7A53)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_rcc.h)(0x5E4B3949)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_def.h)(0x5E4B3949)
 I (../Drivers/CMSIS/Device/ST/STM32L1xx/Include/stm32l1xx.h)(0x5E4B3951)
@@ -496,7 +496,7 @@ I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_spi_ex.h)(0x5E4B3949)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_uart.h)(0x5E4B3949)
 F (../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_tim.c)(0x5E4B3949)(--c99 -c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I ../Drivers/CMSIS/Include -I ..\..\..\Spi_FRAM-I.\RTE\_SPI_FRAM_test_L1-IC:\Users\sloan\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\sloan\AppData\Local\Arm\Packs\Keil\STM32L1xx_DFP\1.2.0\Device\Include-D__UVISION_VERSION="528" -D_RTE_ -DSTM32L152xE -DUSE_HAL_DRIVER -DSTM32L152xE-o spi_fram_test_l1\stm32l1xx_hal_tim.o --omf_browse spi_fram_test_l1\stm32l1xx_hal_tim.crf --depend spi_fram_test_l1\stm32l1xx_hal_tim.d)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal.h)(0x5E4B3949)
-I (../Inc/stm32l1xx_hal_conf.h)(0x5E9A2BE1)
+I (../Inc/stm32l1xx_hal_conf.h)(0x5E9B7A53)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_rcc.h)(0x5E4B3949)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_def.h)(0x5E4B3949)
 I (../Drivers/CMSIS/Device/ST/STM32L1xx/Include/stm32l1xx.h)(0x5E4B3951)
@@ -524,7 +524,7 @@ I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_spi_ex.h)(0x5E4B3949)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_uart.h)(0x5E4B3949)
 F (../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_tim_ex.c)(0x5E4B3949)(--c99 -c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I ../Drivers/CMSIS/Include -I ..\..\..\Spi_FRAM-I.\RTE\_SPI_FRAM_test_L1-IC:\Users\sloan\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\sloan\AppData\Local\Arm\Packs\Keil\STM32L1xx_DFP\1.2.0\Device\Include-D__UVISION_VERSION="528" -D_RTE_ -DSTM32L152xE -DUSE_HAL_DRIVER -DSTM32L152xE-o spi_fram_test_l1\stm32l1xx_hal_tim_ex.o --omf_browse spi_fram_test_l1\stm32l1xx_hal_tim_ex.crf --depend spi_fram_test_l1\stm32l1xx_hal_tim_ex.d)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal.h)(0x5E4B3949)
-I (../Inc/stm32l1xx_hal_conf.h)(0x5E9A2BE1)
+I (../Inc/stm32l1xx_hal_conf.h)(0x5E9B7A53)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_rcc.h)(0x5E4B3949)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_def.h)(0x5E4B3949)
 I (../Drivers/CMSIS/Device/ST/STM32L1xx/Include/stm32l1xx.h)(0x5E4B3951)
@@ -552,7 +552,7 @@ I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_spi_ex.h)(0x5E4B3949)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_uart.h)(0x5E4B3949)
 F (../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_uart.c)(0x5E4B3949)(--c99 -c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I ../Drivers/CMSIS/Include -I ..\..\..\Spi_FRAM-I.\RTE\_SPI_FRAM_test_L1-IC:\Users\sloan\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\sloan\AppData\Local\Arm\Packs\Keil\STM32L1xx_DFP\1.2.0\Device\Include-D__UVISION_VERSION="528" -D_RTE_ -DSTM32L152xE -DUSE_HAL_DRIVER -DSTM32L152xE-o spi_fram_test_l1\stm32l1xx_hal_uart.o --omf_browse spi_fram_test_l1\stm32l1xx_hal_uart.crf --depend spi_fram_test_l1\stm32l1xx_hal_uart.d)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal.h)(0x5E4B3949)
-I (../Inc/stm32l1xx_hal_conf.h)(0x5E9A2BE1)
+I (../Inc/stm32l1xx_hal_conf.h)(0x5E9B7A53)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_rcc.h)(0x5E4B3949)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_def.h)(0x5E4B3949)
 I (../Drivers/CMSIS/Device/ST/STM32L1xx/Include/stm32l1xx.h)(0x5E4B3951)
@@ -588,7 +588,7 @@ I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x5E4B3948)
 I (../Drivers/CMSIS/Include/core_cmFunc.h)(0x5E4B3948)
 I (../Drivers/CMSIS/Device/ST/STM32L1xx/Include/system_stm32l1xx.h)(0x5E4B3951)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal.h)(0x5E4B3949)
-I (../Inc/stm32l1xx_hal_conf.h)(0x5E9A2BE1)
+I (../Inc/stm32l1xx_hal_conf.h)(0x5E9B7A53)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_rcc.h)(0x5E4B3949)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_def.h)(0x5E4B3949)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h)(0x5E4B3949)
