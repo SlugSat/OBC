@@ -90,9 +90,9 @@ int main(void)
 	
 	//States state = S_Core;
 	
-	States state = P_Core;
+	//States state = P_Core;
 	
-	//States state = Sleep;
+	States state = Sleep;
   /* USER CODE END Init */
 
   /* Configure the system clock */

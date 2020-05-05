@@ -1,7 +1,7 @@
 [PreviousGenFiles]
-HeaderPath=C:/Users/sloan/Desktop/CubeMX Projects/RecoverySkele/Inc
+HeaderPath=C:/Users/sloan/Desktop/OBC/STM32_recovery/RecoverySkele/Inc
 HeaderFiles=stm32l1xx_it.h;stm32l1xx_hal_conf.h;main.h;
-SourcePath=C:/Users/sloan/Desktop/CubeMX Projects/RecoverySkele/Src
+SourcePath=C:/Users/sloan/Desktop/OBC/STM32_recovery/RecoverySkele/Src
 SourceFiles=stm32l1xx_it.c;stm32l1xx_hal_msp.c;main.c;
 
 [PreviousLibFiles]

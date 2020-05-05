@@ -1,7 +1,7 @@
 recoveryskele\main.o: ../Src/main.c
-recoveryskele\main.o: ..\Inc\main.h
+recoveryskele\main.o: ../Inc/main.h
 recoveryskele\main.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal.h
-recoveryskele\main.o: ..\Inc\stm32l1xx_hal_conf.h
+recoveryskele\main.o: ../Inc/stm32l1xx_hal_conf.h
 recoveryskele\main.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_rcc.h
 recoveryskele\main.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_def.h
 recoveryskele\main.o: ../Drivers/CMSIS/Device/ST/STM32L1xx/Include/stm32l1xx.h
@@ -27,4 +27,4 @@ recoveryskele\main.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_flash_ra
 recoveryskele\main.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_pwr.h
 recoveryskele\main.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_pwr_ex.h
 recoveryskele\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-recoveryskele\main.o: ..\Inc\fake_op.h
+recoveryskele\main.o: ../Inc/fake_op.h

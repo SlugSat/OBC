@@ -59,6 +59,7 @@ static void MX_GPIO_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 void display_LED(States *state);
+void goodnight();
 /* USER CODE END 0 */
 
 /**
@@ -85,13 +86,13 @@ int main(void)
   SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
-
+	SystemPower_Config();
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
-
+	HAL_InitTick(0xF);
   /* USER CODE END 2 */
  
  
@@ -103,7 +104,7 @@ int main(void)
     //HAL_GPIO_WritePin(GPIOC, Power_Pin, GPIO_PIN_SET);
 		//HAL_GPIO_WritePin(GPIOA, State1_Pin, GPIO_PIN_SET);
 		//HAL_GPIO_WritePin(GPIOA, State2_Pin, GPIO_PIN_SET);
-		/* USER CODE END WHILE */
+    /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
 		switch(state){
@@ -123,7 +124,11 @@ int main(void)
 				state = Sleep;
 				break;
 			case Sleep:
-				if (trigger == 1) { state = P_Core; }
+				//if (trigger == 1) { state = P_Core; }
+				state = P_Core;
+				//HAL_GPIO_WritePin(GPIOA, Green_LED_Pin, GPIO_PIN_SET);
+				goodnight();
+				//HAL_GPIO_WritePin(GPIOA, Green_LED_Pin, GPIO_PIN_SET);
 				break;
 			case Killed:
 				state = Killed;
@@ -190,7 +195,7 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, State1_Pin|State2_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, Green_LED_Pin|State1_Pin|State2_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(Power_GPIO_Port, Power_Pin, GPIO_PIN_RESET);
@@ -200,6 +205,13 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : Green_LED_Pin */
+  GPIO_InitStruct.Pin = Green_LED_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+  HAL_GPIO_Init(Green_LED_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : State1_Pin State2_Pin */
   GPIO_InitStruct.Pin = State1_Pin|State2_Pin;
@@ -258,6 +270,27 @@ void display_LED(States *state){
 				break;
 		}
 }
+
+void goodnight() {
+
+		/* Enable the power down mode during Sleep mode */
+    __HAL_FLASH_SLEEP_POWERDOWN_ENABLE();
+
+    /* Suspend Tick increment to prevent wakeup by Systick interrupt.         */
+    /* Otherwise the Systick interrupt will wake up the device within 1ms     */
+    /* (HAL time base).                                                       */
+    HAL_SuspendTick();
+
+    /* Enter Sleep Mode , wake up is done once Key push button is pressed */
+    HAL_PWR_EnterSLEEPMode(PWR_LOWPOWERREGULATOR_ON, PWR_SLEEPENTRY_WFI);
+
+    /* Resume Tick interrupt if disabled prior to sleep mode entry */
+    HAL_ResumeTick();
+    
+    /* Small delay to be sure that another button press is not detected */
+    HAL_Delay(100);
+}
+
 /* USER CODE END 4 */
 
 /**

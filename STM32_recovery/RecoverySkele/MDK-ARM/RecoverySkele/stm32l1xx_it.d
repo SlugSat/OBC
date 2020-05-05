@@ -1,7 +1,7 @@
 recoveryskele\stm32l1xx_it.o: ../Src/stm32l1xx_it.c
-recoveryskele\stm32l1xx_it.o: ..\Inc\main.h
+recoveryskele\stm32l1xx_it.o: ../Inc/main.h
 recoveryskele\stm32l1xx_it.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal.h
-recoveryskele\stm32l1xx_it.o: ..\Inc\stm32l1xx_hal_conf.h
+recoveryskele\stm32l1xx_it.o: ../Inc/stm32l1xx_hal_conf.h
 recoveryskele\stm32l1xx_it.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_rcc.h
 recoveryskele\stm32l1xx_it.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_def.h
 recoveryskele\stm32l1xx_it.o: ../Drivers/CMSIS/Device/ST/STM32L1xx/Include/stm32l1xx.h
@@ -26,4 +26,4 @@ recoveryskele\stm32l1xx_it.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_
 recoveryskele\stm32l1xx_it.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_flash_ramfunc.h
 recoveryskele\stm32l1xx_it.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_pwr.h
 recoveryskele\stm32l1xx_it.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_pwr_ex.h
-recoveryskele\stm32l1xx_it.o: ..\Inc\stm32l1xx_it.h
+recoveryskele\stm32l1xx_it.o: ../Inc/stm32l1xx_it.h

@@ -1,7 +1,7 @@
 recoveryskele\stm32l1xx_hal_msp.o: ../Src/stm32l1xx_hal_msp.c
-recoveryskele\stm32l1xx_hal_msp.o: ..\Inc\main.h
+recoveryskele\stm32l1xx_hal_msp.o: ../Inc/main.h
 recoveryskele\stm32l1xx_hal_msp.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal.h
-recoveryskele\stm32l1xx_hal_msp.o: ..\Inc\stm32l1xx_hal_conf.h
+recoveryskele\stm32l1xx_hal_msp.o: ../Inc/stm32l1xx_hal_conf.h
 recoveryskele\stm32l1xx_hal_msp.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_rcc.h
 recoveryskele\stm32l1xx_hal_msp.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_def.h
 recoveryskele\stm32l1xx_hal_msp.o: ../Drivers/CMSIS/Device/ST/STM32L1xx/Include/stm32l1xx.h

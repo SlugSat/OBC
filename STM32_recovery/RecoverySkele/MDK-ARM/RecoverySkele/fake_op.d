@@ -1,5 +1,5 @@
 recoveryskele\fake_op.o: ..\Src\fake_op.c
-recoveryskele\fake_op.o: ..\Inc\fake_op.h
+recoveryskele\fake_op.o: ../Inc/fake_op.h
 recoveryskele\fake_op.o: ../Drivers/CMSIS/Device/ST/STM32L1xx/Include/stm32l1xx.h
 recoveryskele\fake_op.o: ../Drivers/CMSIS/Device/ST/STM32L1xx/Include/stm32l152xe.h
 recoveryskele\fake_op.o: ../Drivers/CMSIS/Include/core_cm3.h
@@ -10,7 +10,7 @@ recoveryskele\fake_op.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
 recoveryskele\fake_op.o: ../Drivers/CMSIS/Include/mpu_armv7.h
 recoveryskele\fake_op.o: ../Drivers/CMSIS/Device/ST/STM32L1xx/Include/system_stm32l1xx.h
 recoveryskele\fake_op.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal.h
-recoveryskele\fake_op.o: ..\Inc\stm32l1xx_hal_conf.h
+recoveryskele\fake_op.o: ../Inc/stm32l1xx_hal_conf.h
 recoveryskele\fake_op.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_rcc.h
 recoveryskele\fake_op.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_def.h
 recoveryskele\fake_op.o: ../Drivers/CMSIS/Device/ST/STM32L1xx/Include/stm32l1xx.h

@@ -1,9 +1,9 @@
 --cpu Cortex-M3
 "recoveryskele\startup_stm32l152xe.o"
+"recoveryskele\fake_op.o"
 "recoveryskele\main.o"
 "recoveryskele\stm32l1xx_it.o"
 "recoveryskele\stm32l1xx_hal_msp.o"
-"recoveryskele\fake_op.o"
 "recoveryskele\stm32l1xx_hal_tim.o"
 "recoveryskele\stm32l1xx_hal_tim_ex.o"
 "recoveryskele\stm32l1xx_hal.o"
