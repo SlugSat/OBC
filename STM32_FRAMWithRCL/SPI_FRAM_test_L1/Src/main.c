@@ -68,6 +68,7 @@ static void MX_USART2_UART_Init(void);
 /* USER CODE BEGIN 0 */
 void display_LED(States *state);
 void Test_FRAM(int rw);
+void SLEEP(void);
 /* USER CODE END 0 */
 
 /**
@@ -77,7 +78,7 @@ void Test_FRAM(int rw);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-
+char Msg1[100] = {0};
   /* USER CODE END 1 */
   
 
@@ -90,9 +91,9 @@ int main(void)
 	
 	//States state = S_Core;
 	
-	//States state = P_Core;
+	States state = P_Core;
 	
-	States state = Sleep;
+	//States state = Sleep;
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -123,9 +124,11 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 		
+		
 		switch(state){
 			case P_Core:
-				
+				snprintf((char *)Msg1, sizeof(Msg1), "\r\nP_Core\r\n");
+				HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
 				//====
 				wr_flag = 0;
 				//====
@@ -134,14 +137,15 @@ int main(void)
 				
 				//====
 				if (rd_flag == 0) {
-					Test_FRAM(READ);
+					//Test_FRAM(READ);
 					rd_flag = 1;
 				}
 				//====
 				
 				break;
 			case S_Core:
-				
+				snprintf((char *)Msg1, sizeof(Msg1), "\r\nS_Core\r\n");
+				HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
 			  //====
 				rd_flag = 0;
 			  //====
@@ -150,15 +154,20 @@ int main(void)
 				
 				//====
 				if (wr_flag == 0) {
-					Test_FRAM(WRITE);
+					//Test_FRAM(WRITE);
 					wr_flag = 1;
 				}
 				break;
 			case Reboot:
 				//FLASH LEDS for REBOOT
+				snprintf((char *)Msg1, sizeof(Msg1), "\r\nReboot\r\n");
+				HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
 				if (trigger == 1) { state = Sleep; }
 				break;
 			case Sleep:
+				snprintf((char *)Msg1, sizeof(Msg1), "\r\nSleep soon\r\n");
+				HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
+				SLEEP();
 				if (trigger == 1) { state = P_Core; }
 				break;
 			case Killed:
@@ -350,6 +359,15 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+
+void SLEEP(void){
+		HAL_SuspendTick();
+
+		HAL_PWR_EnterSLEEPMode(PWR_MAINREGULATOR_ON, PWR_SLEEPENTRY_WFI);
+		
+		HAL_ResumeTick();
+	
+}
 
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
