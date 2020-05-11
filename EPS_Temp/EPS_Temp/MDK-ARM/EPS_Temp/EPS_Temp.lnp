@@ -1,0 +1,28 @@
+--cpu Cortex-M3
+"eps_temp\startup_stm32l152xe.o"
+"eps_temp\main.o"
+"eps_temp\stm32l1xx_it.o"
+"eps_temp\stm32l1xx_hal_msp.o"
+"eps_temp\stm32l1xx_hal_adc.o"
+"eps_temp\stm32l1xx_hal_adc_ex.o"
+"eps_temp\stm32l1xx_hal.o"
+"eps_temp\stm32l1xx_hal_rcc.o"
+"eps_temp\stm32l1xx_hal_rcc_ex.o"
+"eps_temp\stm32l1xx_hal_flash.o"
+"eps_temp\stm32l1xx_hal_flash_ex.o"
+"eps_temp\stm32l1xx_hal_flash_ramfunc.o"
+"eps_temp\stm32l1xx_hal_gpio.o"
+"eps_temp\stm32l1xx_hal_dma.o"
+"eps_temp\stm32l1xx_hal_pwr.o"
+"eps_temp\stm32l1xx_hal_pwr_ex.o"
+"eps_temp\stm32l1xx_hal_cortex.o"
+"eps_temp\stm32l1xx_hal_dac.o"
+"eps_temp\stm32l1xx_hal_dac_ex.o"
+"eps_temp\stm32l1xx_hal_tim.o"
+"eps_temp\stm32l1xx_hal_tim_ex.o"
+"eps_temp\stm32l1xx_hal_uart.o"
+"eps_temp\system_stm32l1xx.o"
+--library_type=microlib --strict --scatter "EPS_Temp\EPS_Temp.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "EPS_Temp.map" -o EPS_Temp\EPS_Temp.axf
