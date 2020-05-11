@@ -69,6 +69,7 @@ static void MX_USART2_UART_Init(void);
 void display_LED(States *state);
 void Test_FRAM(int rw);
 void SLEEP(void);
+void SendToComp(uint8_t *input);
 /* USER CODE END 0 */
 
 /**
@@ -359,6 +360,19 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+
+void SendToComp(uint8_t *input){
+	int shifter = 0;
+	if( *input & 1 << shifter++) {} //checks 0th bit
+	if (*input & 1 << shifter++) {} //checks 1st bit
+	if (*input & 1 << shifter++) {} //checks 2nd bit
+	if (*input & 1 << shifter++) {}
+	if (*input & 1 << shifter++) {}
+	if (*input & 1 << shifter++) {}
+	if (*input & 1 << shifter++) {}
+	if (*input & 1 << shifter++) {}	
+	
+}
 
 void SLEEP(void){
 		HAL_SuspendTick();
