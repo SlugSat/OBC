@@ -526,11 +526,12 @@ ARM Macro Assembler    Page 9
 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
 ork --depend=eps_temp\startup_stm32l152xe.d -oeps_temp\startup_stm32l152xe.o -I
-.\RTE\_EPS_Temp -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include -IC:\K
-eil_v5\ARM\PACK\Keil\STM32L1xx_DFP\1.2.0\Device\Include --predefine="__EVAL SET
-A 1" --predefine="__MICROLIB SETA 1" --predefine="__UVISION_VERSION SETA 527" -
--predefine="_RTE_ SETA 1" --predefine="STM32L152xE SETA 1" --list=startup_stm32
-l152xe.lst startup_stm32l152xe.s
+.\RTE\_EPS_Temp -IC:\Users\andyc\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\
+Core\Include -IC:\Users\andyc\AppData\Local\Arm\Packs\Keil\STM32L1xx_DFP\1.2.0\
+Device\Include --predefine="__EVAL SETA 1" --predefine="__MICROLIB SETA 1" --pr
+edefine="__UVISION_VERSION SETA 530" --predefine="_RTE_ SETA 1" --predefine="ST
+M32L152xE SETA 1" --predefine="_RTE_ SETA 1" --list=startup_stm32l152xe.lst sta
+rtup_stm32l152xe.s
 
 
 

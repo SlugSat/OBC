@@ -129,7 +129,7 @@ int main(void)
 		output = output_start + ((output_end - output_start) / (input_end - input_start)) * (input - input_start)	
 		*/
 		
-		adcVal1 = ((MAX_SENSOR_OUT * (float)adcVal0) / 255) + deltaV;
+		adcVal1 = ((MAX_SENSOR_OUT * (float)adcVal0) / 255);
 		if(adcVal1 > MAX_SENSOR_OUT){
 			adcVal1 = MAX_SENSOR_OUT;
 		}
@@ -137,7 +137,7 @@ int main(void)
 		//HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
 		//HAL_DAC_SetValue(&hdac, DAC_CHANNEL_1, DAC_ALIGN_8B_R, adcVal1);
 		//convert back from float to uint8_t
-		dac = (uint16_t) (adcVal1 * 255) / MAX_SENSOR_OUT;
+		dac = (uint8_t) (adcVal1 * 255) / MAX_SENSOR_OUT;
 		v_ctrl = dac * 0.026;
 		//return to output
 		HAL_DAC_SetValue(&hdac, DAC_CHANNEL_1, DAC_ALIGN_8B_R, v_ctrl);
