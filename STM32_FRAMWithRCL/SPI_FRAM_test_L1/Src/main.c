@@ -69,7 +69,8 @@ static void MX_USART2_UART_Init(void);
 void display_LED(States *state);
 void Test_FRAM(int rw);
 void SLEEP(void);
-void SendToComp(uint8_t *input);
+void SendToComp(uint8_t input);
+void setPin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin, int shift_amt, uint8_t input);
 /* USER CODE END 0 */
 
 /**
@@ -81,7 +82,6 @@ int main(void)
   /* USER CODE BEGIN 1 */
 char Msg1[100] = {0};
   /* USER CODE END 1 */
-  
 
   /* MCU Configuration--------------------------------------------------------*/
 
@@ -111,7 +111,7 @@ char Msg1[100] = {0};
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
- 
+
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 	SPI_FRAM_Init(&hspi1);
@@ -124,10 +124,9 @@ char Msg1[100] = {0};
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-		
-		
 		switch(state){
 			case P_Core:
+				SendToComp(state);
 				snprintf((char *)Msg1, sizeof(Msg1), "\r\nP_Core\r\n");
 				HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
 				//====
@@ -145,6 +144,7 @@ char Msg1[100] = {0};
 				
 				break;
 			case S_Core:
+				SendToComp(state);
 				snprintf((char *)Msg1, sizeof(Msg1), "\r\nS_Core\r\n");
 				HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
 			  //====
@@ -160,12 +160,14 @@ char Msg1[100] = {0};
 				}
 				break;
 			case Reboot:
+				SendToComp(state);
 				//FLASH LEDS for REBOOT
 				snprintf((char *)Msg1, sizeof(Msg1), "\r\nReboot\r\n");
 				HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
 				if (trigger == 1) { state = Sleep; }
 				break;
 			case Sleep:
+				SendToComp(state);
 				snprintf((char *)Msg1, sizeof(Msg1), "\r\nSleep soon\r\n");
 				HAL_UART_Transmit(&huart2, (uint8_t *) Msg1, sizeof(Msg1), 1);
 				SLEEP();
@@ -176,9 +178,9 @@ char Msg1[100] = {0};
 				HAL_GPIO_WritePin(GPIOC, C1_Power_Pin, GPIO_PIN_RESET);
 				break;
 		}
-			//RESET TRIGGER
+		//RESET TRIGGER
 		trigger = 0;	
-		display_LED(&state);
+		//display_LED(&state);
 		
 		
   }
@@ -309,9 +311,19 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
+  __HAL_RCC_GPIOD_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOA, SPI_FRAM_LOCK_Pin|C1_Power_Pin|C1_S0_Pin|C1_S1_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOC, Seventh_Pin|Sixth_Pin|Fifth_Pin, GPIO_PIN_SET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(Fourth_GPIO_Port, Fourth_Pin, GPIO_PIN_SET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOB, Thrid_Pin|Second_Pin|First_Pin|Zero_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(SPI_FRAM_CS_GPIO_Port, SPI_FRAM_CS_Pin, GPIO_PIN_RESET);
@@ -343,12 +355,28 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : SPI_FRAM_CS_Pin */
-  GPIO_InitStruct.Pin = SPI_FRAM_CS_Pin;
+  /*Configure GPIO pins : Seventh_Pin Sixth_Pin Fifth_Pin */
+  GPIO_InitStruct.Pin = Seventh_Pin|Sixth_Pin|Fifth_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(SPI_FRAM_CS_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : Fourth_Pin */
+  GPIO_InitStruct.Pin = Fourth_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(Fourth_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : Thrid_Pin Second_Pin First_Pin SPI_FRAM_CS_Pin 
+                           Zero_Pin */
+  GPIO_InitStruct.Pin = Thrid_Pin|Second_Pin|First_Pin|SPI_FRAM_CS_Pin 
+                          |Zero_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
   /* EXTI interrupt init*/
   HAL_NVIC_SetPriority(EXTI4_IRQn, 0, 0);
@@ -361,16 +389,26 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 
-void SendToComp(uint8_t *input){
-	int shifter = 0;
-	if( *input & 1 << shifter++) {} //checks 0th bit
-	if (*input & 1 << shifter++) {} //checks 1st bit
-	if (*input & 1 << shifter++) {} //checks 2nd bit
-	if (*input & 1 << shifter++) {}
-	if (*input & 1 << shifter++) {}
-	if (*input & 1 << shifter++) {}
-	if (*input & 1 << shifter++) {}
-	if (*input & 1 << shifter++) {}	
+void SendToComp (uint8_t input){
+	int shifter = 7;
+	setPin(Seventh_GPIO_Port, Seventh_Pin, shifter--, input);
+	setPin(Sixth_GPIO_Port, Sixth_Pin, shifter--, input);
+	setPin(Fifth_GPIO_Port, Fifth_Pin, shifter--, input);
+	setPin(Fourth_GPIO_Port, Fourth_Pin, shifter--, input);
+	setPin(Thrid_GPIO_Port, Thrid_Pin, shifter--, input);
+	setPin(Second_GPIO_Port, Second_Pin, shifter--, input);
+	setPin(First_GPIO_Port, First_Pin, shifter--, input);
+	setPin(Zero_GPIO_Port, Zero_Pin, shifter, input);
+	
+}
+	
+void setPin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin, int shift_amt, uint8_t input){
+	if(input & (1 << shift_amt)){
+		HAL_GPIO_WritePin(GPIOx, GPIO_Pin, GPIO_PIN_SET);
+	}
+	else{
+		HAL_GPIO_WritePin(GPIOx, GPIO_Pin, GPIO_PIN_RESET);
+	}
 	
 }
 

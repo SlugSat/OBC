@@ -91,8 +91,24 @@ void Error_Handler(void);
 #define C1_S0_GPIO_Port GPIOA
 #define C1_S1_Pin GPIO_PIN_15
 #define C1_S1_GPIO_Port GPIOA
+#define Seventh_Pin GPIO_PIN_10
+#define Seventh_GPIO_Port GPIOC
+#define Sixth_Pin GPIO_PIN_11
+#define Sixth_GPIO_Port GPIOC
+#define Fifth_Pin GPIO_PIN_12
+#define Fifth_GPIO_Port GPIOC
+#define Fourth_Pin GPIO_PIN_2
+#define Fourth_GPIO_Port GPIOD
+#define Thrid_Pin GPIO_PIN_3
+#define Thrid_GPIO_Port GPIOB
+#define Second_Pin GPIO_PIN_4
+#define Second_GPIO_Port GPIOB
+#define First_Pin GPIO_PIN_5
+#define First_GPIO_Port GPIOB
 #define SPI_FRAM_CS_Pin GPIO_PIN_6
 #define SPI_FRAM_CS_GPIO_Port GPIOB
+#define Zero_Pin GPIO_PIN_7
+#define Zero_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
