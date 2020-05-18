@@ -1,0 +1,23 @@
+--cpu Cortex-M3
+"bitchecker\startup_stm32l152xe.o"
+"bitchecker\main.o"
+"bitchecker\stm32l1xx_it.o"
+"bitchecker\stm32l1xx_hal_msp.o"
+"bitchecker\stm32l1xx_hal_tim.o"
+"bitchecker\stm32l1xx_hal_tim_ex.o"
+"bitchecker\stm32l1xx_hal.o"
+"bitchecker\stm32l1xx_hal_rcc.o"
+"bitchecker\stm32l1xx_hal_rcc_ex.o"
+"bitchecker\stm32l1xx_hal_flash.o"
+"bitchecker\stm32l1xx_hal_flash_ex.o"
+"bitchecker\stm32l1xx_hal_flash_ramfunc.o"
+"bitchecker\stm32l1xx_hal_gpio.o"
+"bitchecker\stm32l1xx_hal_dma.o"
+"bitchecker\stm32l1xx_hal_pwr.o"
+"bitchecker\stm32l1xx_hal_pwr_ex.o"
+"bitchecker\stm32l1xx_hal_cortex.o"
+"bitchecker\system_stm32l1xx.o"
+--library_type=microlib --strict --scatter "BitChecker\BitChecker.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "BitChecker.map" -o BitChecker\BitChecker.axf
