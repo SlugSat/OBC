@@ -1,4 +1,4 @@
-#include "PowerModes.h"
+#include "SatelliteControl.h"
 
 
 #ifndef GLOBALS

@@ -1,10 +1,10 @@
 pmode_test_rcv\current_control_functions.o: ..\Src\Current_Control_Functions.c
-pmode_test_rcv\current_control_functions.o: ../Inc/Current_Control_Functions.h
+pmode_test_rcv\current_control_functions.o: ..\Inc\Current_Control_Functions.h
 pmode_test_rcv\current_control_functions.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 pmode_test_rcv\current_control_functions.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
-pmode_test_rcv\current_control_functions.o: ../Inc/main.h
+pmode_test_rcv\current_control_functions.o: ..\Inc\main.h
 pmode_test_rcv\current_control_functions.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal.h
-pmode_test_rcv\current_control_functions.o: ../Inc/stm32l1xx_hal_conf.h
+pmode_test_rcv\current_control_functions.o: ..\Inc\stm32l1xx_hal_conf.h
 pmode_test_rcv\current_control_functions.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_rcc.h
 pmode_test_rcv\current_control_functions.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_def.h
 pmode_test_rcv\current_control_functions.o: ../Drivers/CMSIS/Device/ST/STM32L1xx/Include/stm32l1xx.h

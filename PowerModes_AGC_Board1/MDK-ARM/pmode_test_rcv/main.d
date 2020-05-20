@@ -38,7 +38,7 @@ pmode_test_rcv\main.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_tim.h
 pmode_test_rcv\main.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_tim_ex.h
 pmode_test_rcv\main.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_uart.h
 pmode_test_rcv\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
-pmode_test_rcv\main.o: ../Inc/PowerModes.h
+pmode_test_rcv\main.o: ../Inc/SatelliteControl.h
 pmode_test_rcv\main.o: ../Inc/SPI_FRAM.h
 pmode_test_rcv\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 pmode_test_rcv\main.o: ../Inc/DateConversion.h

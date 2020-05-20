@@ -1,7 +1,7 @@
 pmode_test_rcv\agc.o: ..\Src\agc.c
-pmode_test_rcv\agc.o: ../Inc/main.h
+pmode_test_rcv\agc.o: ..\Inc\main.h
 pmode_test_rcv\agc.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal.h
-pmode_test_rcv\agc.o: ../Inc/stm32l1xx_hal_conf.h
+pmode_test_rcv\agc.o: ..\Inc\stm32l1xx_hal_conf.h
 pmode_test_rcv\agc.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_rcc.h
 pmode_test_rcv\agc.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_def.h
 pmode_test_rcv\agc.o: ../Drivers/CMSIS/Device/ST/STM32L1xx/Include/stm32l1xx.h
@@ -37,4 +37,4 @@ pmode_test_rcv\agc.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_spi_ex.h
 pmode_test_rcv\agc.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_tim.h
 pmode_test_rcv\agc.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_tim_ex.h
 pmode_test_rcv\agc.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_uart.h
-pmode_test_rcv\agc.o: ../Inc/agc.h
+pmode_test_rcv\agc.o: ..\Inc\agc.h

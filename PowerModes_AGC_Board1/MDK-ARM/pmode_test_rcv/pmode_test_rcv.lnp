@@ -1,6 +1,5 @@
 --cpu Cortex-M3
 "pmode_test_rcv\startup_stm32l152xe.o"
-"pmode_test_rcv\powermodes.o"
 "pmode_test_rcv\transitions.o"
 "pmode_test_rcv\spi_fram.o"
 "pmode_test_rcv\fuel_gauge_functions.o"

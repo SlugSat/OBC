@@ -26,6 +26,7 @@
 #include <stdio.h>
 #include "SPI_FRAM.h"
 #include "DateConversion.h"
+#include "edac.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -461,46 +462,74 @@ void Test_FRAM(int rw) {
 	char msg[200] = {0};
 	char msgClear[200] = {0};
 	
-	uint8_t battLevel, pmState, numdataPoints, solarVector, ltStatus, mechState, numUsers, powerStatus;
+	uint8_t pmState, numdataPoints, solarVector, ltStatus, mechState, numUsers, powerStatus;
+	//uint8_t battLevel;
 	double logTime, julianTime;
 	float longitude, latitude, altitude;
+	uint8_t i, j;
+	uint16_t par_dec;
 	
 	if (rw) {
-		uint8_t readVal[4] = {1, 2, 3, 4};
-		uint8_t readDouble[8] = {0};
+		uint8_t readVal[8] = {0};
+		uint8_t valProcess[4] = {0};
 		
+		uint8_t readDouble[16] = {0};
+		uint8_t doubleProcess[8] = {0};
+		
+		uint8_t battLevel[2] = {0};
+		uint8_t battProcess;
 		// Latitude
-		SPI_FRAM_Read(&hspi1, SPI_FRAM_LATITUDE_ADDR, readVal, 4, &huart2, 5);
-		latitude = bytes_to_float(readVal);
+		SPI_FRAM_Read(&hspi1, SPI_FRAM_LATITUDE_ADDR, readVal, 8, &huart2, 5);
+		for (i = 0, j = 0; i < 4; i++, j+=2) {
+			par_dec = (readVal[j] << 4) | readVal[j+1];
+			valProcess[i] = parity_decode(&par_dec);
+		}
+		latitude = bytes_to_float(valProcess);
 		memcpy(msg, msgClear, 200);
 		snprintf(msg, 200, "\nLatitude: %f\n", latitude); 
 		HAL_UART_Transmit(&huart2, (uint8_t *) msg, strlen(msg), 5);
 		
 		// Longitude
-		SPI_FRAM_Read(&hspi1, SPI_FRAM_LONGITUDE_ADDR, readVal, 4, &huart2, 5);
-		longitude = bytes_to_float(readVal);
+		SPI_FRAM_Read(&hspi1, SPI_FRAM_LONGITUDE_ADDR, readVal, 8, &huart2, 5);
+		for (i = 0, j = 0; i < 4; i++, j+=2) {
+			par_dec = (readVal[j] << 4) | readVal[j+1];
+			valProcess[i] = parity_decode(&par_dec);
+		}
+		longitude = bytes_to_float(valProcess);
 		memcpy(msg, msgClear, 200);
 		snprintf(msg, 200, "\nLongitude: %f\n", longitude); 
 		HAL_UART_Transmit(&huart2, (uint8_t *) msg, strlen(msg), 5);
 		
 		// Altitude
-		SPI_FRAM_Read(&hspi1, SPI_FRAM_ALTITUDE_ADDR, readVal, 4, &huart2, 5);
-		altitude = bytes_to_float(readVal);
+		SPI_FRAM_Read(&hspi1, SPI_FRAM_ALTITUDE_ADDR, readVal, 8, &huart2, 5);
+		for (i = 0, j = 0; i < 4; i++, j+=2) {
+			par_dec = (readVal[j] << 4) | readVal[j+1];
+			valProcess[i] = parity_decode(&par_dec);
+		}
+		altitude = bytes_to_float(valProcess);
 		memcpy(msg, msgClear, 200);
 		snprintf(msg, 200, "\nAltitude: %f\n", altitude); 
 		HAL_UART_Transmit(&huart2, (uint8_t *) msg, strlen(msg), 5);
 		
 		// Time
-		SPI_FRAM_Read(&hspi1, SPI_FRAM_TIME_ADDR, readDouble, 8, &huart2, 5);
-		julianTime = bytes_to_double(readDouble);
+		SPI_FRAM_Read(&hspi1, SPI_FRAM_TIME_ADDR, readDouble, 16, &huart2, 5);
+		for (i = 0, j = 0; i < 8; i++, j+=2) {
+			par_dec = (readDouble[j] << 4) | readDouble[j+1];
+			doubleProcess[i] = parity_decode(&par_dec);
+		}
+		julianTime = bytes_to_double(doubleProcess);
 		memcpy(msg, msgClear, 200);
 		snprintf(msg, 200, "\nTime: %lf\n", julianTime); 
 		HAL_UART_Transmit(&huart2, (uint8_t *) msg, strlen(msg), 5);
 		
 		// Battery
-		SPI_FRAM_Read(&hspi1, SPI_FRAM_BATT_LEVEL_ADDR, &battLevel, 1, &huart2, 5);
+		SPI_FRAM_Read(&hspi1, SPI_FRAM_BATT_LEVEL_ADDR, battLevel, 2, &huart2, 5);
+		for (i = 0, j = 0; i < 2; i++, j+=2) {
+			par_dec = (battLevel[j] << 4) | battLevel[j+1];
+			battProcess = parity_decode(&par_dec);
+		}
 		memcpy(msg, msgClear, 200);
-		snprintf(msg, 200, "\nBattery Level: 0x%02x\n", battLevel); 
+		snprintf(msg, 200, "\nBattery Level: 0x%02x\n", battProcess); 
 		HAL_UART_Transmit(&huart2, (uint8_t *) msg, strlen(msg), 5);
 		
 		HAL_GPIO_WritePin(GPIOA, SPI_FRAM_LOCK_Pin, GPIO_PIN_SET);
@@ -509,6 +538,7 @@ void Test_FRAM(int rw) {
 		uint8_t longD[8] = {0};
 		
 		longitude = 555.5;//234.3;
+
 		float_to_bytes(longitude, longU);
 		SPI_FRAM_Write(&hspi1, SPI_FRAM_LONGITUDE_ADDR, longU, 4, &huart2, 5);
 		HAL_Delay(1);

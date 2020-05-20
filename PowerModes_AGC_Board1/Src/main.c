@@ -8,7 +8,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <stdarg.h>
-#include "PowerModes.h"
+#include "SatelliteControl.h"
 #include "agc.h"
 /* USER CODE END Includes */
 
@@ -17,6 +17,10 @@
 typedef enum{
 	P_Core = 0x1, S_Core = 0x2, Reboot = 0x3, Sleep = 0x4, Killed = 0x5 
 }States_FTA;
+#define GPIO_Pin_15 8
+#define IDLE 0 
+#define EVENT 1
+
 
 /* USER CODE END PTD */
 
@@ -32,19 +36,12 @@ typedef enum{
 
 /* Private variables ---------------------------------------------------------*/
 ADC_HandleTypeDef hadc;
-
 DAC_HandleTypeDef hdac;
-
 I2C_HandleTypeDef hi2c1;
-
 RTC_HandleTypeDef hrtc;
-
 SPI_HandleTypeDef hspi2;
-
 TIM_HandleTypeDef htim10;
-
 UART_HandleTypeDef huart2;
-
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -68,7 +65,6 @@ void SendToComp(uint8_t input);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 uint8_t trigger = 0;
-
 
 /* USER CODE END 0 */
 
@@ -108,7 +104,7 @@ int main(void)
   MX_RTC_Init();
   MX_TIM10_Init();
   /* USER CODE BEGIN 2 */
-	Power_Modes_State_Machine_Init(&hi2c1, &hspi2, &huart2, &htim10);
+	Sat_Init(&hi2c1, &hspi2, &huart2, &htim10);
 
 	HAL_ADC_Start(&hadc);
 	DAC->CR |= DAC_CR_EN1;
@@ -122,98 +118,92 @@ int main(void)
 	// Track the state of the power modes
 	uint8_t status = 0;
 	
-	#if (debugKill)
-		char msg[50] = "\nI'm dead!!! :(\n";
-	#endif
-	
-	#if (debugAGC)
-		uint32_t ticks = 0;	
-	#endif
-	
   /* USER CODE END 2 */
+
+
+int state = 1;
+int firstTransition = 1;
+SPI_HandleTypeDef framSPI;
+UART_HandleTypeDef uartDebug;
+
+	switch (state) {
+		case (Detumble): 
+			Output_Power_Pins(state);
+			state = Transition(Detumble, &framSPI, &uartDebug);
+			break;
+			
+		case (Kill): 
+			Output_Power_Pins(state);
+			state = Transition(Kill, &framSPI, &uartDebug);
+			return Kill;
+
+		case (Normal): 
+			Output_Power_Pins(state);
+			state = Transition(Normal, &framSPI, &uartDebug);
+			break;
+
+		case (UltraLowPower): 
+			Output_Power_Pins(state);
+			state = Transition(UltraLowPower, &framSPI, &uartDebug);
+			break;
+
+		case (LowPower): 
+			Output_Power_Pins(state);
+			state = Transition(LowPower, &framSPI, &uartDebug);
+			break;
+			
+		case (Eclipse): 
+			Output_Power_Pins(state);
+			state = Transition(Eclipse, &framSPI, &uartDebug);
+			break;
+
+		case (ScienceOnly): 
+			Output_Power_Pins(state);
+			state = Transition(ScienceOnly, &framSPI, &uartDebug);
+			break;			
+	}
+	return state;
+	
+	
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
     while (1)
     {
-			switch (state_FTA){
+			switch (state_FTA) {
+				
 				case P_Core:
-				if(trigger == 1){
-					state_FTA = S_Core;
-				}
-				if (status != Kill)
-				{
-					status = Power_Modes_State_Machine_Run();
-					//send status to comparator
-				}
-				else
-				{
-					state_FTA = Killed;
-					#if (debugKill) 
-						HAL_UART_Transmit(&huart2, (uint8_t *)msg, sizeof(msg), 30);
-						for (int i = 0; i < 100000; i++);
-					#endif
-				}
-				
-				// Run AGC code
-				#if (debugAGC)
-					ticks = HAL_GetTick();
-				#endif
-				AGC_DoEvent();
-				#if (debugAGC)
-					my_printf("XX %d\n", (HAL_GetTick() - ticks)); 
-				#endif
-				break;
-			case S_Core:
-				if(trigger == 1){
-					state_FTA = Reboot;
-				}
-				if (status != Kill)
-				{
-					status = Power_Modes_State_Machine_Run();
-					//send status to comparator
-				}
-				else
-				{
-					state_FTA = Killed;
-					#if (debugKill) 
-						HAL_UART_Transmit(&huart2, (uint8_t *)msg, sizeof(msg), 30);
-						for (int i = 0; i < 100000; i++);
-					#endif
-				}
-				
-				// Run AGC code
-				#if (debugAGC)
-					ticks = HAL_GetTick();
-				#endif
-				AGC_DoEvent();
-				#if (debugAGC)
-					my_printf("XX %d\n", (HAL_GetTick() - ticks)); 
-				#endif
-				break;
-			case Reboot:
-				if(trigger == 1){
-					state_FTA = Sleep;
-				}
-				//Reset watchdog
-				break;
-			case Sleep:
-				SLEEP();
-				if(trigger == 1){
-					state_FTA = P_Core;
-				}
-				//Sleep function
-				break;
-			case Killed:
-				//hard break;
-				break;
-		}
-		SendToComp(status);
-    /* USER CODE END WHILE */
+					if(trigger){ state_FTA = S_Core; }
+					else if (status != Kill) { status = Sat_Run(); }
+					else { state_FTA = Killed; }
+					break;
+					
+				case S_Core:
+					if(trigger){ state_FTA = Reboot; }
+					else if (status != Kill) { status = Sat_Run(); } 
+					else { state_FTA = Killed; }
+					break;
+					
+				case Reboot:
+					if(trigger){ state_FTA = Sleep; }
+					//Watchdog Reset
+					break;
+					
+				case Sleep:
+					if(trigger){ state_FTA = P_Core; }
+					else { SLEEP(); }
+					break;
+					
+				case Killed:
+					exit(0);
+			}
+			trigger = IDLE;
+			SendToComp(status);
+			/* USER CODE END WHILE */
 
-    /* USER CODE BEGIN 3 */
-  }	
-  /* USER CODE END 3 */
+			/* USER CODE BEGIN 3 */
+		}	
+		/* USER CODE END 3 */
 }
 
 /**
@@ -642,6 +632,11 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
+	if (GPIO_Pin == GPIO_Pin_15) {
+		trigger = EVENT;
+	}
+}		
 
 void SendToComp(uint8_t input){
 	int shifter = 7;
@@ -692,11 +687,8 @@ void SendToComp(uint8_t input){
 
 void SLEEP(void){
 		HAL_SuspendTick();
-
 		HAL_PWR_EnterSLEEPMode(PWR_MAINREGULATOR_ON, PWR_SLEEPENTRY_WFI);
-		
 		HAL_ResumeTick();
-	
 }
 //#ifdef USE_DEBUG_PRINTF
 /**

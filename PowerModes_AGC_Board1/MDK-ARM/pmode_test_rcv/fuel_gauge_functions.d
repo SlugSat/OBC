@@ -1,8 +1,8 @@
 pmode_test_rcv\fuel_gauge_functions.o: ..\Src\Fuel_Gauge_Functions.c
-pmode_test_rcv\fuel_gauge_functions.o: ../Inc/Fuel_Gauge_Functions.h
-pmode_test_rcv\fuel_gauge_functions.o: ../Inc/main.h
+pmode_test_rcv\fuel_gauge_functions.o: ..\Inc\Fuel_Gauge_Functions.h
+pmode_test_rcv\fuel_gauge_functions.o: ..\Inc\main.h
 pmode_test_rcv\fuel_gauge_functions.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal.h
-pmode_test_rcv\fuel_gauge_functions.o: ../Inc/stm32l1xx_hal_conf.h
+pmode_test_rcv\fuel_gauge_functions.o: ..\Inc\stm32l1xx_hal_conf.h
 pmode_test_rcv\fuel_gauge_functions.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_rcc.h
 pmode_test_rcv\fuel_gauge_functions.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_def.h
 pmode_test_rcv\fuel_gauge_functions.o: ../Drivers/CMSIS/Device/ST/STM32L1xx/Include/stm32l1xx.h
