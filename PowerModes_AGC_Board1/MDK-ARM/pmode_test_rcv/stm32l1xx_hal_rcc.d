@@ -27,6 +27,7 @@ pmode_test_rcv\stm32l1xx_hal_rcc.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1x
 pmode_test_rcv\stm32l1xx_hal_rcc.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_flash_ex.h
 pmode_test_rcv\stm32l1xx_hal_rcc.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_flash_ramfunc.h
 pmode_test_rcv\stm32l1xx_hal_rcc.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_i2c.h
+pmode_test_rcv\stm32l1xx_hal_rcc.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_iwdg.h
 pmode_test_rcv\stm32l1xx_hal_rcc.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_pwr.h
 pmode_test_rcv\stm32l1xx_hal_rcc.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_pwr_ex.h
 pmode_test_rcv\stm32l1xx_hal_rcc.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_rtc.h

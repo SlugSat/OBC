@@ -94,7 +94,7 @@ static float AGC_MeasureRSSI(void) {
 	return AGC_DetectorToRSSI(DetectorValue);
 }
 
-void AGC_DoEvent(void) {
+uint8_t AGC_DoEvent(void) {
 	float rssi = AGC_MeasureRSSI();
 	volatile float NeededGain = 0; // = abs(AGC_SETPOINT - rssi);
 
@@ -192,4 +192,5 @@ void AGC_DoEvent(void) {
 		Error_Handler(); // shouldn't happen
 		break;
 	}
+	return CurrentState;
 }
