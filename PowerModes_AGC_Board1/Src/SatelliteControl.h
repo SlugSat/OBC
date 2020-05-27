@@ -7,6 +7,7 @@
 #include <string.h>
 #include <stdio.h>
 
+
 #define OFF (0x02)
 #define ON (0x00)
 
@@ -26,6 +27,9 @@
 #define BATT (4)
 #define SOLAR (5)
 
+
+
+
 /* Define states and system function variables */
 typedef enum States {Detumble, Kill, Normal, LowPower, 
 											UltraLowPower, Eclipse, ScienceOnly} States;
@@ -42,5 +46,26 @@ void Output_Power_Pins(uint8_t currState);
 
 States Transition(uint8_t event, SPI_HandleTypeDef *hspi, 
 									UART_HandleTypeDef *huart);
+
+/* State transition for Detumble */
+uint8_t Detumble_Transition(void);
+
+/* State transition for Eclipse */
+uint8_t Eclipse_Transition(void);
+
+
+/* State transition for Normal */
+uint8_t Normal_Transition(void);
+
+/* State transition for LowPower */
+uint8_t LowPower_Transition(void);
+
+
+/* State transition for UltraLowPower */
+uint8_t UltraLowPower_Transition(void);
+
+
+/* State transition for ScienceOnly */
+uint8_t ScienceOnly_Transition(void);
 
 #endif

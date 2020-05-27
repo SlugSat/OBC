@@ -1,8 +1,8 @@
 Dependencies for Project 'pmode_test_rcv', Target 'pmode_test_rcv': (DO NOT MODIFY !)
 CompilerVersion: 5060750::V5.06 update 6 (build 750)::.\ARMCC
 F (startup_stm32l152xe.s)(0x5ECDEA8B)(--cpu Cortex-M3 --pd "__EVAL SETA 1" -g --apcs=interwork --pd "__MICROLIB SETA 1"-I.\RTE\_pmode_test_rcv-IC:\Users\andyc\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\andyc\AppData\Local\Arm\Packs\Keil\STM32L1xx_DFP\1.2.0\Device\Include--pd "__UVISION_VERSION SETA 530" --pd "_RTE_ SETA 1" --pd "STM32L152xE SETA 1" --pd "_RTE_ SETA 1"--list startup_stm32l152xe.lst --xref -o pmode_test_rcv\startup_stm32l152xe.o --depend pmode_test_rcv\startup_stm32l152xe.d)
-F (..\Src\transitions.c)(0x5ECDE4C9)(--c99 -c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_pmode_test_rcv-IC:\Users\andyc\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\andyc\AppData\Local\Arm\Packs\Keil\STM32L1xx_DFP\1.2.0\Device\Include-D__UVISION_VERSION="530" -D_RTE_ -DSTM32L152xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32L152xE -DUSE_DEBUG_PRINTF-o pmode_test_rcv\transitions.o --omf_browse pmode_test_rcv\transitions.crf --depend pmode_test_rcv\transitions.d)
-I (..\Src\SatelliteControl.h)(0x5ECDE4C5)
+F (..\Src\transitions.c)(0x5ECE3C2D)(--c99 -c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_pmode_test_rcv-IC:\Users\andyc\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\andyc\AppData\Local\Arm\Packs\Keil\STM32L1xx_DFP\1.2.0\Device\Include-D__UVISION_VERSION="530" -D_RTE_ -DSTM32L152xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32L152xE -DUSE_DEBUG_PRINTF-o pmode_test_rcv\transitions.o --omf_browse pmode_test_rcv\transitions.crf --depend pmode_test_rcv\transitions.d)
+I (..\Src\SatelliteControl.h)(0x5ECE3C30)
 I (../Inc/main.h)(0x5ECDEA84)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal.h)(0x5EC2ED24)
 I (../Inc/stm32l1xx_hal_conf.h)(0x5ECDEA84)
@@ -176,7 +176,7 @@ I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_uart.h)(0x5EC2ED24)
 F (..\Inc\Fuel_Gauge_Functions.h)(0x5EC2E7A9)()
 F (..\Inc\DateConversion.h)(0x5EC2E7A9)()
 F (..\Inc\Current_Control_Functions.h)(0x5EC2E7A9)()
-F (..\Src\agc.c)(0x5ECDE6F8)(--c99 -c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_pmode_test_rcv-IC:\Users\andyc\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\andyc\AppData\Local\Arm\Packs\Keil\STM32L1xx_DFP\1.2.0\Device\Include-D__UVISION_VERSION="530" -D_RTE_ -DSTM32L152xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32L152xE -DUSE_DEBUG_PRINTF-o pmode_test_rcv\agc.o --omf_browse pmode_test_rcv\agc.crf --depend pmode_test_rcv\agc.d)
+F (..\Src\agc.c)(0x5ECE24EA)(--c99 -c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_pmode_test_rcv-IC:\Users\andyc\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\andyc\AppData\Local\Arm\Packs\Keil\STM32L1xx_DFP\1.2.0\Device\Include-D__UVISION_VERSION="530" -D_RTE_ -DSTM32L152xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32L152xE -DUSE_DEBUG_PRINTF-o pmode_test_rcv\agc.o --omf_browse pmode_test_rcv\agc.crf --depend pmode_test_rcv\agc.d)
 I (../Inc/main.h)(0x5ECDEA84)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal.h)(0x5EC2ED24)
 I (../Inc/stm32l1xx_hal_conf.h)(0x5ECDEA84)
@@ -219,8 +219,8 @@ I (../Inc/agc.h)(0x5ECDE70E)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5E54234C)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E54234C)
 F (..\Inc\agc.h)(0x5ECDE70E)()
-F (..\Src\SatelliteControl.c)(0x5ECDE279)(--c99 -c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_pmode_test_rcv-IC:\Users\andyc\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\andyc\AppData\Local\Arm\Packs\Keil\STM32L1xx_DFP\1.2.0\Device\Include-D__UVISION_VERSION="530" -D_RTE_ -DSTM32L152xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32L152xE -DUSE_DEBUG_PRINTF-o pmode_test_rcv\satellitecontrol.o --omf_browse pmode_test_rcv\satellitecontrol.crf --depend pmode_test_rcv\satellitecontrol.d)
-I (..\Src\SatelliteControl.h)(0x5ECDE4C5)
+F (..\Src\SatelliteControl.c)(0x5ECE36DA)(--c99 -c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_pmode_test_rcv-IC:\Users\andyc\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\andyc\AppData\Local\Arm\Packs\Keil\STM32L1xx_DFP\1.2.0\Device\Include-D__UVISION_VERSION="530" -D_RTE_ -DSTM32L152xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32L152xE -DUSE_DEBUG_PRINTF-o pmode_test_rcv\satellitecontrol.o --omf_browse pmode_test_rcv\satellitecontrol.crf --depend pmode_test_rcv\satellitecontrol.d)
+I (..\Src\SatelliteControl.h)(0x5ECE3C30)
 I (../Inc/main.h)(0x5ECDEA84)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal.h)(0x5EC2ED24)
 I (../Inc/stm32l1xx_hal_conf.h)(0x5ECDEA84)
@@ -265,8 +265,8 @@ I (../Inc/SPI_FRAM.h)(0x5EC2E7A9)
 I (../Inc/Current_Control_Functions.h)(0x5EC2E7A9)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5E54234A)
 I (../Inc/Fuel_Gauge_Functions.h)(0x5EC2E7A9)
-F (..\Src\SatelliteControl.h)(0x5ECDE4C5)()
-F (../Src/main.c)(0x5ECDFB72)(--c99 -c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_pmode_test_rcv-IC:\Users\andyc\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\andyc\AppData\Local\Arm\Packs\Keil\STM32L1xx_DFP\1.2.0\Device\Include-D__UVISION_VERSION="530" -D_RTE_ -DSTM32L152xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32L152xE -DUSE_DEBUG_PRINTF-o pmode_test_rcv\main.o --omf_browse pmode_test_rcv\main.crf --depend pmode_test_rcv\main.d)
+F (..\Src\SatelliteControl.h)(0x5ECE3C30)()
+F (../Src/main.c)(0x5ECE3BE7)(--c99 -c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc -I ../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_pmode_test_rcv-IC:\Users\andyc\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\andyc\AppData\Local\Arm\Packs\Keil\STM32L1xx_DFP\1.2.0\Device\Include-D__UVISION_VERSION="530" -D_RTE_ -DSTM32L152xE -D_RTE_ -DUSE_HAL_DRIVER -DSTM32L152xE -DUSE_DEBUG_PRINTF-o pmode_test_rcv\main.o --omf_browse pmode_test_rcv\main.crf --depend pmode_test_rcv\main.d)
 I (../Inc/main.h)(0x5ECDEA84)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal.h)(0x5EC2ED24)
 I (../Inc/stm32l1xx_hal_conf.h)(0x5ECDEA84)
@@ -306,7 +306,7 @@ I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_tim.h)(0x5EC2ED24)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_tim_ex.h)(0x5EC2ED24)
 I (../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_uart.h)(0x5EC2ED24)
 I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x5E54234C)
-I (../Src/SatelliteControl.h)(0x5ECDE4C5)
+I (../Src/SatelliteControl.h)(0x5ECE3C30)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5E54234C)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5E54234C)
 I (../Inc/agc.h)(0x5ECDE70E)

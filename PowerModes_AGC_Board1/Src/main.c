@@ -70,6 +70,7 @@ static void MX_IWDG_Init(void);
 void my_printf(const char *fmt, ...);
 void SLEEP(void);
 void SendToComp(uint8_t input);
+void setPin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin, int shift_amt, uint8_t input);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -641,53 +642,29 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 	}
 }		
 
-void SendToComp(uint8_t input){
+void SendToComp (uint8_t input){
 	int shifter = 7;
-	if(input & (1 << shifter--)){ //MSB
-		//set MSB pin to high
-	}
-	else{
-		//set MSB pin to low
-	}
-	if(input & (1 << shifter--)){
-		
-	}
-	else{
-	}
-	if(input & (1 << shifter--)){
-		
-	}
-	else{
-	}
-	if(input & (1 << shifter--)){
-		
-	}
-	else{
-	}
-	if(input & (1 << shifter--)){
-		
-	}
-	else{
-	}
-	if(input & (1 << shifter--)){
-		
-	}
-	else{
-	}
-	if(input & (1 << shifter--)){
-		
-	}
-	else{
-		
-	}
-	if(input & (1 << shifter--)){ //LSB
-		
-	}
-  else{
-		
-	}		
+	/*
+	setPin(Seventh_GPIO_Port, Seventh_Pin, shifter--, input);
+	setPin(Sixth_GPIO_Port, Sixth_Pin, shifter--, input);
+	setPin(Fifth_GPIO_Port, Fifth_Pin, shifter--, input);
+	setPin(Fourth_GPIO_Port, Fourth_Pin, shifter--, input);
+	setPin(Thrid_GPIO_Port, Thrid_Pin, shifter--, input);
+	setPin(Second_GPIO_Port, Second_Pin, shifter--, input);
+	setPin(First_GPIO_Port, First_Pin, shifter--, input);
+	setPin(Zero_GPIO_Port, Zero_Pin, shifter, input);
+	*/
 }
-
+	
+void setPin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin, int shift_amt, uint8_t input){
+	if(input & (1 << shift_amt)){
+		HAL_GPIO_WritePin(GPIOx, GPIO_Pin, GPIO_PIN_SET);
+	}
+	else{
+		HAL_GPIO_WritePin(GPIOx, GPIO_Pin, GPIO_PIN_RESET);
+	}
+	
+}
 void SLEEP(void){
 		HAL_SuspendTick();
 		HAL_PWR_EnterSLEEPMode(PWR_MAINREGULATOR_ON, PWR_SLEEPENTRY_WFI);

@@ -1,6 +1,5 @@
 #include "SatelliteControl.h"
 
-
 #ifndef GLOBALS
 #define GLOBALS
 /* Global variables controlling events and signals */
@@ -10,6 +9,7 @@ float batteryLevel = 100;
 uint8_t scienceEvent = 0;
 uint8_t solarVector = ON; 
 #endif
+
 
 /* Print out each global variable */
 void Print_Globals(void)
