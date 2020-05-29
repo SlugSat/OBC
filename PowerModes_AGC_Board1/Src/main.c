@@ -124,7 +124,6 @@ int main(void)
 	HAL_ADC_Start(&hadc);
 	DAC->CR |= DAC_CR_EN1;
 	DAC->CR |= DAC_CR_EN2;
-	AGC_Init();
 	
 	// Used for debugging when the satellite is dead or seeing additional AGC data
 	#define debugKill  (0)
@@ -142,26 +141,30 @@ int main(void)
 			switch (state_FTA) {
 				
 				case P_Core:
+					SendToComp(state_FTA);
 					if(trigger){ state_FTA = S_Core; }
 					else if (status != Kill) { status = Sat_Run(state); 
 																		ACG_Status = AGC_DoEvent();}
-					else { state_FTA = Killed; }
+					//else { state_FTA = Killed; }
 					break;
 					
 				case S_Core:
+					SendToComp(state_FTA);
 					if(trigger){ state_FTA = Reboot; }
 					else if (status != Kill) { status = Sat_Run(state);					
 																		ACG_Status =	AGC_DoEvent();} 
-					else { state_FTA = Killed; }
+					//else { state_FTA = Killed; }
 					break;
 					
 				case Reboot:
+					SendToComp(state_FTA);
 					if(trigger){ state_FTA = Sleep; }
 					//Watchdog Reset
 					HAL_IWDG_Refresh(&hiwdg);
 					break;
 					
 				case Sleep:
+					SendToComp(state_FTA);
 					if(trigger){ state_FTA = P_Core; }
 					else { SLEEP(); }
 					break;
@@ -171,9 +174,10 @@ int main(void)
 					break;
 			}
 			trigger = IDLE;
-			SendToComp(status);
-			HAL_Delay(10);
-			SendToComp(ACG_Status);
+			//SendToComp(status);
+			uint8_t temp = 0x00;
+			SendToComp(temp);
+			//SendToComp(ACG_Status);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -517,7 +521,7 @@ static void MX_TIM10_Init(void)
   htim10.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim10.Init.Period = 65535;
   htim10.Init.ClockDivision = TIM_CLOCKDIVISION_DIV4;
-  //htim10.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+//  htim10.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim10) != HAL_OK)
   {
     Error_Handler();
@@ -579,32 +583,48 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
+  __HAL_RCC_GPIOD_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, Scie_Rail_Pin|Mech_Rail_Pin|Telemetry_Rail_Pin|DEAD_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, Scie_Rail_Pin|Mech_Rail_Pin|Zero_Pin|Telemetry_Rail_Pin 
+                          |DEAD_Pin|Seventh_Pin|Sixth_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOC, SPI_FRAM_LOCK_Pin|Misc_Rail_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOC, SPI_FRAM_LOCK_Pin|Misc_Rail_Pin|Fifth_Pin|Fourth_Pin 
+                          |Third_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, SPI_FRAM_CS_Pin|Memory_Rail_Pin|LT_Rail_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, SPI_FRAM_CS_Pin|Memory_Rail_Pin|LT_Rail_Pin|First_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : Scie_Rail_Pin Mech_Rail_Pin Telemetry_Rail_Pin DEAD_Pin */
-  GPIO_InitStruct.Pin = Scie_Rail_Pin|Mech_Rail_Pin|Telemetry_Rail_Pin|DEAD_Pin;
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(Second_GPIO_Port, Second_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin : PC13 */
+  GPIO_InitStruct.Pin = GPIO_PIN_13;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : Scie_Rail_Pin Mech_Rail_Pin Zero_Pin Telemetry_Rail_Pin 
+                           DEAD_Pin Seventh_Pin Sixth_Pin */
+  GPIO_InitStruct.Pin = Scie_Rail_Pin|Mech_Rail_Pin|Zero_Pin|Telemetry_Rail_Pin 
+                          |DEAD_Pin|Seventh_Pin|Sixth_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : SPI_FRAM_LOCK_Pin Misc_Rail_Pin */
-  GPIO_InitStruct.Pin = SPI_FRAM_LOCK_Pin|Misc_Rail_Pin;
+  /*Configure GPIO pins : SPI_FRAM_LOCK_Pin Misc_Rail_Pin Fifth_Pin Fourth_Pin 
+                           Third_Pin */
+  GPIO_InitStruct.Pin = SPI_FRAM_LOCK_Pin|Misc_Rail_Pin|Fifth_Pin|Fourth_Pin 
+                          |Third_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : SPI_FRAM_CS_Pin Memory_Rail_Pin LT_Rail_Pin */
-  GPIO_InitStruct.Pin = SPI_FRAM_CS_Pin|Memory_Rail_Pin|LT_Rail_Pin;
+  /*Configure GPIO pins : SPI_FRAM_CS_Pin Memory_Rail_Pin LT_Rail_Pin First_Pin */
+  GPIO_InitStruct.Pin = SPI_FRAM_CS_Pin|Memory_Rail_Pin|LT_Rail_Pin|First_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -628,6 +648,13 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(SCIENCE_EVENT_GPIO_Port, &GPIO_InitStruct);
 
+  /*Configure GPIO pin : Second_Pin */
+  GPIO_InitStruct.Pin = Second_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(Second_GPIO_Port, &GPIO_InitStruct);
+
   /* EXTI interrupt init*/
   HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
@@ -637,23 +664,25 @@ static void MX_GPIO_Init(void)
 /* USER CODE BEGIN 4 */
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
-	if (GPIO_Pin == GPIO_Pin_15) {
+	if (GPIO_Pin == GPIO_PIN_13) {
+		 char string[400] = "trigger";
+     HAL_UART_Transmit(&huart2, (uint8_t*)string, strlen(string), 10); // send message via UART
 		trigger = EVENT;
 	}
 }		
 
 void SendToComp (uint8_t input){
 	int shifter = 7;
-	/*
+	
 	setPin(Seventh_GPIO_Port, Seventh_Pin, shifter--, input);
 	setPin(Sixth_GPIO_Port, Sixth_Pin, shifter--, input);
 	setPin(Fifth_GPIO_Port, Fifth_Pin, shifter--, input);
 	setPin(Fourth_GPIO_Port, Fourth_Pin, shifter--, input);
-	setPin(Thrid_GPIO_Port, Thrid_Pin, shifter--, input);
+	setPin(Third_GPIO_Port, Third_Pin, shifter--, input);
 	setPin(Second_GPIO_Port, Second_Pin, shifter--, input);
 	setPin(First_GPIO_Port, First_Pin, shifter--, input);
 	setPin(Zero_GPIO_Port, Zero_Pin, shifter, input);
-	*/
+	
 }
 	
 void setPin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin, int shift_amt, uint8_t input){

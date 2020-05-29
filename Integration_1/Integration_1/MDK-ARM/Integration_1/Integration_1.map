@@ -1,0 +1,770 @@
+Component: ARM Compiler 5.06 update 6 (build 750) Tool: armlink [4d35ed]
+
+==============================================================================
+
+Section Cross References
+
+    startup_stm32l152xe.o(RESET) refers to startup_stm32l152xe.o(STACK) for __initial_sp
+    startup_stm32l152xe.o(RESET) refers to startup_stm32l152xe.o(.text) for Reset_Handler
+    startup_stm32l152xe.o(RESET) refers to stm32l1xx_it.o(i.NMI_Handler) for NMI_Handler
+    startup_stm32l152xe.o(RESET) refers to stm32l1xx_it.o(i.HardFault_Handler) for HardFault_Handler
+    startup_stm32l152xe.o(RESET) refers to stm32l1xx_it.o(i.MemManage_Handler) for MemManage_Handler
+    startup_stm32l152xe.o(RESET) refers to stm32l1xx_it.o(i.BusFault_Handler) for BusFault_Handler
+    startup_stm32l152xe.o(RESET) refers to stm32l1xx_it.o(i.UsageFault_Handler) for UsageFault_Handler
+    startup_stm32l152xe.o(RESET) refers to stm32l1xx_it.o(i.SVC_Handler) for SVC_Handler
+    startup_stm32l152xe.o(RESET) refers to stm32l1xx_it.o(i.DebugMon_Handler) for DebugMon_Handler
+    startup_stm32l152xe.o(RESET) refers to stm32l1xx_it.o(i.PendSV_Handler) for PendSV_Handler
+    startup_stm32l152xe.o(RESET) refers to stm32l1xx_it.o(i.SysTick_Handler) for SysTick_Handler
+    startup_stm32l152xe.o(RESET) refers to stm32l1xx_it.o(i.EXTI15_10_IRQHandler) for EXTI15_10_IRQHandler
+    startup_stm32l152xe.o(.text) refers to system_stm32l1xx.o(i.SystemInit) for SystemInit
+    startup_stm32l152xe.o(.text) refers to entry.o(.ARM.Collect$$$$00000000) for __main
+    main.o(i.HAL_GPIO_EXTI_Callback) refers to stm32l1xx_hal_gpio.o(i.HAL_GPIO_TogglePin) for HAL_GPIO_TogglePin
+    main.o(i.HAL_GPIO_EXTI_Callback) refers to main.o(.data) for .data
+    main.o(i.MX_ADC_Init) refers to main.o(.bss) for .bss
+    main.o(i.MX_GPIO_Init) refers to memseta.o(.text) for __aeabi_memclr4
+    main.o(i.MX_GPIO_Init) refers to stm32l1xx_hal_gpio.o(i.HAL_GPIO_WritePin) for HAL_GPIO_WritePin
+    main.o(i.MX_GPIO_Init) refers to stm32l1xx_hal_gpio.o(i.HAL_GPIO_Init) for HAL_GPIO_Init
+    main.o(i.MX_GPIO_Init) refers to stm32l1xx_hal_cortex.o(i.HAL_NVIC_SetPriority) for HAL_NVIC_SetPriority
+    main.o(i.MX_GPIO_Init) refers to stm32l1xx_hal_cortex.o(i.HAL_NVIC_EnableIRQ) for HAL_NVIC_EnableIRQ
+    main.o(i.MX_SPI2_Init) refers to main.o(.bss) for .bss
+    main.o(i.SLEEP) refers to stm32l1xx_hal.o(i.HAL_SuspendTick) for HAL_SuspendTick
+    main.o(i.SLEEP) refers to stm32l1xx_hal_pwr.o(i.HAL_PWR_EnterSLEEPMode) for HAL_PWR_EnterSLEEPMode
+    main.o(i.SLEEP) refers to stm32l1xx_hal.o(i.HAL_ResumeTick) for HAL_ResumeTick
+    main.o(i.SendToComp) refers to main.o(i.setPin) for setPin
+    main.o(i.SystemClock_Config) refers to memseta.o(.text) for __aeabi_memclr4
+    main.o(i.SystemClock_Config) refers to stm32l1xx_hal_rcc.o(i.HAL_RCC_OscConfig) for HAL_RCC_OscConfig
+    main.o(i.SystemClock_Config) refers to stm32l1xx_hal_rcc.o(i.HAL_RCC_ClockConfig) for HAL_RCC_ClockConfig
+    main.o(i.main) refers to stm32l1xx_hal.o(i.HAL_Init) for HAL_Init
+    main.o(i.main) refers to main.o(i.SystemClock_Config) for SystemClock_Config
+    main.o(i.main) refers to main.o(i.MX_GPIO_Init) for MX_GPIO_Init
+    main.o(i.main) refers to main.o(i.MX_ADC_Init) for MX_ADC_Init
+    main.o(i.main) refers to main.o(i.MX_SPI2_Init) for MX_SPI2_Init
+    main.o(i.main) refers to satellitecontrol.o(i.Sat_Run_Init) for Sat_Run_Init
+    main.o(i.main) refers to main.o(i.SendToComp) for SendToComp
+    main.o(i.main) refers to satellitecontrol.o(i.Sat_Run) for Sat_Run
+    main.o(i.main) refers to main.o(i.SLEEP) for SLEEP
+    main.o(i.main) refers to main.o(.bss) for .bss
+    main.o(i.main) refers to main.o(.data) for .data
+    main.o(i.setPin) refers to stm32l1xx_hal_gpio.o(i.HAL_GPIO_WritePin) for HAL_GPIO_WritePin
+    stm32l1xx_it.o(i.EXTI15_10_IRQHandler) refers to stm32l1xx_hal_gpio.o(i.HAL_GPIO_EXTI_IRQHandler) for HAL_GPIO_EXTI_IRQHandler
+    stm32l1xx_it.o(i.SysTick_Handler) refers to stm32l1xx_hal.o(i.HAL_IncTick) for HAL_IncTick
+    stm32l1xx_hal_msp.o(i.HAL_ADC_MspDeInit) refers to stm32l1xx_hal_gpio.o(i.HAL_GPIO_DeInit) for HAL_GPIO_DeInit
+    stm32l1xx_hal_msp.o(i.HAL_ADC_MspInit) refers to memseta.o(.text) for __aeabi_memclr4
+    stm32l1xx_hal_msp.o(i.HAL_ADC_MspInit) refers to stm32l1xx_hal_gpio.o(i.HAL_GPIO_Init) for HAL_GPIO_Init
+    stm32l1xx_hal_msp.o(i.HAL_I2C_MspDeInit) refers to stm32l1xx_hal_gpio.o(i.HAL_GPIO_DeInit) for HAL_GPIO_DeInit
+    stm32l1xx_hal_msp.o(i.HAL_I2C_MspInit) refers to memseta.o(.text) for __aeabi_memclr4
+    stm32l1xx_hal_msp.o(i.HAL_I2C_MspInit) refers to stm32l1xx_hal_gpio.o(i.HAL_GPIO_Init) for HAL_GPIO_Init
+    stm32l1xx_hal_msp.o(i.HAL_SPI_MspDeInit) refers to stm32l1xx_hal_gpio.o(i.HAL_GPIO_DeInit) for HAL_GPIO_DeInit
+    stm32l1xx_hal_msp.o(i.HAL_SPI_MspInit) refers to memseta.o(.text) for __aeabi_memclr4
+    stm32l1xx_hal_msp.o(i.HAL_SPI_MspInit) refers to stm32l1xx_hal_gpio.o(i.HAL_GPIO_Init) for HAL_GPIO_Init
+    stm32l1xx_hal_msp.o(i.HAL_UART_MspDeInit) refers to stm32l1xx_hal_gpio.o(i.HAL_GPIO_DeInit) for HAL_GPIO_DeInit
+    stm32l1xx_hal_msp.o(i.HAL_UART_MspInit) refers to memseta.o(.text) for __aeabi_memclr4
+    stm32l1xx_hal_msp.o(i.HAL_UART_MspInit) refers to stm32l1xx_hal_gpio.o(i.HAL_GPIO_Init) for HAL_GPIO_Init
+    satellitecontrol.o(i.Output_Power_Pins) refers to stm32l1xx_hal_gpio.o(i.HAL_GPIO_WritePin) for HAL_GPIO_WritePin
+    satellitecontrol.o(i.Output_Power_Pins) refers to satellitecontrol.o(.data) for .data
+    satellitecontrol.o(i.Sat_Run) refers to satellitecontrol.o(i.Output_Power_Pins) for Output_Power_Pins
+    satellitecontrol.o(i.Sat_Run) refers to satellitecontrol.o(i.Transition) for Transition
+    satellitecontrol.o(i.Sat_Run) refers to satellitecontrol.o(.data) for .data
+    satellitecontrol.o(i.Sat_Run_Init) refers to spi_fram.o(i.SPI_FRAM_Init) for SPI_FRAM_Init
+    satellitecontrol.o(i.Sat_Run_Init) refers to current_control_functions.o(i.Initialize_All_Current_Sensors) for Initialize_All_Current_Sensors
+    satellitecontrol.o(i.Sat_Run_Init) refers to fuel_gauge_functions.o(i.Fuel_Gauge_Init) for Fuel_Gauge_Init
+    satellitecontrol.o(i.Sat_Run_Init) refers to satellitecontrol.o(.data) for .data
+    satellitecontrol.o(i.Transition) refers to transitions.o(i.ScienceOnly_Transition) for ScienceOnly_Transition
+    satellitecontrol.o(i.Transition) refers to transitions.o(i.Detumble_Transition) for Detumble_Transition
+    satellitecontrol.o(i.Transition) refers to transitions.o(i.Normal_Transition) for Normal_Transition
+    satellitecontrol.o(i.Transition) refers to transitions.o(i.UltraLowPower_Transition) for UltraLowPower_Transition
+    satellitecontrol.o(i.Transition) refers to transitions.o(i.LowPower_Transition) for LowPower_Transition
+    satellitecontrol.o(i.Transition) refers to transitions.o(i.Eclipse_Transition) for Eclipse_Transition
+    fuel_gauge_functions.o(i.Fuel_Gauge_Init) refers to fuel_gauge_functions.o(i.Fuel_Gauge_Read) for Fuel_Gauge_Read
+    fuel_gauge_functions.o(i.Fuel_Gauge_Init) refers to fuel_gauge_functions.o(i.Fuel_Gauge_Write) for Fuel_Gauge_Write
+    fuel_gauge_functions.o(i.Fuel_Gauge_Init) refers to stm32l1xx_hal.o(i.HAL_Delay) for HAL_Delay
+    fuel_gauge_functions.o(i.Fuel_Gauge_Init) refers to fuel_gauge_functions.o(.data) for .data
+    fuel_gauge_functions.o(i.Get_Charge_Percentage) refers to fuel_gauge_functions.o(i.Fuel_Gauge_Read) for Fuel_Gauge_Read
+    fuel_gauge_functions.o(i.Get_Charge_Percentage) refers to ffltui.o(.text) for __aeabi_ui2f
+    fuel_gauge_functions.o(i.Get_Charge_Percentage) refers to fmul.o(.text) for __aeabi_fmul
+    fuel_gauge_functions.o(i.Get_Charge_Percentage) refers to fuel_gauge_functions.o(.data) for .data
+    fuel_gauge_functions.o(i.Get_FG_Current) refers to fuel_gauge_functions.o(i.Fuel_Gauge_Read) for Fuel_Gauge_Read
+    fuel_gauge_functions.o(i.Get_FG_Current) refers to fflti.o(.text) for __aeabi_i2f
+    fuel_gauge_functions.o(i.Get_FG_Current) refers to fmul.o(.text) for __aeabi_fmul
+    fuel_gauge_functions.o(i.Get_FG_Current) refers to fuel_gauge_functions.o(.data) for .data
+    fuel_gauge_functions.o(i.Get_Max_Capacity) refers to fuel_gauge_functions.o(i.Fuel_Gauge_Read) for Fuel_Gauge_Read
+    fuel_gauge_functions.o(i.Get_Max_Capacity) refers to ffltui.o(.text) for __aeabi_ui2f
+    fuel_gauge_functions.o(i.Get_Max_Capacity) refers to fmul.o(.text) for __aeabi_fmul
+    fuel_gauge_functions.o(i.Get_Max_Capacity) refers to fuel_gauge_functions.o(.data) for .data
+    fuel_gauge_functions.o(i.Get_Remaining_Capacity) refers to fuel_gauge_functions.o(i.Fuel_Gauge_Read) for Fuel_Gauge_Read
+    fuel_gauge_functions.o(i.Get_Remaining_Capacity) refers to ffltui.o(.text) for __aeabi_ui2f
+    fuel_gauge_functions.o(i.Get_Remaining_Capacity) refers to fmul.o(.text) for __aeabi_fmul
+    fuel_gauge_functions.o(i.Get_Remaining_Capacity) refers to fuel_gauge_functions.o(.data) for .data
+    fuel_gauge_functions.o(i.Get_Status) refers to fuel_gauge_functions.o(i.Fuel_Gauge_Read) for Fuel_Gauge_Read
+    fuel_gauge_functions.o(i.Get_TTE) refers to fuel_gauge_functions.o(i.Fuel_Gauge_Read) for Fuel_Gauge_Read
+    fuel_gauge_functions.o(i.Get_TTE) refers to ffltui.o(.text) for __aeabi_ui2f
+    fuel_gauge_functions.o(i.Get_TTE) refers to fmul.o(.text) for __aeabi_fmul
+    fuel_gauge_functions.o(i.Get_TTE) refers to fuel_gauge_functions.o(.data) for .data
+    fuel_gauge_functions.o(i.Get_TTF) refers to fuel_gauge_functions.o(i.Fuel_Gauge_Read) for Fuel_Gauge_Read
+    fuel_gauge_functions.o(i.Get_TTF) refers to ffltui.o(.text) for __aeabi_ui2f
+    fuel_gauge_functions.o(i.Get_TTF) refers to fmul.o(.text) for __aeabi_fmul
+    fuel_gauge_functions.o(i.Get_TTF) refers to fuel_gauge_functions.o(.data) for .data
+    fuel_gauge_functions.o(i.Get_Temp) refers to fuel_gauge_functions.o(i.Fuel_Gauge_Read) for Fuel_Gauge_Read
+    fuel_gauge_functions.o(i.Get_Temp) refers to fflti.o(.text) for __aeabi_i2f
+    fuel_gauge_functions.o(i.Get_Temp) refers to fmul.o(.text) for __aeabi_fmul
+    fuel_gauge_functions.o(i.Get_Temp) refers to fuel_gauge_functions.o(.data) for .data
+    fuel_gauge_functions.o(i.Get_Voltage) refers to fuel_gauge_functions.o(i.Fuel_Gauge_Read) for Fuel_Gauge_Read
+    fuel_gauge_functions.o(i.Get_Voltage) refers to ffltui.o(.text) for __aeabi_ui2f
+    fuel_gauge_functions.o(i.Get_Voltage) refers to fmul.o(.text) for __aeabi_fmul
+    fuel_gauge_functions.o(i.Get_Voltage) refers to fuel_gauge_functions.o(.data) for .data
+    spi_fram.o(i.Free_Lock) refers to stm32l1xx_hal_gpio.o(i.HAL_GPIO_WritePin) for HAL_GPIO_WritePin
+    spi_fram.o(i.Get_Lock) refers to stm32l1xx_hal_gpio.o(i.HAL_GPIO_ReadPin) for HAL_GPIO_ReadPin
+    spi_fram.o(i.Get_Lock) refers to stm32l1xx_hal_gpio.o(i.HAL_GPIO_WritePin) for HAL_GPIO_WritePin
+    spi_fram.o(i.SPI_FRAM_Init) refers to stm32l1xx_hal_gpio.o(i.HAL_GPIO_WritePin) for HAL_GPIO_WritePin
+    spi_fram.o(i.SPI_FRAM_Read) refers to spi_fram.o(i.Get_Lock) for Get_Lock
+    spi_fram.o(i.SPI_FRAM_Read) refers to stm32l1xx_hal_gpio.o(i.HAL_GPIO_WritePin) for HAL_GPIO_WritePin
+    spi_fram.o(i.SPI_FRAM_Write) refers to spi_fram.o(i.Get_Lock) for Get_Lock
+    spi_fram.o(i.SPI_FRAM_Write) refers to stm32l1xx_hal_gpio.o(i.HAL_GPIO_WritePin) for HAL_GPIO_WritePin
+    spi_fram.o(i.SPI_FRAM_Write) refers to stm32l1xx_hal.o(i.HAL_Delay) for HAL_Delay
+    current_control_functions.o(i.Check_for_Shorts) refers to current_control_functions.o(i.Get_Current) for Get_Current
+    current_control_functions.o(i.CurrentSensorInit) refers to stm32l1xx_hal.o(i.HAL_Delay) for HAL_Delay
+    current_control_functions.o(i.CurrentSensorInit) refers to current_control_functions.o(i.CurrentSensorWrite) for CurrentSensorWrite
+    current_control_functions.o(i.CurrentSensorInit) refers to current_control_functions.o(i.CurrentControlRead) for CurrentControlRead
+    current_control_functions.o(i.Get_Bus_Voltage) refers to current_control_functions.o(i.CurrentControlRead) for CurrentControlRead
+    current_control_functions.o(i.Get_Bus_Voltage) refers to ffltui.o(.text) for __aeabi_ui2f
+    current_control_functions.o(i.Get_Bus_Voltage) refers to fmul.o(.text) for __aeabi_fmul
+    current_control_functions.o(i.Get_Bus_Voltage) refers to current_control_functions.o(.data) for .data
+    current_control_functions.o(i.Get_Current) refers to current_control_functions.o(i.CurrentControlRead) for CurrentControlRead
+    current_control_functions.o(i.Get_Current) refers to ffltui.o(.text) for __aeabi_ui2f
+    current_control_functions.o(i.Get_Current) refers to fmul.o(.text) for __aeabi_fmul
+    current_control_functions.o(i.Get_Current) refers to current_control_functions.o(.data) for .data
+    current_control_functions.o(i.Get_Shunt_Voltage) refers to current_control_functions.o(i.CurrentControlRead) for CurrentControlRead
+    current_control_functions.o(i.Get_Shunt_Voltage) refers to fflti.o(.text) for __aeabi_i2f
+    current_control_functions.o(i.Get_Shunt_Voltage) refers to fmul.o(.text) for __aeabi_fmul
+    current_control_functions.o(i.Get_Shunt_Voltage) refers to current_control_functions.o(.data) for .data
+    current_control_functions.o(i.Get_power) refers to current_control_functions.o(i.CurrentControlRead) for CurrentControlRead
+    current_control_functions.o(i.Get_power) refers to ffltui.o(.text) for __aeabi_ui2f
+    current_control_functions.o(i.Get_power) refers to fmul.o(.text) for __aeabi_fmul
+    current_control_functions.o(i.Get_power) refers to current_control_functions.o(.data) for .data
+    current_control_functions.o(i.Initialize_All_Current_Sensors) refers to current_control_functions.o(i.CurrentSensorInit) for CurrentSensorInit
+    transitions.o(i.Detumble_Transition) refers to transitions.o(.data) for .data
+    transitions.o(i.Eclipse_Transition) refers to transitions.o(.data) for .data
+    transitions.o(i.LowPower_Transition) refers to transitions.o(.data) for .data
+    transitions.o(i.Normal_Transition) refers to transitions.o(.data) for .data
+    transitions.o(i.Print_Globals) refers to printfa.o(i.__0printf) for __2printf
+    transitions.o(i.Print_Globals) refers to f2d.o(.text) for __aeabi_f2d
+    transitions.o(i.Print_Globals) refers to transitions.o(.data) for .data
+    transitions.o(i.ScienceOnly_Transition) refers to transitions.o(.data) for .data
+    transitions.o(i.Set_BatteryLevel) refers to transitions.o(.data) for .data
+    transitions.o(i.Set_Die) refers to transitions.o(.data) for .data
+    transitions.o(i.Set_ScienceEvent) refers to transitions.o(.data) for .data
+    transitions.o(i.Set_SolarVector) refers to transitions.o(.data) for .data
+    transitions.o(i.Set_Stable) refers to transitions.o(.data) for .data
+    transitions.o(i.UltraLowPower_Transition) refers to transitions.o(.data) for .data
+    stm32l1xx_hal.o(i.HAL_DeInit) refers to stm32l1xx_hal.o(i.HAL_MspDeInit) for HAL_MspDeInit
+    stm32l1xx_hal.o(i.HAL_Delay) refers to stm32l1xx_hal.o(i.HAL_GetTick) for HAL_GetTick
+    stm32l1xx_hal.o(i.HAL_Delay) refers to stm32l1xx_hal.o(.data) for .data
+    stm32l1xx_hal.o(i.HAL_GetTick) refers to stm32l1xx_hal.o(.data) for .data
+    stm32l1xx_hal.o(i.HAL_GetTickFreq) refers to stm32l1xx_hal.o(.data) for .data
+    stm32l1xx_hal.o(i.HAL_GetTickPrio) refers to stm32l1xx_hal.o(.data) for .data
+    stm32l1xx_hal.o(i.HAL_IncTick) refers to stm32l1xx_hal.o(.data) for .data
+    stm32l1xx_hal.o(i.HAL_Init) refers to stm32l1xx_hal_cortex.o(i.HAL_NVIC_SetPriorityGrouping) for HAL_NVIC_SetPriorityGrouping
+    stm32l1xx_hal.o(i.HAL_Init) refers to stm32l1xx_hal.o(i.HAL_InitTick) for HAL_InitTick
+    stm32l1xx_hal.o(i.HAL_Init) refers to stm32l1xx_hal_msp.o(i.HAL_MspInit) for HAL_MspInit
+    stm32l1xx_hal.o(i.HAL_InitTick) refers to stm32l1xx_hal_cortex.o(i.HAL_SYSTICK_Config) for HAL_SYSTICK_Config
+    stm32l1xx_hal.o(i.HAL_InitTick) refers to stm32l1xx_hal_cortex.o(i.HAL_NVIC_SetPriority) for HAL_NVIC_SetPriority
+    stm32l1xx_hal.o(i.HAL_InitTick) refers to stm32l1xx_hal.o(.data) for .data
+    stm32l1xx_hal.o(i.HAL_InitTick) refers to system_stm32l1xx.o(.data) for SystemCoreClock
+    stm32l1xx_hal.o(i.HAL_SetTickFreq) refers to stm32l1xx_hal.o(i.HAL_InitTick) for HAL_InitTick
+    stm32l1xx_hal.o(i.HAL_SetTickFreq) refers to stm32l1xx_hal.o(.data) for .data
+    stm32l1xx_hal_rcc.o(i.HAL_RCC_ClockConfig) refers to stm32l1xx_hal.o(i.HAL_GetTick) for HAL_GetTick
+    stm32l1xx_hal_rcc.o(i.HAL_RCC_ClockConfig) refers to stm32l1xx_hal_rcc.o(i.HAL_RCC_GetSysClockFreq) for HAL_RCC_GetSysClockFreq
+    stm32l1xx_hal_rcc.o(i.HAL_RCC_ClockConfig) refers to stm32l1xx_hal.o(i.HAL_InitTick) for HAL_InitTick
+    stm32l1xx_hal_rcc.o(i.HAL_RCC_ClockConfig) refers to system_stm32l1xx.o(.constdata) for AHBPrescTable
+    stm32l1xx_hal_rcc.o(i.HAL_RCC_ClockConfig) refers to system_stm32l1xx.o(.data) for SystemCoreClock
+    stm32l1xx_hal_rcc.o(i.HAL_RCC_ClockConfig) refers to stm32l1xx_hal.o(.data) for uwTickPrio
+    stm32l1xx_hal_rcc.o(i.HAL_RCC_DeInit) refers to stm32l1xx_hal.o(i.HAL_GetTick) for HAL_GetTick
+    stm32l1xx_hal_rcc.o(i.HAL_RCC_DeInit) refers to stm32l1xx_hal.o(i.HAL_InitTick) for HAL_InitTick
+    stm32l1xx_hal_rcc.o(i.HAL_RCC_DeInit) refers to system_stm32l1xx.o(.data) for SystemCoreClock
+    stm32l1xx_hal_rcc.o(i.HAL_RCC_DeInit) refers to stm32l1xx_hal.o(.data) for uwTickPrio
+    stm32l1xx_hal_rcc.o(i.HAL_RCC_GetHCLKFreq) refers to system_stm32l1xx.o(.data) for SystemCoreClock
+    stm32l1xx_hal_rcc.o(i.HAL_RCC_GetPCLK1Freq) refers to system_stm32l1xx.o(.data) for SystemCoreClock
+    stm32l1xx_hal_rcc.o(i.HAL_RCC_GetPCLK1Freq) refers to system_stm32l1xx.o(.constdata) for APBPrescTable
+    stm32l1xx_hal_rcc.o(i.HAL_RCC_GetPCLK2Freq) refers to system_stm32l1xx.o(.data) for SystemCoreClock
+    stm32l1xx_hal_rcc.o(i.HAL_RCC_GetPCLK2Freq) refers to system_stm32l1xx.o(.constdata) for APBPrescTable
+    stm32l1xx_hal_rcc.o(i.HAL_RCC_GetSysClockFreq) refers to system_stm32l1xx.o(.constdata) for PLLMulTable
+    stm32l1xx_hal_rcc.o(i.HAL_RCC_MCOConfig) refers to stm32l1xx_hal_gpio.o(i.HAL_GPIO_Init) for HAL_GPIO_Init
+    stm32l1xx_hal_rcc.o(i.HAL_RCC_NMI_IRQHandler) refers to stm32l1xx_hal_rcc.o(i.HAL_RCC_CSSCallback) for HAL_RCC_CSSCallback
+    stm32l1xx_hal_rcc.o(i.HAL_RCC_OscConfig) refers to stm32l1xx_hal.o(i.HAL_GetTick) for HAL_GetTick
+    stm32l1xx_hal_rcc.o(i.HAL_RCC_OscConfig) refers to stm32l1xx_hal_rcc.o(i.RCC_SetFlashLatencyFromMSIRange) for RCC_SetFlashLatencyFromMSIRange
+    stm32l1xx_hal_rcc.o(i.HAL_RCC_OscConfig) refers to stm32l1xx_hal.o(i.HAL_InitTick) for HAL_InitTick
+    stm32l1xx_hal_rcc.o(i.HAL_RCC_OscConfig) refers to system_stm32l1xx.o(.constdata) for AHBPrescTable
+    stm32l1xx_hal_rcc.o(i.HAL_RCC_OscConfig) refers to system_stm32l1xx.o(.data) for SystemCoreClock
+    stm32l1xx_hal_rcc.o(i.HAL_RCC_OscConfig) refers to stm32l1xx_hal.o(.data) for uwTickPrio
+    stm32l1xx_hal_rcc_ex.o(i.HAL_RCCEx_LSECSS_IRQHandler) refers to stm32l1xx_hal_rcc_ex.o(i.HAL_RCCEx_LSECSS_Callback) for HAL_RCCEx_LSECSS_Callback
+    stm32l1xx_hal_rcc_ex.o(i.HAL_RCCEx_PeriphCLKConfig) refers to stm32l1xx_hal.o(i.HAL_GetTick) for HAL_GetTick
+    stm32l1xx_hal_flash.o(i.FLASH_SetErrorCode) refers to stm32l1xx_hal_flash.o(.bss) for .bss
+    stm32l1xx_hal_flash.o(i.FLASH_WaitForLastOperation) refers to stm32l1xx_hal.o(i.HAL_GetTick) for HAL_GetTick
+    stm32l1xx_hal_flash.o(i.FLASH_WaitForLastOperation) refers to stm32l1xx_hal_flash.o(i.FLASH_SetErrorCode) for FLASH_SetErrorCode
+    stm32l1xx_hal_flash.o(i.HAL_FLASH_GetError) refers to stm32l1xx_hal_flash.o(.bss) for .bss
+    stm32l1xx_hal_flash.o(i.HAL_FLASH_IRQHandler) refers to stm32l1xx_hal_flash.o(i.FLASH_SetErrorCode) for FLASH_SetErrorCode
+    stm32l1xx_hal_flash.o(i.HAL_FLASH_IRQHandler) refers to stm32l1xx_hal_flash.o(i.HAL_FLASH_OperationErrorCallback) for HAL_FLASH_OperationErrorCallback
+    stm32l1xx_hal_flash.o(i.HAL_FLASH_IRQHandler) refers to stm32l1xx_hal_flash.o(i.HAL_FLASH_EndOfOperationCallback) for HAL_FLASH_EndOfOperationCallback
+    stm32l1xx_hal_flash.o(i.HAL_FLASH_IRQHandler) refers to stm32l1xx_hal_flash_ex.o(i.FLASH_PageErase) for FLASH_PageErase
+    stm32l1xx_hal_flash.o(i.HAL_FLASH_IRQHandler) refers to stm32l1xx_hal_flash.o(.bss) for .bss
+    stm32l1xx_hal_flash.o(i.HAL_FLASH_OB_Launch) refers to stm32l1xx_hal_flash.o(i.FLASH_WaitForLastOperation) for FLASH_WaitForLastOperation
+    stm32l1xx_hal_flash.o(i.HAL_FLASH_Program) refers to stm32l1xx_hal_flash.o(i.FLASH_WaitForLastOperation) for FLASH_WaitForLastOperation
+    stm32l1xx_hal_flash.o(i.HAL_FLASH_Program) refers to stm32l1xx_hal_flash.o(.bss) for .bss
+    stm32l1xx_hal_flash.o(i.HAL_FLASH_Program_IT) refers to stm32l1xx_hal_flash.o(.bss) for .bss
+    stm32l1xx_hal_flash_ex.o(i.FLASH_OB_WRPConfig) refers to stm32l1xx_hal_flash.o(i.FLASH_WaitForLastOperation) for FLASH_WaitForLastOperation
+    stm32l1xx_hal_flash_ex.o(i.FLASH_OB_WRPConfig) refers to stm32l1xx_hal_flash.o(.bss) for pFlash
+    stm32l1xx_hal_flash_ex.o(i.FLASH_PageErase) refers to stm32l1xx_hal_flash.o(.bss) for pFlash
+    stm32l1xx_hal_flash_ex.o(i.HAL_FLASHEx_AdvOBProgram) refers to stm32l1xx_hal_flash.o(i.FLASH_WaitForLastOperation) for FLASH_WaitForLastOperation
+    stm32l1xx_hal_flash_ex.o(i.HAL_FLASHEx_AdvOBProgram) refers to stm32l1xx_hal_flash.o(.bss) for pFlash
+    stm32l1xx_hal_flash_ex.o(i.HAL_FLASHEx_DATAEEPROM_Erase) refers to stm32l1xx_hal_flash.o(i.FLASH_WaitForLastOperation) for FLASH_WaitForLastOperation
+    stm32l1xx_hal_flash_ex.o(i.HAL_FLASHEx_DATAEEPROM_Erase) refers to stm32l1xx_hal_flash.o(.bss) for pFlash
+    stm32l1xx_hal_flash_ex.o(i.HAL_FLASHEx_DATAEEPROM_Program) refers to stm32l1xx_hal_flash.o(i.FLASH_WaitForLastOperation) for FLASH_WaitForLastOperation
+    stm32l1xx_hal_flash_ex.o(i.HAL_FLASHEx_DATAEEPROM_Program) refers to stm32l1xx_hal_flash.o(.bss) for pFlash
+    stm32l1xx_hal_flash_ex.o(i.HAL_FLASHEx_Erase) refers to stm32l1xx_hal_flash.o(i.FLASH_WaitForLastOperation) for FLASH_WaitForLastOperation
+    stm32l1xx_hal_flash_ex.o(i.HAL_FLASHEx_Erase) refers to stm32l1xx_hal_flash_ex.o(i.FLASH_PageErase) for FLASH_PageErase
+    stm32l1xx_hal_flash_ex.o(i.HAL_FLASHEx_Erase) refers to stm32l1xx_hal_flash.o(.bss) for pFlash
+    stm32l1xx_hal_flash_ex.o(i.HAL_FLASHEx_Erase_IT) refers to stm32l1xx_hal_flash.o(i.FLASH_WaitForLastOperation) for FLASH_WaitForLastOperation
+    stm32l1xx_hal_flash_ex.o(i.HAL_FLASHEx_Erase_IT) refers to stm32l1xx_hal_flash_ex.o(i.FLASH_PageErase) for FLASH_PageErase
+    stm32l1xx_hal_flash_ex.o(i.HAL_FLASHEx_Erase_IT) refers to stm32l1xx_hal_flash.o(.bss) for pFlash
+    stm32l1xx_hal_flash_ex.o(i.HAL_FLASHEx_OBProgram) refers to stm32l1xx_hal_flash_ex.o(i.FLASH_OB_WRPConfig) for FLASH_OB_WRPConfig
+    stm32l1xx_hal_flash_ex.o(i.HAL_FLASHEx_OBProgram) refers to stm32l1xx_hal_flash.o(i.FLASH_WaitForLastOperation) for FLASH_WaitForLastOperation
+    stm32l1xx_hal_flash_ex.o(i.HAL_FLASHEx_OBProgram) refers to stm32l1xx_hal_flash.o(.bss) for pFlash
+    stm32l1xx_hal_flash_ramfunc.o(i.FLASHRAM_SetErrorCode) refers to stm32l1xx_hal_flash.o(.bss) for pFlash
+    stm32l1xx_hal_flash_ramfunc.o(i.FLASHRAM_WaitForLastOperation) refers to stm32l1xx_hal_flash_ramfunc.o(i.FLASHRAM_SetErrorCode) for FLASHRAM_SetErrorCode
+    stm32l1xx_hal_flash_ramfunc.o(i.HAL_FLASHEx_DATAEEPROM_EraseDoubleWord) refers to stm32l1xx_hal_flash_ramfunc.o(i.FLASHRAM_WaitForLastOperation) for FLASHRAM_WaitForLastOperation
+    stm32l1xx_hal_flash_ramfunc.o(i.HAL_FLASHEx_DATAEEPROM_ProgramDoubleWord) refers to stm32l1xx_hal_flash_ramfunc.o(i.FLASHRAM_WaitForLastOperation) for FLASHRAM_WaitForLastOperation
+    stm32l1xx_hal_flash_ramfunc.o(i.HAL_FLASHEx_EraseParallelPage) refers to stm32l1xx_hal_flash_ramfunc.o(i.FLASHRAM_WaitForLastOperation) for FLASHRAM_WaitForLastOperation
+    stm32l1xx_hal_flash_ramfunc.o(i.HAL_FLASHEx_GetError) refers to stm32l1xx_hal_flash.o(.bss) for pFlash
+    stm32l1xx_hal_flash_ramfunc.o(i.HAL_FLASHEx_HalfPageProgram) refers to stm32l1xx_hal_flash_ramfunc.o(i.FLASHRAM_WaitForLastOperation) for FLASHRAM_WaitForLastOperation
+    stm32l1xx_hal_flash_ramfunc.o(i.HAL_FLASHEx_ProgramParallelHalfPage) refers to stm32l1xx_hal_flash_ramfunc.o(i.FLASHRAM_WaitForLastOperation) for FLASHRAM_WaitForLastOperation
+    stm32l1xx_hal_gpio.o(i.HAL_GPIO_EXTI_IRQHandler) refers to main.o(i.HAL_GPIO_EXTI_Callback) for HAL_GPIO_EXTI_Callback
+    stm32l1xx_hal_dma.o(i.HAL_DMA_PollForTransfer) refers to stm32l1xx_hal.o(i.HAL_GetTick) for HAL_GetTick
+    stm32l1xx_hal_dma.o(i.HAL_DMA_Start) refers to stm32l1xx_hal_dma.o(i.DMA_SetConfig) for DMA_SetConfig
+    stm32l1xx_hal_dma.o(i.HAL_DMA_Start_IT) refers to stm32l1xx_hal_dma.o(i.DMA_SetConfig) for DMA_SetConfig
+    stm32l1xx_hal_pwr.o(i.HAL_PWR_PVD_IRQHandler) refers to stm32l1xx_hal_pwr.o(i.HAL_PWR_PVDCallback) for HAL_PWR_PVDCallback
+    stm32l1xx_hal_cortex.o(i.HAL_NVIC_SetPriority) refers to stm32l1xx_hal_cortex.o(i.__NVIC_SetPriority) for __NVIC_SetPriority
+    stm32l1xx_hal_cortex.o(i.HAL_SYSTICK_Config) refers to stm32l1xx_hal_cortex.o(i.__NVIC_SetPriority) for __NVIC_SetPriority
+    stm32l1xx_hal_cortex.o(i.HAL_SYSTICK_IRQHandler) refers to stm32l1xx_hal_cortex.o(i.HAL_SYSTICK_Callback) for HAL_SYSTICK_Callback
+    system_stm32l1xx.o(i.SystemCoreClockUpdate) refers to system_stm32l1xx.o(.data) for .data
+    system_stm32l1xx.o(i.SystemCoreClockUpdate) refers to system_stm32l1xx.o(.constdata) for .constdata
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry10a.o(.ARM.Collect$$$$0000000D) for __rt_final_cpp
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry11a.o(.ARM.Collect$$$$0000000F) for __rt_final_exit
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry7b.o(.ARM.Collect$$$$00000008) for _main_clock
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry8b.o(.ARM.Collect$$$$0000000A) for _main_cpp_init
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry9a.o(.ARM.Collect$$$$0000000B) for _main_init
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry5.o(.ARM.Collect$$$$00000004) for _main_scatterload
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry2.o(.ARM.Collect$$$$00000001) for _main_stk
+    printfb.o(i.__0fprintf$bare) refers to printfb.o(i._printf_core) for _printf_core
+    printfb.o(i.__0fprintf$bare) refers to fputc.o(i.fputc) for fputc
+    printfb.o(i.__0printf$bare) refers to printfb.o(i._printf_core) for _printf_core
+    printfb.o(i.__0printf$bare) refers to fputc.o(i.fputc) for fputc
+    printfb.o(i.__0printf$bare) refers to stdout.o(.data) for __stdout
+    printfb.o(i.__0snprintf$bare) refers to printfb.o(i._printf_core) for _printf_core
+    printfb.o(i.__0snprintf$bare) refers to printfb.o(i._snputc) for _snputc
+    printfb.o(i.__0sprintf$bare) refers to printfb.o(i._printf_core) for _printf_core
+    printfb.o(i.__0sprintf$bare) refers to printfb.o(i._sputc) for _sputc
+    printfb.o(i.__0vfprintf$bare) refers to printfb.o(i._printf_core) for _printf_core
+    printfb.o(i.__0vfprintf$bare) refers to fputc.o(i.fputc) for fputc
+    printfb.o(i.__0vprintf$bare) refers to printfb.o(i._printf_core) for _printf_core
+    printfb.o(i.__0vprintf$bare) refers to fputc.o(i.fputc) for fputc
+    printfb.o(i.__0vprintf$bare) refers to stdout.o(.data) for __stdout
+    printfb.o(i.__0vsnprintf$bare) refers to printfb.o(i._printf_core) for _printf_core
+    printfb.o(i.__0vsnprintf$bare) refers to printfb.o(i._snputc) for _snputc
+    printfb.o(i.__0vsprintf$bare) refers to printfb.o(i._printf_core) for _printf_core
+    printfb.o(i.__0vsprintf$bare) refers to printfb.o(i._sputc) for _sputc
+    printf0.o(i.__0fprintf$0) refers to printf0.o(i._printf_core) for _printf_core
+    printf0.o(i.__0fprintf$0) refers to fputc.o(i.fputc) for fputc
+    printf0.o(i.__0printf$0) refers to printf0.o(i._printf_core) for _printf_core
+    printf0.o(i.__0printf$0) refers to fputc.o(i.fputc) for fputc
+    printf0.o(i.__0printf$0) refers to stdout.o(.data) for __stdout
+    printf0.o(i.__0snprintf$0) refers to printf0.o(i._printf_core) for _printf_core
+    printf0.o(i.__0snprintf$0) refers to printf0.o(i._snputc) for _snputc
+    printf0.o(i.__0sprintf$0) refers to printf0.o(i._printf_core) for _printf_core
+    printf0.o(i.__0sprintf$0) refers to printf0.o(i._sputc) for _sputc
+    printf0.o(i.__0vfprintf$0) refers to printf0.o(i._printf_core) for _printf_core
+    printf0.o(i.__0vfprintf$0) refers to fputc.o(i.fputc) for fputc
+    printf0.o(i.__0vprintf$0) refers to printf0.o(i._printf_core) for _printf_core
+    printf0.o(i.__0vprintf$0) refers to fputc.o(i.fputc) for fputc
+    printf0.o(i.__0vprintf$0) refers to stdout.o(.data) for __stdout
+    printf0.o(i.__0vsnprintf$0) refers to printf0.o(i._printf_core) for _printf_core
+    printf0.o(i.__0vsnprintf$0) refers to printf0.o(i._snputc) for _snputc
+    printf0.o(i.__0vsprintf$0) refers to printf0.o(i._printf_core) for _printf_core
+    printf0.o(i.__0vsprintf$0) refers to printf0.o(i._sputc) for _sputc
+    printf1.o(i.__0fprintf$1) refers to printf1.o(i._printf_core) for _printf_core
+    printf1.o(i.__0fprintf$1) refers to fputc.o(i.fputc) for fputc
+    printf1.o(i.__0printf$1) refers to printf1.o(i._printf_core) for _printf_core
+    printf1.o(i.__0printf$1) refers to fputc.o(i.fputc) for fputc
+    printf1.o(i.__0printf$1) refers to stdout.o(.data) for __stdout
+    printf1.o(i.__0snprintf$1) refers to printf1.o(i._printf_core) for _printf_core
+    printf1.o(i.__0snprintf$1) refers to printf1.o(i._snputc) for _snputc
+    printf1.o(i.__0sprintf$1) refers to printf1.o(i._printf_core) for _printf_core
+    printf1.o(i.__0sprintf$1) refers to printf1.o(i._sputc) for _sputc
+    printf1.o(i.__0vfprintf$1) refers to printf1.o(i._printf_core) for _printf_core
+    printf1.o(i.__0vfprintf$1) refers to fputc.o(i.fputc) for fputc
+    printf1.o(i.__0vprintf$1) refers to printf1.o(i._printf_core) for _printf_core
+    printf1.o(i.__0vprintf$1) refers to fputc.o(i.fputc) for fputc
+    printf1.o(i.__0vprintf$1) refers to stdout.o(.data) for __stdout
+    printf1.o(i.__0vsnprintf$1) refers to printf1.o(i._printf_core) for _printf_core
+    printf1.o(i.__0vsnprintf$1) refers to printf1.o(i._snputc) for _snputc
+    printf1.o(i.__0vsprintf$1) refers to printf1.o(i._printf_core) for _printf_core
+    printf1.o(i.__0vsprintf$1) refers to printf1.o(i._sputc) for _sputc
+    printf1.o(i._printf_core) refers to uidiv.o(.text) for __aeabi_uidivmod
+    printf2.o(i.__0fprintf$2) refers to printf2.o(i._printf_core) for _printf_core
+    printf2.o(i.__0fprintf$2) refers to fputc.o(i.fputc) for fputc
+    printf2.o(i.__0printf$2) refers to printf2.o(i._printf_core) for _printf_core
+    printf2.o(i.__0printf$2) refers to fputc.o(i.fputc) for fputc
+    printf2.o(i.__0printf$2) refers to stdout.o(.data) for __stdout
+    printf2.o(i.__0snprintf$2) refers to printf2.o(i._printf_core) for _printf_core
+    printf2.o(i.__0snprintf$2) refers to printf2.o(i._snputc) for _snputc
+    printf2.o(i.__0sprintf$2) refers to printf2.o(i._printf_core) for _printf_core
+    printf2.o(i.__0sprintf$2) refers to printf2.o(i._sputc) for _sputc
+    printf2.o(i.__0vfprintf$2) refers to printf2.o(i._printf_core) for _printf_core
+    printf2.o(i.__0vfprintf$2) refers to fputc.o(i.fputc) for fputc
+    printf2.o(i.__0vprintf$2) refers to printf2.o(i._printf_core) for _printf_core
+    printf2.o(i.__0vprintf$2) refers to fputc.o(i.fputc) for fputc
+    printf2.o(i.__0vprintf$2) refers to stdout.o(.data) for __stdout
+    printf2.o(i.__0vsnprintf$2) refers to printf2.o(i._printf_core) for _printf_core
+    printf2.o(i.__0vsnprintf$2) refers to printf2.o(i._snputc) for _snputc
+    printf2.o(i.__0vsprintf$2) refers to printf2.o(i._printf_core) for _printf_core
+    printf2.o(i.__0vsprintf$2) refers to printf2.o(i._sputc) for _sputc
+    printf3.o(i.__0fprintf$3) refers to printf3.o(i._printf_core) for _printf_core
+    printf3.o(i.__0fprintf$3) refers to fputc.o(i.fputc) for fputc
+    printf3.o(i.__0printf$3) refers to printf3.o(i._printf_core) for _printf_core
+    printf3.o(i.__0printf$3) refers to fputc.o(i.fputc) for fputc
+    printf3.o(i.__0printf$3) refers to stdout.o(.data) for __stdout
+    printf3.o(i.__0snprintf$3) refers to printf3.o(i._printf_core) for _printf_core
+    printf3.o(i.__0snprintf$3) refers to printf3.o(i._snputc) for _snputc
+    printf3.o(i.__0sprintf$3) refers to printf3.o(i._printf_core) for _printf_core
+    printf3.o(i.__0sprintf$3) refers to printf3.o(i._sputc) for _sputc
+    printf3.o(i.__0vfprintf$3) refers to printf3.o(i._printf_core) for _printf_core
+    printf3.o(i.__0vfprintf$3) refers to fputc.o(i.fputc) for fputc
+    printf3.o(i.__0vprintf$3) refers to printf3.o(i._printf_core) for _printf_core
+    printf3.o(i.__0vprintf$3) refers to fputc.o(i.fputc) for fputc
+    printf3.o(i.__0vprintf$3) refers to stdout.o(.data) for __stdout
+    printf3.o(i.__0vsnprintf$3) refers to printf3.o(i._printf_core) for _printf_core
+    printf3.o(i.__0vsnprintf$3) refers to printf3.o(i._snputc) for _snputc
+    printf3.o(i.__0vsprintf$3) refers to printf3.o(i._printf_core) for _printf_core
+    printf3.o(i.__0vsprintf$3) refers to printf3.o(i._sputc) for _sputc
+    printf3.o(i._printf_core) refers to uidiv.o(.text) for __aeabi_uidivmod
+    printf4.o(i.__0fprintf$4) refers to printf4.o(i._printf_core) for _printf_core
+    printf4.o(i.__0fprintf$4) refers to fputc.o(i.fputc) for fputc
+    printf4.o(i.__0printf$4) refers to printf4.o(i._printf_core) for _printf_core
+    printf4.o(i.__0printf$4) refers to fputc.o(i.fputc) for fputc
+    printf4.o(i.__0printf$4) refers to stdout.o(.data) for __stdout
+    printf4.o(i.__0snprintf$4) refers to printf4.o(i._printf_core) for _printf_core
+    printf4.o(i.__0snprintf$4) refers to printf4.o(i._snputc) for _snputc
+    printf4.o(i.__0sprintf$4) refers to printf4.o(i._printf_core) for _printf_core
+    printf4.o(i.__0sprintf$4) refers to printf4.o(i._sputc) for _sputc
+    printf4.o(i.__0vfprintf$4) refers to printf4.o(i._printf_core) for _printf_core
+    printf4.o(i.__0vfprintf$4) refers to fputc.o(i.fputc) for fputc
+    printf4.o(i.__0vprintf$4) refers to printf4.o(i._printf_core) for _printf_core
+    printf4.o(i.__0vprintf$4) refers to fputc.o(i.fputc) for fputc
+    printf4.o(i.__0vprintf$4) refers to stdout.o(.data) for __stdout
+    printf4.o(i.__0vsnprintf$4) refers to printf4.o(i._printf_core) for _printf_core
+    printf4.o(i.__0vsnprintf$4) refers to printf4.o(i._snputc) for _snputc
+    printf4.o(i.__0vsprintf$4) refers to printf4.o(i._printf_core) for _printf_core
+    printf4.o(i.__0vsprintf$4) refers to printf4.o(i._sputc) for _sputc
+    printf4.o(i._printf_core) refers to uldiv.o(.text) for __aeabi_uldivmod
+    printf5.o(i.__0fprintf$5) refers to printf5.o(i._printf_core) for _printf_core
+    printf5.o(i.__0fprintf$5) refers to fputc.o(i.fputc) for fputc
+    printf5.o(i.__0printf$5) refers to printf5.o(i._printf_core) for _printf_core
+    printf5.o(i.__0printf$5) refers to fputc.o(i.fputc) for fputc
+    printf5.o(i.__0printf$5) refers to stdout.o(.data) for __stdout
+    printf5.o(i.__0snprintf$5) refers to printf5.o(i._printf_core) for _printf_core
+    printf5.o(i.__0snprintf$5) refers to printf5.o(i._snputc) for _snputc
+    printf5.o(i.__0sprintf$5) refers to printf5.o(i._printf_core) for _printf_core
+    printf5.o(i.__0sprintf$5) refers to printf5.o(i._sputc) for _sputc
+    printf5.o(i.__0vfprintf$5) refers to printf5.o(i._printf_core) for _printf_core
+    printf5.o(i.__0vfprintf$5) refers to fputc.o(i.fputc) for fputc
+    printf5.o(i.__0vprintf$5) refers to printf5.o(i._printf_core) for _printf_core
+    printf5.o(i.__0vprintf$5) refers to fputc.o(i.fputc) for fputc
+    printf5.o(i.__0vprintf$5) refers to stdout.o(.data) for __stdout
+    printf5.o(i.__0vsnprintf$5) refers to printf5.o(i._printf_core) for _printf_core
+    printf5.o(i.__0vsnprintf$5) refers to printf5.o(i._snputc) for _snputc
+    printf5.o(i.__0vsprintf$5) refers to printf5.o(i._printf_core) for _printf_core
+    printf5.o(i.__0vsprintf$5) refers to printf5.o(i._sputc) for _sputc
+    printf5.o(i._printf_core) refers to uldiv.o(.text) for __aeabi_uldivmod
+    printf6.o(i.__0fprintf$6) refers to printf6.o(i._printf_core) for _printf_core
+    printf6.o(i.__0fprintf$6) refers to fputc.o(i.fputc) for fputc
+    printf6.o(i.__0printf$6) refers to printf6.o(i._printf_core) for _printf_core
+    printf6.o(i.__0printf$6) refers to fputc.o(i.fputc) for fputc
+    printf6.o(i.__0printf$6) refers to stdout.o(.data) for __stdout
+    printf6.o(i.__0snprintf$6) refers to printf6.o(i._printf_core) for _printf_core
+    printf6.o(i.__0snprintf$6) refers to printf6.o(i._snputc) for _snputc
+    printf6.o(i.__0sprintf$6) refers to printf6.o(i._printf_core) for _printf_core
+    printf6.o(i.__0sprintf$6) refers to printf6.o(i._sputc) for _sputc
+    printf6.o(i.__0vfprintf$6) refers to printf6.o(i._printf_core) for _printf_core
+    printf6.o(i.__0vfprintf$6) refers to fputc.o(i.fputc) for fputc
+    printf6.o(i.__0vprintf$6) refers to printf6.o(i._printf_core) for _printf_core
+    printf6.o(i.__0vprintf$6) refers to fputc.o(i.fputc) for fputc
+    printf6.o(i.__0vprintf$6) refers to stdout.o(.data) for __stdout
+    printf6.o(i.__0vsnprintf$6) refers to printf6.o(i._printf_core) for _printf_core
+    printf6.o(i.__0vsnprintf$6) refers to printf6.o(i._snputc) for _snputc
+    printf6.o(i.__0vsprintf$6) refers to printf6.o(i._printf_core) for _printf_core
+    printf6.o(i.__0vsprintf$6) refers to printf6.o(i._sputc) for _sputc
+    printf6.o(i._printf_core) refers to printf6.o(i._printf_pre_padding) for _printf_pre_padding
+    printf6.o(i._printf_core) refers to uidiv.o(.text) for __aeabi_uidivmod
+    printf6.o(i._printf_core) refers to printf6.o(i._printf_post_padding) for _printf_post_padding
+    printf7.o(i.__0fprintf$7) refers to printf7.o(i._printf_core) for _printf_core
+    printf7.o(i.__0fprintf$7) refers to fputc.o(i.fputc) for fputc
+    printf7.o(i.__0printf$7) refers to printf7.o(i._printf_core) for _printf_core
+    printf7.o(i.__0printf$7) refers to fputc.o(i.fputc) for fputc
+    printf7.o(i.__0printf$7) refers to stdout.o(.data) for __stdout
+    printf7.o(i.__0snprintf$7) refers to printf7.o(i._printf_core) for _printf_core
+    printf7.o(i.__0snprintf$7) refers to printf7.o(i._snputc) for _snputc
+    printf7.o(i.__0sprintf$7) refers to printf7.o(i._printf_core) for _printf_core
+    printf7.o(i.__0sprintf$7) refers to printf7.o(i._sputc) for _sputc
+    printf7.o(i.__0vfprintf$7) refers to printf7.o(i._printf_core) for _printf_core
+    printf7.o(i.__0vfprintf$7) refers to fputc.o(i.fputc) for fputc
+    printf7.o(i.__0vprintf$7) refers to printf7.o(i._printf_core) for _printf_core
+    printf7.o(i.__0vprintf$7) refers to fputc.o(i.fputc) for fputc
+    printf7.o(i.__0vprintf$7) refers to stdout.o(.data) for __stdout
+    printf7.o(i.__0vsnprintf$7) refers to printf7.o(i._printf_core) for _printf_core
+    printf7.o(i.__0vsnprintf$7) refers to printf7.o(i._snputc) for _snputc
+    printf7.o(i.__0vsprintf$7) refers to printf7.o(i._printf_core) for _printf_core
+    printf7.o(i.__0vsprintf$7) refers to printf7.o(i._sputc) for _sputc
+    printf7.o(i._printf_core) refers to printf7.o(i._printf_pre_padding) for _printf_pre_padding
+    printf7.o(i._printf_core) refers to uldiv.o(.text) for __aeabi_uldivmod
+    printf7.o(i._printf_core) refers to printf7.o(i._printf_post_padding) for _printf_post_padding
+    printf8.o(i.__0fprintf$8) refers to printf8.o(i._printf_core) for _printf_core
+    printf8.o(i.__0fprintf$8) refers to fputc.o(i.fputc) for fputc
+    printf8.o(i.__0printf$8) refers to printf8.o(i._printf_core) for _printf_core
+    printf8.o(i.__0printf$8) refers to fputc.o(i.fputc) for fputc
+    printf8.o(i.__0printf$8) refers to stdout.o(.data) for __stdout
+    printf8.o(i.__0snprintf$8) refers to printf8.o(i._printf_core) for _printf_core
+    printf8.o(i.__0snprintf$8) refers to printf8.o(i._snputc) for _snputc
+    printf8.o(i.__0sprintf$8) refers to printf8.o(i._printf_core) for _printf_core
+    printf8.o(i.__0sprintf$8) refers to printf8.o(i._sputc) for _sputc
+    printf8.o(i.__0vfprintf$8) refers to printf8.o(i._printf_core) for _printf_core
+    printf8.o(i.__0vfprintf$8) refers to fputc.o(i.fputc) for fputc
+    printf8.o(i.__0vprintf$8) refers to printf8.o(i._printf_core) for _printf_core
+    printf8.o(i.__0vprintf$8) refers to fputc.o(i.fputc) for fputc
+    printf8.o(i.__0vprintf$8) refers to stdout.o(.data) for __stdout
+    printf8.o(i.__0vsnprintf$8) refers to printf8.o(i._printf_core) for _printf_core
+    printf8.o(i.__0vsnprintf$8) refers to printf8.o(i._snputc) for _snputc
+    printf8.o(i.__0vsprintf$8) refers to printf8.o(i._printf_core) for _printf_core
+    printf8.o(i.__0vsprintf$8) refers to printf8.o(i._sputc) for _sputc
+    printf8.o(i._printf_core) refers to printf8.o(i._printf_pre_padding) for _printf_pre_padding
+    printf8.o(i._printf_core) refers to uldiv.o(.text) for __aeabi_uldivmod
+    printf8.o(i._printf_core) refers to printf8.o(i._printf_post_padding) for _printf_post_padding
+    printfa.o(i.__0fprintf) refers (Special) to iusefp.o(.text) for __I$use$fp
+    printfa.o(i.__0fprintf) refers to printfa.o(i._printf_core) for _printf_core
+    printfa.o(i.__0fprintf) refers to fputc.o(i.fputc) for fputc
+    printfa.o(i.__0printf) refers (Special) to iusefp.o(.text) for __I$use$fp
+    printfa.o(i.__0printf) refers to printfa.o(i._printf_core) for _printf_core
+    printfa.o(i.__0printf) refers to fputc.o(i.fputc) for fputc
+    printfa.o(i.__0printf) refers to stdout.o(.data) for __stdout
+    printfa.o(i.__0snprintf) refers (Special) to iusefp.o(.text) for __I$use$fp
+    printfa.o(i.__0snprintf) refers to printfa.o(i._printf_core) for _printf_core
+    printfa.o(i.__0snprintf) refers to printfa.o(i._snputc) for _snputc
+    printfa.o(i.__0sprintf) refers (Special) to iusefp.o(.text) for __I$use$fp
+    printfa.o(i.__0sprintf) refers to printfa.o(i._printf_core) for _printf_core
+    printfa.o(i.__0sprintf) refers to printfa.o(i._sputc) for _sputc
+    printfa.o(i.__0vfprintf) refers (Special) to iusefp.o(.text) for __I$use$fp
+    printfa.o(i.__0vfprintf) refers to printfa.o(i._printf_core) for _printf_core
+    printfa.o(i.__0vfprintf) refers to fputc.o(i.fputc) for fputc
+    printfa.o(i.__0vprintf) refers (Special) to iusefp.o(.text) for __I$use$fp
+    printfa.o(i.__0vprintf) refers to printfa.o(i._printf_core) for _printf_core
+    printfa.o(i.__0vprintf) refers to fputc.o(i.fputc) for fputc
+    printfa.o(i.__0vprintf) refers to stdout.o(.data) for __stdout
+    printfa.o(i.__0vsnprintf) refers (Special) to iusefp.o(.text) for __I$use$fp
+    printfa.o(i.__0vsnprintf) refers to printfa.o(i._printf_core) for _printf_core
+    printfa.o(i.__0vsnprintf) refers to printfa.o(i._snputc) for _snputc
+    printfa.o(i.__0vsprintf) refers (Special) to iusefp.o(.text) for __I$use$fp
+    printfa.o(i.__0vsprintf) refers to printfa.o(i._printf_core) for _printf_core
+    printfa.o(i.__0vsprintf) refers to printfa.o(i._sputc) for _sputc
+    printfa.o(i._fp_digits) refers (Special) to iusefp.o(.text) for __I$use$fp
+    printfa.o(i._fp_digits) refers to dmul.o(.text) for __aeabi_dmul
+    printfa.o(i._fp_digits) refers to ddiv.o(.text) for __aeabi_ddiv
+    printfa.o(i._fp_digits) refers to cdrcmple.o(.text) for __aeabi_cdrcmple
+    printfa.o(i._fp_digits) refers to dadd.o(.text) for __aeabi_dadd
+    printfa.o(i._fp_digits) refers to dfixul.o(.text) for __aeabi_d2ulz
+    printfa.o(i._fp_digits) refers to uldiv.o(.text) for __aeabi_uldivmod
+    printfa.o(i._printf_core) refers (Special) to iusefp.o(.text) for __I$use$fp
+    printfa.o(i._printf_core) refers to printfa.o(i._printf_pre_padding) for _printf_pre_padding
+    printfa.o(i._printf_core) refers to uldiv.o(.text) for __aeabi_uldivmod
+    printfa.o(i._printf_core) refers to printfa.o(i._printf_post_padding) for _printf_post_padding
+    printfa.o(i._printf_core) refers to printfa.o(i._fp_digits) for _fp_digits
+    printfa.o(i._printf_core) refers to uidiv.o(.text) for __aeabi_uidivmod
+    printfa.o(i._printf_post_padding) refers (Special) to iusefp.o(.text) for __I$use$fp
+    printfa.o(i._printf_pre_padding) refers (Special) to iusefp.o(.text) for __I$use$fp
+    printfa.o(i._snputc) refers (Special) to iusefp.o(.text) for __I$use$fp
+    printfa.o(i._sputc) refers (Special) to iusefp.o(.text) for __I$use$fp
+    fmul.o(.text) refers (Special) to iusefp.o(.text) for __I$use$fp
+    fflti.o(.text) refers (Special) to iusefp.o(.text) for __I$use$fp
+    fflti.o(.text) refers to fepilogue.o(.text) for _float_epilogue
+    ffltui.o(.text) refers (Special) to iusefp.o(.text) for __I$use$fp
+    ffltui.o(.text) refers to fepilogue.o(.text) for _float_epilogue
+    f2d.o(.text) refers (Special) to iusefp.o(.text) for __I$use$fp
+    entry2.o(.ARM.Collect$$$$00000001) refers to entry2.o(.ARM.Collect$$$$00002712) for __lit__00000000
+    entry2.o(.ARM.Collect$$$$00002712) refers to startup_stm32l152xe.o(STACK) for __initial_sp
+    entry2.o(__vectab_stack_and_reset_area) refers to startup_stm32l152xe.o(STACK) for __initial_sp
+    entry2.o(__vectab_stack_and_reset_area) refers to entry.o(.ARM.Collect$$$$00000000) for __main
+    entry5.o(.ARM.Collect$$$$00000004) refers to init.o(.text) for __scatterload
+    entry9a.o(.ARM.Collect$$$$0000000B) refers to main.o(i.main) for main
+    entry9b.o(.ARM.Collect$$$$0000000C) refers to main.o(i.main) for main
+    fputc.o(i.fputc) refers (Special) to iusesemip.o(.text) for __I$use$semihosting$fputc
+    fputc.o(i.fputc) refers (Special) to semi.o(.text) for __semihosting_library_function
+    uldiv.o(.text) refers to llushr.o(.text) for __aeabi_llsr
+    uldiv.o(.text) refers to llshl.o(.text) for __aeabi_llsl
+    dadd.o(.text) refers to llshl.o(.text) for __aeabi_llsl
+    dadd.o(.text) refers to llsshr.o(.text) for __aeabi_lasr
+    dadd.o(.text) refers to depilogue.o(.text) for _double_epilogue
+    dmul.o(.text) refers to depilogue.o(.text) for _double_epilogue
+    ddiv.o(.text) refers to depilogue.o(.text) for _double_round
+    dfixul.o(.text) refers to llushr.o(.text) for __aeabi_llsr
+    dfixul.o(.text) refers to llshl.o(.text) for __aeabi_llsl
+    init.o(.text) refers to entry5.o(.ARM.Collect$$$$00000004) for __main_after_scatterload
+    depilogue.o(.text) refers to llshl.o(.text) for __aeabi_llsl
+    depilogue.o(.text) refers to llushr.o(.text) for __aeabi_llsr
+
+
+==============================================================================
+
+Removing Unused input sections from the image.
+
+    Removing startup_stm32l152xe.o(HEAP), (512 bytes).
+    Removing main.o(.rev16_text), (4 bytes).
+    Removing main.o(.revsh_text), (4 bytes).
+    Removing main.o(.rrx_text), (6 bytes).
+    Removing main.o(i.Error_Handler), (2 bytes).
+    Removing stm32l1xx_it.o(.rev16_text), (4 bytes).
+    Removing stm32l1xx_it.o(.revsh_text), (4 bytes).
+    Removing stm32l1xx_it.o(.rrx_text), (6 bytes).
+    Removing stm32l1xx_hal_msp.o(.rev16_text), (4 bytes).
+    Removing stm32l1xx_hal_msp.o(.revsh_text), (4 bytes).
+    Removing stm32l1xx_hal_msp.o(.rrx_text), (6 bytes).
+    Removing stm32l1xx_hal_msp.o(i.HAL_ADC_MspDeInit), (40 bytes).
+    Removing stm32l1xx_hal_msp.o(i.HAL_ADC_MspInit), (96 bytes).
+    Removing stm32l1xx_hal_msp.o(i.HAL_I2C_MspDeInit), (44 bytes).
+    Removing stm32l1xx_hal_msp.o(i.HAL_I2C_MspInit), (108 bytes).
+    Removing stm32l1xx_hal_msp.o(i.HAL_SPI_MspDeInit), (44 bytes).
+    Removing stm32l1xx_hal_msp.o(i.HAL_SPI_MspInit), (108 bytes).
+    Removing stm32l1xx_hal_msp.o(i.HAL_UART_MspDeInit), (40 bytes).
+    Removing stm32l1xx_hal_msp.o(i.HAL_UART_MspInit), (104 bytes).
+    Removing satellitecontrol.o(.rev16_text), (4 bytes).
+    Removing satellitecontrol.o(.revsh_text), (4 bytes).
+    Removing satellitecontrol.o(.rrx_text), (6 bytes).
+    Removing fuel_gauge_functions.o(.rev16_text), (4 bytes).
+    Removing fuel_gauge_functions.o(.revsh_text), (4 bytes).
+    Removing fuel_gauge_functions.o(.rrx_text), (6 bytes).
+    Removing fuel_gauge_functions.o(i.Get_Charge_Percentage), (40 bytes).
+    Removing fuel_gauge_functions.o(i.Get_FG_Current), (48 bytes).
+    Removing fuel_gauge_functions.o(i.Get_Max_Capacity), (40 bytes).
+    Removing fuel_gauge_functions.o(i.Get_Remaining_Capacity), (40 bytes).
+    Removing fuel_gauge_functions.o(i.Get_Status), (20 bytes).
+    Removing fuel_gauge_functions.o(i.Get_TTE), (40 bytes).
+    Removing fuel_gauge_functions.o(i.Get_TTF), (40 bytes).
+    Removing fuel_gauge_functions.o(i.Get_Temp), (44 bytes).
+    Removing fuel_gauge_functions.o(i.Get_Voltage), (48 bytes).
+    Removing spi_fram.o(.rev16_text), (4 bytes).
+    Removing spi_fram.o(.revsh_text), (4 bytes).
+    Removing spi_fram.o(.rrx_text), (6 bytes).
+    Removing spi_fram.o(i.Free_Lock), (16 bytes).
+    Removing spi_fram.o(i.Get_Lock), (144 bytes).
+    Removing spi_fram.o(i.SPI_FRAM_Read), (140 bytes).
+    Removing spi_fram.o(i.SPI_FRAM_Write), (196 bytes).
+    Removing current_control_functions.o(.rev16_text), (4 bytes).
+    Removing current_control_functions.o(.revsh_text), (4 bytes).
+    Removing current_control_functions.o(.rrx_text), (6 bytes).
+    Removing current_control_functions.o(i.Check_for_Shorts), (176 bytes).
+    Removing current_control_functions.o(i.Get_Bus_Voltage), (44 bytes).
+    Removing current_control_functions.o(i.Get_Current), (44 bytes).
+    Removing current_control_functions.o(i.Get_Shunt_Voltage), (44 bytes).
+    Removing current_control_functions.o(i.Get_power), (44 bytes).
+    Removing current_control_functions.o(.data), (16 bytes).
+    Removing transitions.o(.rev16_text), (4 bytes).
+    Removing transitions.o(.revsh_text), (4 bytes).
+    Removing transitions.o(.rrx_text), (6 bytes).
+    Removing transitions.o(i.Print_Globals), (144 bytes).
+    Removing transitions.o(i.Set_BatteryLevel), (12 bytes).
+    Removing transitions.o(i.Set_Die), (12 bytes).
+    Removing transitions.o(i.Set_ScienceEvent), (12 bytes).
+    Removing transitions.o(i.Set_SolarVector), (12 bytes).
+    Removing transitions.o(i.Set_Stable), (12 bytes).
+    Removing stm32l1xx_hal_tim.o(.rev16_text), (4 bytes).
+    Removing stm32l1xx_hal_tim.o(.revsh_text), (4 bytes).
+    Removing stm32l1xx_hal_tim.o(.rrx_text), (6 bytes).
+    Removing stm32l1xx_hal_tim_ex.o(.rev16_text), (4 bytes).
+    Removing stm32l1xx_hal_tim_ex.o(.revsh_text), (4 bytes).
+    Removing stm32l1xx_hal_tim_ex.o(.rrx_text), (6 bytes).
+    Removing stm32l1xx_hal.o(.rev16_text), (4 bytes).
+    Removing stm32l1xx_hal.o(.revsh_text), (4 bytes).
+    Removing stm32l1xx_hal.o(.rrx_text), (6 bytes).
+    Removing stm32l1xx_hal.o(i.HAL_DBGMCU_DisableDBGSleepMode), (16 bytes).
+    Removing stm32l1xx_hal.o(i.HAL_DBGMCU_DisableDBGStandbyMode), (16 bytes).
+    Removing stm32l1xx_hal.o(i.HAL_DBGMCU_DisableDBGStopMode), (16 bytes).
+    Removing stm32l1xx_hal.o(i.HAL_DBGMCU_EnableDBGSleepMode), (16 bytes).
+    Removing stm32l1xx_hal.o(i.HAL_DBGMCU_EnableDBGStandbyMode), (16 bytes).
+    Removing stm32l1xx_hal.o(i.HAL_DBGMCU_EnableDBGStopMode), (16 bytes).
+    Removing stm32l1xx_hal.o(i.HAL_DeInit), (40 bytes).
+    Removing stm32l1xx_hal.o(i.HAL_GetDEVID), (16 bytes).
+    Removing stm32l1xx_hal.o(i.HAL_GetHalVersion), (6 bytes).
+    Removing stm32l1xx_hal.o(i.HAL_GetREVID), (12 bytes).
+    Removing stm32l1xx_hal.o(i.HAL_GetTickFreq), (12 bytes).
+    Removing stm32l1xx_hal.o(i.HAL_GetTickPrio), (12 bytes).
+    Removing stm32l1xx_hal.o(i.HAL_GetUIDw0), (12 bytes).
+    Removing stm32l1xx_hal.o(i.HAL_GetUIDw1), (12 bytes).
+    Removing stm32l1xx_hal.o(i.HAL_GetUIDw2), (12 bytes).
+    Removing stm32l1xx_hal.o(i.HAL_MspDeInit), (2 bytes).
+    Removing stm32l1xx_hal.o(i.HAL_MspInit), (2 bytes).
+    Removing stm32l1xx_hal.o(i.HAL_SetTickFreq), (32 bytes).
+    Removing stm32l1xx_hal_rcc.o(.rev16_text), (4 bytes).
+    Removing stm32l1xx_hal_rcc.o(.revsh_text), (4 bytes).
+    Removing stm32l1xx_hal_rcc.o(.rrx_text), (6 bytes).
+    Removing stm32l1xx_hal_rcc.o(i.HAL_RCC_CSSCallback), (2 bytes).
+    Removing stm32l1xx_hal_rcc.o(i.HAL_RCC_DeInit), (208 bytes).
+    Removing stm32l1xx_hal_rcc.o(i.HAL_RCC_DisableCSS), (12 bytes).
+    Removing stm32l1xx_hal_rcc.o(i.HAL_RCC_EnableCSS), (12 bytes).
+    Removing stm32l1xx_hal_rcc.o(i.HAL_RCC_GetClockConfig), (64 bytes).
+    Removing stm32l1xx_hal_rcc.o(i.HAL_RCC_GetHCLKFreq), (12 bytes).
+    Removing stm32l1xx_hal_rcc.o(i.HAL_RCC_GetOscConfig), (180 bytes).
+    Removing stm32l1xx_hal_rcc.o(i.HAL_RCC_GetPCLK1Freq), (32 bytes).
+    Removing stm32l1xx_hal_rcc.o(i.HAL_RCC_GetPCLK2Freq), (32 bytes).
+    Removing stm32l1xx_hal_rcc.o(i.HAL_RCC_MCOConfig), (80 bytes).
+    Removing stm32l1xx_hal_rcc.o(i.HAL_RCC_NMI_IRQHandler), (28 bytes).
+    Removing stm32l1xx_hal_rcc_ex.o(.rev16_text), (4 bytes).
+    Removing stm32l1xx_hal_rcc_ex.o(.revsh_text), (4 bytes).
+    Removing stm32l1xx_hal_rcc_ex.o(.rrx_text), (6 bytes).
+    Removing stm32l1xx_hal_rcc_ex.o(i.HAL_RCCEx_DisableLSECSS), (28 bytes).
+    Removing stm32l1xx_hal_rcc_ex.o(i.HAL_RCCEx_EnableLSECSS), (12 bytes).
+    Removing stm32l1xx_hal_rcc_ex.o(i.HAL_RCCEx_EnableLSECSS_IT), (52 bytes).
+    Removing stm32l1xx_hal_rcc_ex.o(i.HAL_RCCEx_GetPeriphCLKConfig), (44 bytes).
+    Removing stm32l1xx_hal_rcc_ex.o(i.HAL_RCCEx_GetPeriphCLKFreq), (132 bytes).
+    Removing stm32l1xx_hal_rcc_ex.o(i.HAL_RCCEx_LSECSS_Callback), (2 bytes).
+    Removing stm32l1xx_hal_rcc_ex.o(i.HAL_RCCEx_LSECSS_IRQHandler), (28 bytes).
+    Removing stm32l1xx_hal_rcc_ex.o(i.HAL_RCCEx_PeriphCLKConfig), (316 bytes).
+    Removing stm32l1xx_hal_flash.o(.rev16_text), (4 bytes).
+    Removing stm32l1xx_hal_flash.o(.revsh_text), (4 bytes).
+    Removing stm32l1xx_hal_flash.o(.rrx_text), (6 bytes).
+    Removing stm32l1xx_hal_flash.o(i.FLASH_SetErrorCode), (88 bytes).
+    Removing stm32l1xx_hal_flash.o(i.FLASH_WaitForLastOperation), (92 bytes).
+    Removing stm32l1xx_hal_flash.o(i.HAL_FLASH_EndOfOperationCallback), (2 bytes).
+    Removing stm32l1xx_hal_flash.o(i.HAL_FLASH_GetError), (12 bytes).
+    Removing stm32l1xx_hal_flash.o(i.HAL_FLASH_IRQHandler), (212 bytes).
+    Removing stm32l1xx_hal_flash.o(i.HAL_FLASH_Lock), (20 bytes).
+    Removing stm32l1xx_hal_flash.o(i.HAL_FLASH_OB_Launch), (24 bytes).
+    Removing stm32l1xx_hal_flash.o(i.HAL_FLASH_OB_Lock), (20 bytes).
+    Removing stm32l1xx_hal_flash.o(i.HAL_FLASH_OB_Unlock), (80 bytes).
+    Removing stm32l1xx_hal_flash.o(i.HAL_FLASH_OperationErrorCallback), (2 bytes).
+    Removing stm32l1xx_hal_flash.o(i.HAL_FLASH_Program), (60 bytes).
+    Removing stm32l1xx_hal_flash.o(i.HAL_FLASH_Program_IT), (60 bytes).
+    Removing stm32l1xx_hal_flash.o(i.HAL_FLASH_Unlock), (80 bytes).
+    Removing stm32l1xx_hal_flash.o(.bss), (24 bytes).
+    Removing stm32l1xx_hal_flash_ex.o(.rev16_text), (4 bytes).
+    Removing stm32l1xx_hal_flash_ex.o(.revsh_text), (4 bytes).
+    Removing stm32l1xx_hal_flash_ex.o(.rrx_text), (6 bytes).
+    Removing stm32l1xx_hal_flash_ex.o(i.FLASH_OB_WRPConfig), (248 bytes).
+    Removing stm32l1xx_hal_flash_ex.o(i.FLASH_PageErase), (40 bytes).
+    Removing stm32l1xx_hal_flash_ex.o(i.HAL_FLASHEx_AdvOBGetConfig), (24 bytes).
+    Removing stm32l1xx_hal_flash_ex.o(i.HAL_FLASHEx_AdvOBProgram), (72 bytes).
+    Removing stm32l1xx_hal_flash_ex.o(i.HAL_FLASHEx_DATAEEPROM_DisableFixedTimeProgram), (16 bytes).
+    Removing stm32l1xx_hal_flash_ex.o(i.HAL_FLASHEx_DATAEEPROM_EnableFixedTimeProgram), (16 bytes).
+    Removing stm32l1xx_hal_flash_ex.o(i.HAL_FLASHEx_DATAEEPROM_Erase), (64 bytes).
+    Removing stm32l1xx_hal_flash_ex.o(i.HAL_FLASHEx_DATAEEPROM_Lock), (20 bytes).
+    Removing stm32l1xx_hal_flash_ex.o(i.HAL_FLASHEx_DATAEEPROM_Program), (224 bytes).
+    Removing stm32l1xx_hal_flash_ex.o(i.HAL_FLASHEx_DATAEEPROM_Unlock), (40 bytes).
+    Removing stm32l1xx_hal_flash_ex.o(i.HAL_FLASHEx_Erase), (128 bytes).
+    Removing stm32l1xx_hal_flash_ex.o(i.HAL_FLASHEx_Erase_IT), (88 bytes).
+    Removing stm32l1xx_hal_flash_ex.o(i.HAL_FLASHEx_OBGetConfig), (80 bytes).
+    Removing stm32l1xx_hal_flash_ex.o(i.HAL_FLASHEx_OBProgram), (240 bytes).
+    Removing stm32l1xx_hal_flash_ramfunc.o(.rev16_text), (4 bytes).
+    Removing stm32l1xx_hal_flash_ramfunc.o(.revsh_text), (4 bytes).
+    Removing stm32l1xx_hal_flash_ramfunc.o(.rrx_text), (6 bytes).
+    Removing stm32l1xx_hal_flash_ramfunc.o(i.FLASHRAM_SetErrorCode), (92 bytes).
+    Removing stm32l1xx_hal_flash_ramfunc.o(i.FLASHRAM_WaitForLastOperation), (76 bytes).
+    Removing stm32l1xx_hal_flash_ramfunc.o(i.HAL_FLASHEx_DATAEEPROM_EraseDoubleWord), (84 bytes).
+    Removing stm32l1xx_hal_flash_ramfunc.o(i.HAL_FLASHEx_DATAEEPROM_ProgramDoubleWord), (88 bytes).
+    Removing stm32l1xx_hal_flash_ramfunc.o(i.HAL_FLASHEx_DisableRunPowerDown), (40 bytes).
+    Removing stm32l1xx_hal_flash_ramfunc.o(i.HAL_FLASHEx_EnableRunPowerDown), (40 bytes).
+    Removing stm32l1xx_hal_flash_ramfunc.o(i.HAL_FLASHEx_EraseParallelPage), (92 bytes).
+    Removing stm32l1xx_hal_flash_ramfunc.o(i.HAL_FLASHEx_GetError), (16 bytes).
+    Removing stm32l1xx_hal_flash_ramfunc.o(i.HAL_FLASHEx_HalfPageProgram), (116 bytes).
+    Removing stm32l1xx_hal_flash_ramfunc.o(i.HAL_FLASHEx_ProgramParallelHalfPage), (156 bytes).
+    Removing stm32l1xx_hal_gpio.o(.rev16_text), (4 bytes).
+    Removing stm32l1xx_hal_gpio.o(.revsh_text), (4 bytes).
+    Removing stm32l1xx_hal_gpio.o(.rrx_text), (6 bytes).
+    Removing stm32l1xx_hal_gpio.o(i.HAL_GPIO_DeInit), (356 bytes).
+    Removing stm32l1xx_hal_gpio.o(i.HAL_GPIO_EXTI_Callback), (2 bytes).
+    Removing stm32l1xx_hal_gpio.o(i.HAL_GPIO_LockPin), (34 bytes).
+    Removing stm32l1xx_hal_gpio.o(i.HAL_GPIO_ReadPin), (10 bytes).
+    Removing stm32l1xx_hal_dma.o(.rev16_text), (4 bytes).
+    Removing stm32l1xx_hal_dma.o(.revsh_text), (4 bytes).
+    Removing stm32l1xx_hal_dma.o(.rrx_text), (6 bytes).
+    Removing stm32l1xx_hal_dma.o(i.DMA_SetConfig), (46 bytes).
+    Removing stm32l1xx_hal_dma.o(i.HAL_DMA_Abort), (74 bytes).
+    Removing stm32l1xx_hal_dma.o(i.HAL_DMA_Abort_IT), (78 bytes).
+    Removing stm32l1xx_hal_dma.o(i.HAL_DMA_DeInit), (116 bytes).
+    Removing stm32l1xx_hal_dma.o(i.HAL_DMA_GetError), (4 bytes).
+    Removing stm32l1xx_hal_dma.o(i.HAL_DMA_GetState), (6 bytes).
+    Removing stm32l1xx_hal_dma.o(i.HAL_DMA_IRQHandler), (186 bytes).
+    Removing stm32l1xx_hal_dma.o(i.HAL_DMA_Init), (124 bytes).
+    Removing stm32l1xx_hal_dma.o(i.HAL_DMA_PollForTransfer), (216 bytes).
+    Removing stm32l1xx_hal_dma.o(i.HAL_DMA_RegisterCallback), (74 bytes).
+    Removing stm32l1xx_hal_dma.o(i.HAL_DMA_Start), (80 bytes).
+    Removing stm32l1xx_hal_dma.o(i.HAL_DMA_Start_IT), (112 bytes).
+    Removing stm32l1xx_hal_dma.o(i.HAL_DMA_UnRegisterCallback), (82 bytes).
+    Removing stm32l1xx_hal_pwr.o(.rev16_text), (4 bytes).
+    Removing stm32l1xx_hal_pwr.o(.revsh_text), (4 bytes).
+    Removing stm32l1xx_hal_pwr.o(.rrx_text), (6 bytes).
+    Removing stm32l1xx_hal_pwr.o(i.HAL_PWR_ConfigPVD), (124 bytes).
+    Removing stm32l1xx_hal_pwr.o(i.HAL_PWR_DeInit), (24 bytes).
+    Removing stm32l1xx_hal_pwr.o(i.HAL_PWR_DisableBkUpAccess), (28 bytes).
+    Removing stm32l1xx_hal_pwr.o(i.HAL_PWR_DisablePVD), (24 bytes).
+    Removing stm32l1xx_hal_pwr.o(i.HAL_PWR_DisableSEVOnPend), (16 bytes).
+    Removing stm32l1xx_hal_pwr.o(i.HAL_PWR_DisableSleepOnExit), (16 bytes).
+    Removing stm32l1xx_hal_pwr.o(i.HAL_PWR_DisableWakeUpPin), (28 bytes).
+    Removing stm32l1xx_hal_pwr.o(i.HAL_PWR_EnableBkUpAccess), (24 bytes).
+    Removing stm32l1xx_hal_pwr.o(i.HAL_PWR_EnablePVD), (24 bytes).
+    Removing stm32l1xx_hal_pwr.o(i.HAL_PWR_EnableSEVOnPend), (16 bytes).
+    Removing stm32l1xx_hal_pwr.o(i.HAL_PWR_EnableSleepOnExit), (16 bytes).
+    Removing stm32l1xx_hal_pwr.o(i.HAL_PWR_EnableWakeUpPin), (28 bytes).
+    Removing stm32l1xx_hal_pwr.o(i.HAL_PWR_EnterSTANDBYMode), (32 bytes).
+    Removing stm32l1xx_hal_pwr.o(i.HAL_PWR_EnterSTOPMode), (56 bytes).
+    Removing stm32l1xx_hal_pwr.o(i.HAL_PWR_PVDCallback), (2 bytes).
+    Removing stm32l1xx_hal_pwr.o(i.HAL_PWR_PVD_IRQHandler), (28 bytes).
+    Removing stm32l1xx_hal_pwr_ex.o(.rev16_text), (4 bytes).
+    Removing stm32l1xx_hal_pwr_ex.o(.revsh_text), (4 bytes).
+    Removing stm32l1xx_hal_pwr_ex.o(.rrx_text), (6 bytes).
+    Removing stm32l1xx_hal_pwr_ex.o(i.HAL_PWREx_DisableFastWakeUp), (28 bytes).
+    Removing stm32l1xx_hal_pwr_ex.o(i.HAL_PWREx_DisableLowPowerRunMode), (44 bytes).
+    Removing stm32l1xx_hal_pwr_ex.o(i.HAL_PWREx_DisableUltraLowPower), (28 bytes).
+    Removing stm32l1xx_hal_pwr_ex.o(i.HAL_PWREx_EnableFastWakeUp), (24 bytes).
+    Removing stm32l1xx_hal_pwr_ex.o(i.HAL_PWREx_EnableLowPowerRunMode), (36 bytes).
+    Removing stm32l1xx_hal_pwr_ex.o(i.HAL_PWREx_EnableUltraLowPower), (24 bytes).
+    Removing stm32l1xx_hal_pwr_ex.o(i.HAL_PWREx_GetVoltageRange), (16 bytes).
+    Removing stm32l1xx_hal_cortex.o(.rev16_text), (4 bytes).
+    Removing stm32l1xx_hal_cortex.o(.revsh_text), (4 bytes).
+    Removing stm32l1xx_hal_cortex.o(.rrx_text), (6 bytes).
+    Removing stm32l1xx_hal_cortex.o(i.HAL_MPU_ConfigRegion), (84 bytes).
+    Removing stm32l1xx_hal_cortex.o(i.HAL_MPU_Disable), (16 bytes).
+    Removing stm32l1xx_hal_cortex.o(i.HAL_MPU_Enable), (24 bytes).
+    Removing stm32l1xx_hal_cortex.o(i.HAL_NVIC_ClearPendingIRQ), (26 bytes).
+    Removing stm32l1xx_hal_cortex.o(i.HAL_NVIC_DisableIRQ), (34 bytes).
+    Removing stm32l1xx_hal_cortex.o(i.HAL_NVIC_GetActive), (36 bytes).
+    Removing stm32l1xx_hal_cortex.o(i.HAL_NVIC_GetPendingIRQ), (36 bytes).
+    Removing stm32l1xx_hal_cortex.o(i.HAL_NVIC_GetPriority), (82 bytes).
+    Removing stm32l1xx_hal_cortex.o(i.HAL_NVIC_GetPriorityGrouping), (16 bytes).
+    Removing stm32l1xx_hal_cortex.o(i.HAL_NVIC_SetPendingIRQ), (26 bytes).
+    Removing stm32l1xx_hal_cortex.o(i.HAL_NVIC_SystemReset), (36 bytes).
+    Removing stm32l1xx_hal_cortex.o(i.HAL_SYSTICK_CLKSourceConfig), (24 bytes).
+    Removing stm32l1xx_hal_cortex.o(i.HAL_SYSTICK_Callback), (2 bytes).
+    Removing stm32l1xx_hal_cortex.o(i.HAL_SYSTICK_IRQHandler), (8 bytes).
+    Removing system_stm32l1xx.o(.rev16_text), (4 bytes).
+    Removing system_stm32l1xx.o(.revsh_text), (4 bytes).
+    Removing system_stm32l1xx.o(.rrx_text), (6 bytes).
+    Removing system_stm32l1xx.o(i.SystemCoreClockUpdate), (144 bytes).
+    Removing system_stm32l1xx.o(.constdata), (8 bytes).
+    Removing fmul.o(.text), (100 bytes).
+    Removing fflti.o(.text), (18 bytes).
+    Removing ffltui.o(.text), (10 bytes).
+    Removing f2d.o(.text), (38 bytes).
+    Removing fepilogue.o(.text), (110 bytes).
+    Removing dadd.o(.text), (334 bytes).
+    Removing dmul.o(.text), (228 bytes).
+    Removing ddiv.o(.text), (222 bytes).
+    Removing dfixul.o(.text), (48 bytes).
+    Removing cdrcmple.o(.text), (48 bytes).
+    Removing depilogue.o(.text), (186 bytes).
+
+243 unused section(s) (total 11482 bytes) removed from the image.

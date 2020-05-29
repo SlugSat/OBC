@@ -1,0 +1,28 @@
+--cpu Cortex-M3
+"integration_1\startup_stm32l152xe.o"
+"integration_1\main.o"
+"integration_1\stm32l1xx_it.o"
+"integration_1\stm32l1xx_hal_msp.o"
+"integration_1\satellitecontrol.o"
+"integration_1\fuel_gauge_functions.o"
+"integration_1\spi_fram.o"
+"integration_1\current_control_functions.o"
+"integration_1\transitions.o"
+"integration_1\stm32l1xx_hal_tim.o"
+"integration_1\stm32l1xx_hal_tim_ex.o"
+"integration_1\stm32l1xx_hal.o"
+"integration_1\stm32l1xx_hal_rcc.o"
+"integration_1\stm32l1xx_hal_rcc_ex.o"
+"integration_1\stm32l1xx_hal_flash.o"
+"integration_1\stm32l1xx_hal_flash_ex.o"
+"integration_1\stm32l1xx_hal_flash_ramfunc.o"
+"integration_1\stm32l1xx_hal_gpio.o"
+"integration_1\stm32l1xx_hal_dma.o"
+"integration_1\stm32l1xx_hal_pwr.o"
+"integration_1\stm32l1xx_hal_pwr_ex.o"
+"integration_1\stm32l1xx_hal_cortex.o"
+"integration_1\system_stm32l1xx.o"
+--library_type=microlib --strict --scatter "Integration_1\Integration_1.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "Integration_1.map" -o Integration_1\Integration_1.axf
