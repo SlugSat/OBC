@@ -1,3 +1,10 @@
+/*
+* SatelliteControl.h
+* Modified Year 3 PowerMode.h
+* Author: Andy
+*
+*/
+
 #include "SatelliteControl.h"
 #include "Fuel_Gauge_Functions.h"
 #include "SPI_FRAM.h"

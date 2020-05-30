@@ -16,6 +16,12 @@
   *
   ******************************************************************************
   */
+	
+/*
+* This is the main file that contains the first part of integration of Satellite Control
+* and Attitude Gain Control
+*/
+
 /* USER CODE END Header */
 
 /* Includes ------------------------------------------------------------------*/
@@ -24,6 +30,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "SatelliteControl.h"
+#include "agc.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -47,6 +54,8 @@ typedef enum{
 /* Private variables ---------------------------------------------------------*/
 ADC_HandleTypeDef hadc;
 
+DAC_HandleTypeDef hdac;
+
 I2C_HandleTypeDef hi2c1;
 
 SPI_HandleTypeDef hspi2;
@@ -55,12 +64,14 @@ UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
 int trigger = IDLE;
+uint8_t AGC_status = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_ADC_Init(void);
+static void MX_DAC_Init(void);
 static void MX_I2C1_Init(void);
 static void MX_SPI2_Init(void);
 static void MX_USART2_UART_Init(void);
@@ -104,11 +115,13 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_ADC_Init();
+  MX_DAC_Init();
   MX_I2C1_Init();
   MX_SPI2_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
 	Sat_Run_Init(&hi2c1,  &hspi2, &huart2);
+	AGC_Init();
 	FTA_States state_FTA = P_Core;
 	States state = Detumble;
   /* USER CODE END 2 */
@@ -124,19 +137,21 @@ int main(void)
 			case P_Core:
 				SendToComp(state_FTA);
 				Sat_Run(state);
+				AGC_status = AGC_DoEvent();
 				if (trigger == EVENT) { state_FTA = S_Core; }
 				break;
 			case S_Core:
 				SendToComp(state_FTA);
 				Sat_Run(state);
+				AGC_status = AGC_DoEvent();
 				if (trigger == EVENT) { state_FTA = Reboot;}
 				break;
 			case Reboot:
-				SendToComp(state_FTA);
+				//SendToComp(state_FTA);
 				if (trigger == EVENT) { state_FTA = Sleep;}
 				break;
 			case Sleep:
-				SendToComp(state_FTA);
+				//SendToComp(state_FTA);
 			  SLEEP();
 				if (trigger == EVENT) { state_FTA = P_Core;}
 				break;
@@ -241,6 +256,50 @@ static void MX_ADC_Init(void)
   /* USER CODE BEGIN ADC_Init 2 */
 
   /* USER CODE END ADC_Init 2 */
+
+}
+
+/**
+  * @brief DAC Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_DAC_Init(void)
+{
+
+  /* USER CODE BEGIN DAC_Init 0 */
+
+  /* USER CODE END DAC_Init 0 */
+
+  DAC_ChannelConfTypeDef sConfig = {0};
+
+  /* USER CODE BEGIN DAC_Init 1 */
+
+  /* USER CODE END DAC_Init 1 */
+  /** DAC Initialization 
+  */
+  hdac.Instance = DAC;
+  if (HAL_DAC_Init(&hdac) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /** DAC channel OUT1 config 
+  */
+  sConfig.DAC_Trigger = DAC_TRIGGER_NONE;
+  sConfig.DAC_OutputBuffer = DAC_OUTPUTBUFFER_ENABLE;
+  if (HAL_DAC_ConfigChannel(&hdac, &sConfig, DAC_CHANNEL_1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /** DAC channel OUT2 config 
+  */
+  if (HAL_DAC_ConfigChannel(&hdac, &sConfig, DAC_CHANNEL_2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN DAC_Init 2 */
+
+  /* USER CODE END DAC_Init 2 */
 
 }
 
@@ -365,8 +424,8 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOD_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5|SE_Rail_Pin|ACS_Rail_Pin|Zero_Pin 
-                          |TEL_Rail_Pin|Seventh_Pin|Sixth_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, SE_Rail_Pin|ACS_Rail_Pin|Zero_Pin|TEL_Rail_Pin 
+                          |Seventh_Pin|Sixth_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOC, SPI_FRAM_LOCK_Pin|Fifth_Pin|Fourth_Pin|Third_Pin, GPIO_PIN_RESET);
@@ -383,10 +442,10 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(Button_Pin_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PA5 SE_Rail_Pin ACS_Rail_Pin Zero_Pin 
-                           TEL_Rail_Pin Seventh_Pin Sixth_Pin */
-  GPIO_InitStruct.Pin = GPIO_PIN_5|SE_Rail_Pin|ACS_Rail_Pin|Zero_Pin 
-                          |TEL_Rail_Pin|Seventh_Pin|Sixth_Pin;
+  /*Configure GPIO pins : SE_Rail_Pin ACS_Rail_Pin Zero_Pin TEL_Rail_Pin 
+                           Seventh_Pin Sixth_Pin */
+  GPIO_InitStruct.Pin = SE_Rail_Pin|ACS_Rail_Pin|Zero_Pin|TEL_Rail_Pin 
+                          |Seventh_Pin|Sixth_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;

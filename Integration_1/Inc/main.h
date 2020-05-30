@@ -61,6 +61,10 @@ void Error_Handler(void);
 #define Button_Pin_Pin GPIO_PIN_13
 #define Button_Pin_GPIO_Port GPIOC
 #define Button_Pin_EXTI_IRQn EXTI15_10_IRQn
+#define DAC_VGA_Pin GPIO_PIN_4
+#define DAC_VGA_GPIO_Port GPIOA
+#define DAC_VA_Pin GPIO_PIN_5
+#define DAC_VA_GPIO_Port GPIOA
 #define SE_Rail_Pin GPIO_PIN_6
 #define SE_Rail_GPIO_Port GPIOA
 #define ACS_Rail_Pin GPIO_PIN_7
