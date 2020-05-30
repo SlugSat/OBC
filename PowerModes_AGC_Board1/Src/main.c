@@ -36,12 +36,21 @@ typedef enum{
 
 /* Private variables ---------------------------------------------------------*/
 ADC_HandleTypeDef hadc;
+
 DAC_HandleTypeDef hdac;
+
 I2C_HandleTypeDef hi2c1;
+
+IWDG_HandleTypeDef hiwdg;
+
 RTC_HandleTypeDef hrtc;
+
 SPI_HandleTypeDef hspi2;
+
 TIM_HandleTypeDef htim10;
+
 UART_HandleTypeDef huart2;
+
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -56,16 +65,18 @@ static void MX_ADC_Init(void);
 static void MX_DAC_Init(void);
 static void MX_RTC_Init(void);
 static void MX_TIM10_Init(void);
+static void MX_IWDG_Init(void);
 /* USER CODE BEGIN PFP */
 void my_printf(const char *fmt, ...);
 void SLEEP(void);
 void SendToComp(uint8_t input);
+void setPin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin, int shift_amt, uint8_t input);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 uint8_t trigger = 0;
-
+uint8_t ACG_Status = 0;
 /* USER CODE END 0 */
 
 /**
@@ -76,6 +87,7 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
 	States_FTA state_FTA = P_Core;
+	States state = Detumble;
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -103,13 +115,15 @@ int main(void)
   MX_DAC_Init();
   MX_RTC_Init();
   MX_TIM10_Init();
+  MX_IWDG_Init();
   /* USER CODE BEGIN 2 */
-	Sat_Init(&hi2c1, &hspi2, &huart2, &htim10);
-
+	//Sat_Init(&hi2c1, &hspi2, &huart2, &htim10);
+	Power_Modes_State_Machine_Init(&hi2c1, &hspi2, &huart2, &htim10);
+	AGC_Init();
+	
 	HAL_ADC_Start(&hadc);
 	DAC->CR |= DAC_CR_EN1;
 	DAC->CR |= DAC_CR_EN2;
-	AGC_Init();
 	
 	// Used for debugging when the satellite is dead or seeing additional AGC data
 	#define debugKill  (0)
@@ -120,52 +134,6 @@ int main(void)
 	
   /* USER CODE END 2 */
 
-
-int state = 1;
-int firstTransition = 1;
-SPI_HandleTypeDef framSPI;
-UART_HandleTypeDef uartDebug;
-
-	switch (state) {
-		case (Detumble): 
-			Output_Power_Pins(state);
-			state = Transition(Detumble, &framSPI, &uartDebug);
-			break;
-			
-		case (Kill): 
-			Output_Power_Pins(state);
-			state = Transition(Kill, &framSPI, &uartDebug);
-			return Kill;
-
-		case (Normal): 
-			Output_Power_Pins(state);
-			state = Transition(Normal, &framSPI, &uartDebug);
-			break;
-
-		case (UltraLowPower): 
-			Output_Power_Pins(state);
-			state = Transition(UltraLowPower, &framSPI, &uartDebug);
-			break;
-
-		case (LowPower): 
-			Output_Power_Pins(state);
-			state = Transition(LowPower, &framSPI, &uartDebug);
-			break;
-			
-		case (Eclipse): 
-			Output_Power_Pins(state);
-			state = Transition(Eclipse, &framSPI, &uartDebug);
-			break;
-
-		case (ScienceOnly): 
-			Output_Power_Pins(state);
-			state = Transition(ScienceOnly, &framSPI, &uartDebug);
-			break;			
-	}
-	return state;
-	
-	
-
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
     while (1)
@@ -173,37 +141,48 @@ UART_HandleTypeDef uartDebug;
 			switch (state_FTA) {
 				
 				case P_Core:
+					SendToComp(state_FTA);
 					if(trigger){ state_FTA = S_Core; }
-					else if (status != Kill) { status = Sat_Run(); }
-					else { state_FTA = Killed; }
+					else if (status != Kill) { status = Sat_Run(state); 
+																		ACG_Status = AGC_DoEvent();}
+					//else { state_FTA = Killed; }
 					break;
 					
 				case S_Core:
+					SendToComp(state_FTA);
 					if(trigger){ state_FTA = Reboot; }
-					else if (status != Kill) { status = Sat_Run(); } 
-					else { state_FTA = Killed; }
+					else if (status != Kill) { status = Sat_Run(state);					
+																		ACG_Status =	AGC_DoEvent();} 
+					//else { state_FTA = Killed; }
 					break;
 					
 				case Reboot:
+					SendToComp(state_FTA);
 					if(trigger){ state_FTA = Sleep; }
 					//Watchdog Reset
+					HAL_IWDG_Refresh(&hiwdg);
 					break;
 					
 				case Sleep:
+					SendToComp(state_FTA);
 					if(trigger){ state_FTA = P_Core; }
 					else { SLEEP(); }
 					break;
 					
 				case Killed:
-					exit(0);
+					//exit(0);
+					break;
 			}
 			trigger = IDLE;
-			SendToComp(status);
-			/* USER CODE END WHILE */
+			//SendToComp(status);
+			uint8_t temp = 0x00;
+			SendToComp(temp);
+			//SendToComp(ACG_Status);
+    /* USER CODE END WHILE */
 
-			/* USER CODE BEGIN 3 */
+    /* USER CODE BEGIN 3 */
 		}	
-		/* USER CODE END 3 */
+  /* USER CODE END 3 */
 }
 
 /**
@@ -216,10 +195,10 @@ void SystemClock_Config(void)
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
   RCC_PeriphCLKInitTypeDef PeriphClkInit = {0};
 
-  /**Configure the main internal regulator output voltage 
+  /** Configure the main internal regulator output voltage 
   */
   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
-  /**Initializes the CPU, AHB and APB busses clocks 
+  /** Initializes the CPU, AHB and APB busses clocks 
   */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI|RCC_OSCILLATORTYPE_LSI
                               |RCC_OSCILLATORTYPE_MSI;
@@ -234,7 +213,7 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
-  /**Initializes the CPU, AHB and APB busses clocks 
+  /** Initializes the CPU, AHB and APB busses clocks 
   */
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
@@ -272,7 +251,7 @@ static void MX_ADC_Init(void)
   /* USER CODE BEGIN ADC_Init 1 */
 
   /* USER CODE END ADC_Init 1 */
-  /**Configure the global features of the ADC (Clock, Resolution, Data Alignment and number of conversion) 
+  /** Configure the global features of the ADC (Clock, Resolution, Data Alignment and number of conversion) 
   */
   hadc.Instance = ADC1;
   hadc.Init.ClockPrescaler = ADC_CLOCK_ASYNC_DIV1;
@@ -293,7 +272,7 @@ static void MX_ADC_Init(void)
   {
     Error_Handler();
   }
-  /**Configure for the selected ADC regular channel its corresponding rank in the sequencer and its sample time. 
+  /** Configure for the selected ADC regular channel its corresponding rank in the sequencer and its sample time. 
   */
   sConfig.Channel = ADC_CHANNEL_10;
   sConfig.Rank = ADC_REGULAR_RANK_1;
@@ -325,14 +304,14 @@ static void MX_DAC_Init(void)
   /* USER CODE BEGIN DAC_Init 1 */
 
   /* USER CODE END DAC_Init 1 */
-  /**DAC Initialization 
+  /** DAC Initialization 
   */
   hdac.Instance = DAC;
   if (HAL_DAC_Init(&hdac) != HAL_OK)
   {
     Error_Handler();
   }
-  /**DAC channel OUT1 config 
+  /** DAC channel OUT1 config 
   */
   sConfig.DAC_Trigger = DAC_TRIGGER_NONE;
   sConfig.DAC_OutputBuffer = DAC_OUTPUTBUFFER_ENABLE;
@@ -340,7 +319,7 @@ static void MX_DAC_Init(void)
   {
     Error_Handler();
   }
-  /**DAC channel OUT2 config 
+  /** DAC channel OUT2 config 
   */
   if (HAL_DAC_ConfigChannel(&hdac, &sConfig, DAC_CHANNEL_2) != HAL_OK)
   {
@@ -387,6 +366,34 @@ static void MX_I2C1_Init(void)
 }
 
 /**
+  * @brief IWDG Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_IWDG_Init(void)
+{
+
+  /* USER CODE BEGIN IWDG_Init 0 */
+
+  /* USER CODE END IWDG_Init 0 */
+
+  /* USER CODE BEGIN IWDG_Init 1 */
+
+  /* USER CODE END IWDG_Init 1 */
+  hiwdg.Instance = IWDG;
+  hiwdg.Init.Prescaler = IWDG_PRESCALER_4;
+  hiwdg.Init.Reload = 4095;
+  if (HAL_IWDG_Init(&hiwdg) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN IWDG_Init 2 */
+
+  /* USER CODE END IWDG_Init 2 */
+
+}
+
+/**
   * @brief RTC Initialization Function
   * @param None
   * @retval None
@@ -404,7 +411,7 @@ static void MX_RTC_Init(void)
   /* USER CODE BEGIN RTC_Init 1 */
 
   /* USER CODE END RTC_Init 1 */
-  /**Initialize RTC Only 
+  /** Initialize RTC Only 
   */
   hrtc.Instance = RTC;
   hrtc.Init.HourFormat = RTC_HOURFORMAT_24;
@@ -422,7 +429,7 @@ static void MX_RTC_Init(void)
     
   /* USER CODE END Check_RTC_BKUP */
 
-  /**Initialize RTC and set the Time and Date 
+  /** Initialize RTC and set the Time and Date 
   */
   sTime.Hours = 0x0;
   sTime.Minutes = 0x0;
@@ -442,7 +449,7 @@ static void MX_RTC_Init(void)
   {
     Error_Handler();
   }
-  /**Enable the WakeUp 
+  /** Enable the WakeUp 
   */
   if (HAL_RTCEx_SetWakeUpTimer_IT(&hrtc, 0, RTC_WAKEUPCLOCK_RTCCLK_DIV16) != HAL_OK)
   {
@@ -514,6 +521,7 @@ static void MX_TIM10_Init(void)
   htim10.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim10.Init.Period = 65535;
   htim10.Init.ClockDivision = TIM_CLOCKDIVISION_DIV4;
+//  htim10.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim10) != HAL_OK)
   {
     Error_Handler();
@@ -575,32 +583,48 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
+  __HAL_RCC_GPIOD_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, Scie_Rail_Pin|Mech_Rail_Pin|Telemetry_Rail_Pin|DEAD_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, Scie_Rail_Pin|Mech_Rail_Pin|Zero_Pin|Telemetry_Rail_Pin 
+                          |DEAD_Pin|Seventh_Pin|Sixth_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOC, SPI_FRAM_LOCK_Pin|Misc_Rail_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOC, SPI_FRAM_LOCK_Pin|Misc_Rail_Pin|Fifth_Pin|Fourth_Pin 
+                          |Third_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, SPI_FRAM_CS_Pin|Memory_Rail_Pin|LT_Rail_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, SPI_FRAM_CS_Pin|Memory_Rail_Pin|LT_Rail_Pin|First_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : Scie_Rail_Pin Mech_Rail_Pin Telemetry_Rail_Pin DEAD_Pin */
-  GPIO_InitStruct.Pin = Scie_Rail_Pin|Mech_Rail_Pin|Telemetry_Rail_Pin|DEAD_Pin;
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(Second_GPIO_Port, Second_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin : PC13 */
+  GPIO_InitStruct.Pin = GPIO_PIN_13;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : Scie_Rail_Pin Mech_Rail_Pin Zero_Pin Telemetry_Rail_Pin 
+                           DEAD_Pin Seventh_Pin Sixth_Pin */
+  GPIO_InitStruct.Pin = Scie_Rail_Pin|Mech_Rail_Pin|Zero_Pin|Telemetry_Rail_Pin 
+                          |DEAD_Pin|Seventh_Pin|Sixth_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : SPI_FRAM_LOCK_Pin Misc_Rail_Pin */
-  GPIO_InitStruct.Pin = SPI_FRAM_LOCK_Pin|Misc_Rail_Pin;
+  /*Configure GPIO pins : SPI_FRAM_LOCK_Pin Misc_Rail_Pin Fifth_Pin Fourth_Pin 
+                           Third_Pin */
+  GPIO_InitStruct.Pin = SPI_FRAM_LOCK_Pin|Misc_Rail_Pin|Fifth_Pin|Fourth_Pin 
+                          |Third_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : SPI_FRAM_CS_Pin Memory_Rail_Pin LT_Rail_Pin */
-  GPIO_InitStruct.Pin = SPI_FRAM_CS_Pin|Memory_Rail_Pin|LT_Rail_Pin;
+  /*Configure GPIO pins : SPI_FRAM_CS_Pin Memory_Rail_Pin LT_Rail_Pin First_Pin */
+  GPIO_InitStruct.Pin = SPI_FRAM_CS_Pin|Memory_Rail_Pin|LT_Rail_Pin|First_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -624,6 +648,13 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(SCIENCE_EVENT_GPIO_Port, &GPIO_InitStruct);
 
+  /*Configure GPIO pin : Second_Pin */
+  GPIO_InitStruct.Pin = Second_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(Second_GPIO_Port, &GPIO_InitStruct);
+
   /* EXTI interrupt init*/
   HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
@@ -633,58 +664,36 @@ static void MX_GPIO_Init(void)
 /* USER CODE BEGIN 4 */
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
-	if (GPIO_Pin == GPIO_Pin_15) {
+	if (GPIO_Pin == GPIO_PIN_13) {
+		 char string[400] = "trigger";
+     HAL_UART_Transmit(&huart2, (uint8_t*)string, strlen(string), 10); // send message via UART
 		trigger = EVENT;
 	}
 }		
 
-void SendToComp(uint8_t input){
+void SendToComp (uint8_t input){
 	int shifter = 7;
-	if(input & (1 << shifter--)){ //MSB
-		//set MSB pin to high
-	}
-	else{
-		//set MSB pin to low
-	}
-	if(input & (1 << shifter--)){
-		
-	}
-	else{
-	}
-	if(input & (1 << shifter--)){
-		
-	}
-	else{
-	}
-	if(input & (1 << shifter--)){
-		
-	}
-	else{
-	}
-	if(input & (1 << shifter--)){
-		
-	}
-	else{
-	}
-	if(input & (1 << shifter--)){
-		
-	}
-	else{
-	}
-	if(input & (1 << shifter--)){
-		
-	}
-	else{
-		
-	}
-	if(input & (1 << shifter--)){ //LSB
-		
-	}
-  else{
-		
-	}		
+	
+	setPin(Seventh_GPIO_Port, Seventh_Pin, shifter--, input);
+	setPin(Sixth_GPIO_Port, Sixth_Pin, shifter--, input);
+	setPin(Fifth_GPIO_Port, Fifth_Pin, shifter--, input);
+	setPin(Fourth_GPIO_Port, Fourth_Pin, shifter--, input);
+	setPin(Third_GPIO_Port, Third_Pin, shifter--, input);
+	setPin(Second_GPIO_Port, Second_Pin, shifter--, input);
+	setPin(First_GPIO_Port, First_Pin, shifter--, input);
+	setPin(Zero_GPIO_Port, Zero_Pin, shifter, input);
+	
 }
-
+	
+void setPin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin, int shift_amt, uint8_t input){
+	if(input & (1 << shift_amt)){
+		HAL_GPIO_WritePin(GPIOx, GPIO_Pin, GPIO_PIN_SET);
+	}
+	else{
+		HAL_GPIO_WritePin(GPIOx, GPIO_Pin, GPIO_PIN_RESET);
+	}
+	
+}
 void SLEEP(void){
 		HAL_SuspendTick();
 		HAL_PWR_EnterSLEEPMode(PWR_MAINREGULATOR_ON, PWR_SLEEPENTRY_WFI);

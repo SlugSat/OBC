@@ -28,6 +28,7 @@ pmode_test_rcv\main.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_flash.h
 pmode_test_rcv\main.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_flash_ex.h
 pmode_test_rcv\main.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_flash_ramfunc.h
 pmode_test_rcv\main.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_i2c.h
+pmode_test_rcv\main.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_iwdg.h
 pmode_test_rcv\main.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_pwr.h
 pmode_test_rcv\main.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_pwr_ex.h
 pmode_test_rcv\main.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_rtc.h
@@ -38,15 +39,7 @@ pmode_test_rcv\main.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_tim.h
 pmode_test_rcv\main.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_tim_ex.h
 pmode_test_rcv\main.o: ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_uart.h
 pmode_test_rcv\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
-pmode_test_rcv\main.o: ../Inc/SatelliteControl.h
-pmode_test_rcv\main.o: ../Inc/SPI_FRAM.h
-pmode_test_rcv\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-pmode_test_rcv\main.o: ../Inc/DateConversion.h
+pmode_test_rcv\main.o: ../Src/SatelliteControl.h
 pmode_test_rcv\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
-pmode_test_rcv\main.o: ../Inc/Current_Control_Functions.h
-pmode_test_rcv\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
-pmode_test_rcv\main.o: ../Inc/Fuel_Gauge_Functions.h
-pmode_test_rcv\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\errno.h
-pmode_test_rcv\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\assert.h
-pmode_test_rcv\main.o: ../Inc/Current_Control_Functions.h
+pmode_test_rcv\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 pmode_test_rcv\main.o: ../Inc/agc.h

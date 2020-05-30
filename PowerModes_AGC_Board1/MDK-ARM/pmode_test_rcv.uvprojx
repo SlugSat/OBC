@@ -10,7 +10,7 @@
       <TargetName>pmode_test_rcv</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>5060750::V5.06 update 6 (build 750)::ARMCC</pCCUsed>
+      <pCCUsed>5060750::V5.06 update 6 (build 750)::.\ARMCC</pCCUsed>
       <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -185,6 +185,7 @@
             <uocXRam>0</uocXRam>
             <RvdsVP>0</RvdsVP>
             <RvdsMve>0</RvdsMve>
+            <RvdsCdeCp>0</RvdsCdeCp>
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
@@ -338,7 +339,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32L152xE,USE_DEBUG_PRINTF</Define>
               <Undefine></Undefine>
-              <IncludePath>../Inc;                                  ../Drivers/STM32L1xx_HAL_Driver/Inc;                                  ../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy;                                  ../Drivers/CMSIS/Device/ST/STM32L1xx/Include;                                  ../Drivers/CMSIS/Include</IncludePath>
+              <IncludePath>../Inc;                                        ../Drivers/STM32L1xx_HAL_Driver/Inc;                                        ../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy;                                        ../Drivers/CMSIS/Device/ST/STM32L1xx/Include;                                        ../Drivers/CMSIS/Include</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -351,7 +352,7 @@
             <NoWarn>0</NoWarn>
             <uSurpInc>0</uSurpInc>
             <useXO>0</useXO>
-            <uClangAs>0</uClangAs>
+            <ClangAsOpt>4</ClangAsOpt>
             <VariousControls>
               <MiscControls></MiscControls>
               <Define></Define>
@@ -391,75 +392,6 @@
         </Group>
         <Group>
           <GroupName>Application/User</GroupName>
-          <GroupOption>
-            <CommonProperty>
-              <UseCPPCompiler>0</UseCPPCompiler>
-              <RVCTCodeConst>0</RVCTCodeConst>
-              <RVCTZI>0</RVCTZI>
-              <RVCTOtherData>0</RVCTOtherData>
-              <ModuleSelection>0</ModuleSelection>
-              <IncludeInBuild>2</IncludeInBuild>
-              <AlwaysBuild>2</AlwaysBuild>
-              <GenerateAssemblyFile>2</GenerateAssemblyFile>
-              <AssembleAssemblyFile>2</AssembleAssemblyFile>
-              <PublicsOnly>2</PublicsOnly>
-              <StopOnExitCode>11</StopOnExitCode>
-              <CustomArgument></CustomArgument>
-              <IncludeLibraryModules></IncludeLibraryModules>
-              <ComprImg>1</ComprImg>
-            </CommonProperty>
-            <GroupArmAds>
-              <Cads>
-                <interw>2</interw>
-                <Optim>0</Optim>
-                <oTime>2</oTime>
-                <SplitLS>2</SplitLS>
-                <OneElfS>2</OneElfS>
-                <Strict>2</Strict>
-                <EnumInt>2</EnumInt>
-                <PlainCh>2</PlainCh>
-                <Ropi>2</Ropi>
-                <Rwpi>2</Rwpi>
-                <wLevel>0</wLevel>
-                <uThumb>2</uThumb>
-                <uSurpInc>2</uSurpInc>
-                <uC99>2</uC99>
-                <uGnu>2</uGnu>
-                <useXO>2</useXO>
-                <v6Lang>0</v6Lang>
-                <v6LangP>0</v6LangP>
-                <vShortEn>2</vShortEn>
-                <vShortWch>2</vShortWch>
-                <v6Lto>2</v6Lto>
-                <v6WtE>2</v6WtE>
-                <v6Rtti>2</v6Rtti>
-                <VariousControls>
-                  <MiscControls></MiscControls>
-                  <Define></Define>
-                  <Undefine></Undefine>
-                  <IncludePath>..\Inc</IncludePath>
-                </VariousControls>
-              </Cads>
-              <Aads>
-                <interw>2</interw>
-                <Ropi>2</Ropi>
-                <Rwpi>2</Rwpi>
-                <thumb>2</thumb>
-                <SplitLS>2</SplitLS>
-                <SwStkChk>2</SwStkChk>
-                <NoWarn>2</NoWarn>
-                <uSurpInc>2</uSurpInc>
-                <useXO>2</useXO>
-                <uClangAs>2</uClangAs>
-                <VariousControls>
-                  <MiscControls></MiscControls>
-                  <Define></Define>
-                  <Undefine></Undefine>
-                  <IncludePath></IncludePath>
-                </VariousControls>
-              </Aads>
-            </GroupArmAds>
-          </GroupOption>
           <Files>
             <File>
               <FileName>transitions.c</FileName>
@@ -517,6 +449,16 @@
               <FilePath>..\Inc\agc.h</FilePath>
             </File>
             <File>
+              <FileName>SatelliteControl.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\SatelliteControl.c</FilePath>
+            </File>
+            <File>
+              <FileName>SatelliteControl.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Src\SatelliteControl.h</FilePath>
+            </File>
+            <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Src/main.c</FilePath>
@@ -534,6 +476,16 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>Drivers/CMSIS</GroupName>
+          <Files>
+            <File>
+              <FileName>system_stm32l1xx.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Src/system_stm32l1xx.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>Drivers/STM32L1xx_HAL_Driver</GroupName>
           <Files>
             <File>
@@ -545,56 +497,6 @@
               <FileName>stm32l1xx_hal_adc_ex.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_adc_ex.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32l1xx_hal_dac.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_dac.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32l1xx_hal_dac_ex.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_dac_ex.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32l1xx_hal_i2c.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_i2c.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32l1xx_hal_rtc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_rtc.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32l1xx_hal_rtc_ex.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_rtc_ex.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32l1xx_hal_spi.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_spi.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32l1xx_hal_spi_ex.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_spi_ex.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32l1xx_hal_tim.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_tim.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32l1xx_hal_tim_ex.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_tim_ex.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32l1xx_hal_uart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_uart.c</FilePath>
             </File>
             <File>
               <FileName>stm32l1xx_hal.c</FileName>
@@ -651,15 +553,55 @@
               <FileType>1</FileType>
               <FilePath>../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_cortex.c</FilePath>
             </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Drivers/CMSIS</GroupName>
-          <Files>
             <File>
-              <FileName>system_stm32l1xx.c</FileName>
+              <FileName>stm32l1xx_hal_dac.c</FileName>
               <FileType>1</FileType>
-              <FilePath>../Src/system_stm32l1xx.c</FilePath>
+              <FilePath>../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_dac.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32l1xx_hal_dac_ex.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_dac_ex.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32l1xx_hal_i2c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_i2c.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32l1xx_hal_iwdg.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_iwdg.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32l1xx_hal_rtc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_rtc.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32l1xx_hal_rtc_ex.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_rtc_ex.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32l1xx_hal_spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_spi.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32l1xx_hal_tim.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_tim.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32l1xx_hal_tim_ex.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_tim_ex.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32l1xx_hal_uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_uart.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -682,5 +624,20 @@
     </components>
     <files/>
   </RTE>
+
+  <LayerInfo>
+    <Layers>
+      <Layer>
+        <LayName>&lt;Project Info&gt;</LayName>
+        <LayDesc></LayDesc>
+        <LayUrl></LayUrl>
+        <LayKeys></LayKeys>
+        <LayCat></LayCat>
+        <LayLic></LayLic>
+        <LayTarg>0</LayTarg>
+        <LayPrjMark>1</LayPrjMark>
+      </Layer>
+    </Layers>
+  </LayerInfo>
 
 </Project>
