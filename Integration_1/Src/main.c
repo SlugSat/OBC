@@ -73,12 +73,14 @@ static void MX_GPIO_Init(void);
 static void MX_ADC_Init(void);
 static void MX_DAC_Init(void);
 static void MX_I2C1_Init(void);
+static void MX_IWDG_Init(void);
 static void MX_SPI2_Init(void);
 static void MX_USART2_UART_Init(void);
 /* USER CODE BEGIN PFP */
 void SLEEP(void);
 void SendToComp(uint8_t input);
 void setPin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin, int shift_amt, uint8_t input);
+void Check_IWDG_Reset(void);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -117,6 +119,7 @@ int main(void)
   MX_ADC_Init();
   MX_DAC_Init();
   MX_I2C1_Init();
+  MX_IWDG_Init();
   MX_SPI2_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
@@ -148,6 +151,7 @@ int main(void)
 				break;
 			case Reboot:
 				//SendToComp(state_FTA);
+				Check_IWDG_Reset();
 				if (trigger == EVENT) { state_FTA = Sleep;}
 				break;
 			case Sleep:
@@ -180,9 +184,11 @@ void SystemClock_Config(void)
   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
   /** Initializes the CPU, AHB and APB busses clocks 
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI|RCC_OSCILLATORTYPE_MSI;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI|RCC_OSCILLATORTYPE_LSI
+                              |RCC_OSCILLATORTYPE_MSI;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+  RCC_OscInitStruct.LSIState = RCC_LSI_ON;
   RCC_OscInitStruct.MSIState = RCC_MSI_ON;
   RCC_OscInitStruct.MSICalibrationValue = 0;
   RCC_OscInitStruct.MSIClockRange = RCC_MSIRANGE_6;
@@ -334,6 +340,39 @@ static void MX_I2C1_Init(void)
   /* USER CODE BEGIN I2C1_Init 2 */
 
   /* USER CODE END I2C1_Init 2 */
+
+}
+
+/**
+  * @brief IWDG Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_IWDG_Init(void)
+{
+
+  /* USER CODE BEGIN IWDG_Init 0 */
+
+  /* USER CODE END IWDG_Init 0 */
+
+  /* USER CODE BEGIN IWDG_Init 1 */
+  LL_RCC_LSI_Enable();
+  while (LL_RCC_LSI_IsReady() != 1)
+  {
+  }
+  /* USER CODE END IWDG_Init 1 */
+  LL_IWDG_Enable(IWDG);
+  LL_IWDG_EnableWriteAccess(IWDG);
+  LL_IWDG_SetPrescaler(IWDG, LL_IWDG_PRESCALER_4);
+  LL_IWDG_SetReloadCounter(IWDG, 4095);
+  while (LL_IWDG_IsReady(IWDG) != 1)
+  {
+  }
+
+  LL_IWDG_ReloadCounter(IWDG);
+  /* USER CODE BEGIN IWDG_Init 2 */
+
+  /* USER CODE END IWDG_Init 2 */
 
 }
 
@@ -491,6 +530,23 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+
+void Check_IWDG_Reset(void){
+	if (LL_RCC_IsActiveFlag_IWDGRST())
+  {
+    /* clear IWDG reset flag */
+    LL_RCC_ClearResetFlags();
+
+    /* wait till trigger event happen */
+    while(trigger != EVENT)
+    {
+    }
+
+    /* Reset ubKeyPressed value */
+    trigger = IDLE;
+  }
+}
+
 //Interrupt Function;
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 	if(GPIO_Pin == Button_Pin_Pin) {

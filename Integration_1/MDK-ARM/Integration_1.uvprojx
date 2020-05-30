@@ -10,6 +10,7 @@
       <TargetName>Integration_1</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
+      <pCCUsed>5060750::V5.06 update 6 (build 750)::.\ARMCC</pCCUsed>
       <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -336,9 +337,9 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define>USE_HAL_DRIVER,STM32L152xE</Define>
+              <Define>USE_HAL_DRIVER,STM32L152xE,USE_FULL_LL_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>../Inc;../Drivers/STM32L1xx_HAL_Driver/Inc;../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32L1xx/Include;../Drivers/CMSIS/Include</IncludePath>
+              <IncludePath>../Inc;  ../Drivers/STM32L1xx_HAL_Driver/Inc;  ../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy;  ../Drivers/CMSIS/Device/ST/STM32L1xx/Include;  ../Drivers/CMSIS/Include</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -390,9 +391,6 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>::CMSIS</GroupName>
-        </Group>
-        <Group>
           <GroupName>Application/User</GroupName>
           <Files>
             <File>
@@ -410,11 +408,56 @@
               <FileType>1</FileType>
               <FilePath>../Src/stm32l1xx_hal_msp.c</FilePath>
             </File>
+            <File>
+              <FileName>agc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\agc.c</FilePath>
+            </File>
+            <File>
+              <FileName>Current_Control_Functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\Current_Control_Functions.c</FilePath>
+            </File>
+            <File>
+              <FileName>Fuel_Gauge_Functions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\Fuel_Gauge_Functions.c</FilePath>
+            </File>
+            <File>
+              <FileName>SatelliteControl.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\SatelliteControl.c</FilePath>
+            </File>
+            <File>
+              <FileName>SPI_FRAM.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\SPI_FRAM.c</FilePath>
+            </File>
+            <File>
+              <FileName>Transitions.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\Transitions.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>Drivers/STM32L1xx_HAL_Driver</GroupName>
           <Files>
+            <File>
+              <FileName>stm32l1xx_ll_rcc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_ll_rcc.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32l1xx_ll_utils.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_ll_utils.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32l1xx_ll_exti.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_ll_exti.c</FilePath>
+            </File>
             <File>
               <FileName>stm32l1xx_hal_adc.c</FileName>
               <FileType>1</FileType>
@@ -496,6 +539,11 @@
               <FilePath>../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_i2c.c</FilePath>
             </File>
             <File>
+              <FileName>stm32l1xx_ll_gpio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_ll_gpio.c</FilePath>
+            </File>
+            <File>
               <FileName>stm32l1xx_hal_spi.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_spi.c</FilePath>
@@ -526,6 +574,9 @@
               <FilePath>../Src/system_stm32l1xx.c</FilePath>
             </File>
           </Files>
+        </Group>
+        <Group>
+          <GroupName>::CMSIS</GroupName>
         </Group>
       </Groups>
     </Target>

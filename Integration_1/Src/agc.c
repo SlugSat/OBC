@@ -68,7 +68,7 @@ static uint32_t AGC_VAToDAC(float VaValue) {
 #define AGC_SETPOINT_MAX AGC_SETPOINT
 #define AGC_SETPOINT_MIN AGC_SETPOINT
 
-//#define my_printf(x, ...) {}
+#define my_printf(x, ...) {}
 
 static volatile uint32_t VgaValue, VaValue, DetectorValue;
 
