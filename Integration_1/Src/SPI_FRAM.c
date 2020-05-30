@@ -4,6 +4,7 @@
 
 
 #include "SPI_FRAM.h"
+#include "edac.h"
 
 #define ST_DELAY 341 // Science and telemtry board delay
 #define PM_DELAY 405 // Power modes and AGC board delay
@@ -31,6 +32,11 @@ void SPI_FRAM_Read(SPI_HandleTypeDef *hspi,uint16_t address, uint8_t *pRxData, u
 	// Acquire the SPI FRAM lock
 	Get_Lock(hspi, huart, timeoutThreshold);
 	
+	uint8_t temp[2];
+	uint8_t flag = 2;
+	int real_indx = size-1;
+	uint16_t decode_val = 0;
+	
 	// Chip select low
 	HAL_GPIO_WritePin(SPI_FRAM_CS_GPIO_Port, SPI_FRAM_CS_Pin, GPIO_PIN_RESET);
 
@@ -41,11 +47,25 @@ void SPI_FRAM_Read(SPI_HandleTypeDef *hspi,uint16_t address, uint8_t *pRxData, u
 										0}; // garbage data value
 	// initiate read operation
 	while(HAL_SPI_Transmit(hspi, read_command, READ_CMD_LEN, 10) != HAL_OK){};
-
+	
 	// recieve data from appropriate register
-	for(int i = size - 1; i >= 0; i--)
+	for(int i = (size*2) - 1; i >= 0; i--)
 	{
-		while(HAL_SPI_Receive(hspi, &pRxData[i], 1, 10)!= HAL_OK){};
+		while(HAL_SPI_Receive(hspi, &temp[flag-1], 1, 10)!= HAL_OK){};
+			
+		flag--;
+			
+		if (flag == 0) {
+			flag = 2;
+			decode_val = (temp[1] << 8) | temp[0];
+			pRxData[real_indx] = parity_decode(&decode_val);
+			
+			if (real_indx < 0) {
+				break;
+			} else {
+				real_indx--;
+			}
+		}
 	}
 
 	// Read a last throwaway byte to account for errors
