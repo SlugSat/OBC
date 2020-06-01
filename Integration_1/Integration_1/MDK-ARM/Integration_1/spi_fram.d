@@ -24,6 +24,8 @@ integration_1\spi_fram.o: ../../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_d
 integration_1\spi_fram.o: ../../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_cortex.h
 integration_1\spi_fram.o: ../../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_adc.h
 integration_1\spi_fram.o: ../../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_adc_ex.h
+integration_1\spi_fram.o: ../../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_dac.h
+integration_1\spi_fram.o: ../../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_dac_ex.h
 integration_1\spi_fram.o: ../../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_flash.h
 integration_1\spi_fram.o: ../../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_flash_ex.h
 integration_1\spi_fram.o: ../../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_flash_ramfunc.h
@@ -32,4 +34,15 @@ integration_1\spi_fram.o: ../../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_p
 integration_1\spi_fram.o: ../../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_pwr_ex.h
 integration_1\spi_fram.o: ../../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_spi.h
 integration_1\spi_fram.o: ../../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_uart.h
+integration_1\spi_fram.o: ../../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_ll_iwdg.h
+integration_1\spi_fram.o: ../../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_ll_bus.h
+integration_1\spi_fram.o: ../../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_ll_cortex.h
+integration_1\spi_fram.o: ../../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_ll_rcc.h
+integration_1\spi_fram.o: ../../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_ll_system.h
+integration_1\spi_fram.o: ../../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_ll_utils.h
+integration_1\spi_fram.o: ../../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_ll_pwr.h
+integration_1\spi_fram.o: ../../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_ll_gpio.h
+integration_1\spi_fram.o: ../../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_ll_dma.h
+integration_1\spi_fram.o: ../../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_ll_exti.h
 integration_1\spi_fram.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+integration_1\spi_fram.o: ../../Inc/edac.h

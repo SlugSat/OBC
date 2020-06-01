@@ -8,6 +8,7 @@
 "integration_1\spi_fram.o"
 "integration_1\current_control_functions.o"
 "integration_1\transitions.o"
+"integration_1\agc.o"
 "integration_1\stm32l1xx_hal_tim.o"
 "integration_1\stm32l1xx_hal_tim_ex.o"
 "integration_1\stm32l1xx_hal.o"

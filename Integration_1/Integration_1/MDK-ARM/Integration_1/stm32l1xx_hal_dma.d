@@ -22,6 +22,8 @@ integration_1\stm32l1xx_hal_dma.o: ../../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l
 integration_1\stm32l1xx_hal_dma.o: ../../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_cortex.h
 integration_1\stm32l1xx_hal_dma.o: ../../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_adc.h
 integration_1\stm32l1xx_hal_dma.o: ../../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_adc_ex.h
+integration_1\stm32l1xx_hal_dma.o: ../../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_dac.h
+integration_1\stm32l1xx_hal_dma.o: ../../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_dac_ex.h
 integration_1\stm32l1xx_hal_dma.o: ../../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_flash.h
 integration_1\stm32l1xx_hal_dma.o: ../../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_flash_ex.h
 integration_1\stm32l1xx_hal_dma.o: ../../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_flash_ramfunc.h

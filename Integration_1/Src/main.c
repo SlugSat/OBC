@@ -85,7 +85,7 @@ void Check_IWDG_Reset(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+	FTA_States state_FTA = P_Core;
 /* USER CODE END 0 */
 
 /**
@@ -125,7 +125,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
 	Sat_Run_Init(&hi2c1,  &hspi2, &huart2);
 	AGC_Init();
-	FTA_States state_FTA = P_Core;
+
 	States state = Detumble;
   /* USER CODE END 2 */
 
@@ -136,6 +136,9 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+			//Always reload IWDG Counter
+			LL_IWDG_ReloadCounter(IWDG); //Value set to 4095
+		
 			switch(state_FTA){
 			case P_Core:
 				SendToComp(state_FTA);
@@ -150,9 +153,8 @@ int main(void)
 				if (trigger == EVENT) { state_FTA = Reboot;}
 				break;
 			case Reboot:
-				//SendToComp(state_FTA);
 				Check_IWDG_Reset();
-				if (trigger == EVENT) { state_FTA = Sleep;}
+				//if (trigger == EVENT) { state_FTA = Sleep;}
 				break;
 			case Sleep:
 				//SendToComp(state_FTA);
@@ -166,6 +168,7 @@ int main(void)
 				break;
 		}
 		trigger = IDLE;
+		SendToComp(AGC_status);
   }
   /* USER CODE END 3 */
 }
@@ -531,20 +534,17 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 
+//Set RCC software reset
 void Check_IWDG_Reset(void){
-	if (LL_RCC_IsActiveFlag_IWDGRST())
+	 //Access the control reg that does software reset 
+	 SET_BIT(RCC->CSR, 1UL);
+	//Check if the IWDG has been reset
+	if (LL_RCC_IsActiveFlag_IWDGRST() != 0UL)
   {
-    /* clear IWDG reset flag */
-    LL_RCC_ClearResetFlags();
-
-    /* wait till trigger event happen */
-    while(trigger != EVENT)
-    {
-    }
-
-    /* Reset ubKeyPressed value */
-    trigger = IDLE;
-  }
+		//Reset back to normal operation
+		LL_RCC_ClearResetFlags();
+		state_FTA = Sleep;
+	}
 }
 
 //Interrupt Function;
@@ -554,7 +554,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 		trigger = EVENT;
 	}
 	else if(GPIO_Pin == Science_INT_Pin){
-		
+		/*Science Experiment INT*/
 	}
 }		
 
@@ -579,7 +579,6 @@ void setPin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin, int shift_amt, uint8_t input
 	else{
 		HAL_GPIO_WritePin(GPIOx, GPIO_Pin, GPIO_PIN_RESET);
 	}
-	
 }
 
 
