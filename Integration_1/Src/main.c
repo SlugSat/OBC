@@ -80,7 +80,7 @@ static void MX_USART2_UART_Init(void);
 void SLEEP(void);
 void SendToComp(uint8_t input);
 void setPin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin, int shift_amt, uint8_t input);
-void Check_IWDG_Reset(void);
+void SoftwareReset(void);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -119,7 +119,7 @@ int main(void)
   MX_ADC_Init();
   MX_DAC_Init();
   MX_I2C1_Init();
-  MX_IWDG_Init();
+  MX_IWDG_Init(); //4095 12 bit counter 2^12
   MX_SPI2_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
@@ -133,12 +133,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    /* USER CODE END WHILE */
-
-    /* USER CODE BEGIN 3 */
-			//Always reload IWDG Counter
-			LL_IWDG_ReloadCounter(IWDG); //Value set to 4095
-		
+			LL_IWDG_ReloadCounter(IWDG); //4096
 			switch(state_FTA){
 			case P_Core:
 				SendToComp(state_FTA);
@@ -153,11 +148,9 @@ int main(void)
 				if (trigger == EVENT) { state_FTA = Reboot;}
 				break;
 			case Reboot:
-				Check_IWDG_Reset();
-				//if (trigger == EVENT) { state_FTA = Sleep;}
+				SoftwareReset();
 				break;
 			case Sleep:
-				//SendToComp(state_FTA);
 			  SLEEP();
 				if (trigger == EVENT) { state_FTA = P_Core;}
 				break;
@@ -531,11 +524,9 @@ static void MX_GPIO_Init(void)
   HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
 
 }
-
-/* USER CODE BEGIN 4 */
-
+/*
 //Set RCC software reset
-void Check_IWDG_Reset(void){
+void SoftwareReset(void){
 	 //Access the control reg that does software reset 
 	 SET_BIT(RCC->CSR, 1UL);
 	//Check if the IWDG has been reset
@@ -545,6 +536,15 @@ void Check_IWDG_Reset(void){
 		LL_RCC_ClearResetFlags();
 		state_FTA = Sleep;
 	}
+}
+*/
+
+/* USER CODE BEGIN 4 */
+void SoftwareReset(void){
+	SET_BIT(RCC->CSR, 1UL);
+	while(LL_RCC_IsActiveFlag_IWDGRST() == 1UL);
+	LL_RCC_ClearResetFlags();
+	state_FTA = Sleep;
 }
 
 //Interrupt Function;
@@ -569,7 +569,6 @@ void SendToComp (uint8_t input){
 	setPin(Second_GPIO_Port, Second_Pin, shifter--, input);
 	setPin(First_GPIO_Port, First_Pin, shifter--, input);
 	setPin(Zero_GPIO_Port, Zero_Pin, shifter, input);
-	
 }
 	
 void setPin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin, int shift_amt, uint8_t input){
